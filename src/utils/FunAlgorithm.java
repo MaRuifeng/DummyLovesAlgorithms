@@ -27,9 +27,9 @@ public class FunAlgorithm {
 		return arr;
 	}
 	
-    protected static void runFuncAndCalculateTime(String message, IntArrayToIntFunction maxSumFunc, int[] array) throws Exception {
+    protected static void runIntArrayFuncAndCalculateTime(String message, IntArrayToIntFunction intArrayFunc, int[] array) throws Exception {
     	long startTime = System.nanoTime();
-    	System.out.printf("%-60s%d\n", message, maxSumFunc.apply(array));
+    	System.out.printf("%-60s%d\n", message, intArrayFunc.apply(array));
     	long endTime   = System.nanoTime();
     	long totalTime = new Long(TimeUnit.MICROSECONDS.convert(endTime - startTime, TimeUnit.NANOSECONDS));
     	DecimalFormat formatter = new DecimalFormat("#,###");

@@ -225,21 +225,21 @@ public class MaxSubseqDiff extends FunAlgorithm {
 		    intArray = genRanIntArr(1000);
 			System.out.println("\n######\nThe randomly generated integer array is of size " + intArray.length + ".");
 			System.out.println("The expected difference is " + check(intArray) + ".");
-			runFuncAndCalculateTime("[Quadratic]     Maximum subsequence difference:", (int[] a) -> runCalculation_On2(a), intArray);
-			runFuncAndCalculateTime("[Linear]     Maximum subsequence difference:", (int[] a) -> runCalculation_On(a), intArray);
+			runIntArrayFuncAndCalculateTime("[Quadratic]     Maximum subsequence difference:", (int[] a) -> runCalculation_On2(a), intArray);
+			runIntArrayFuncAndCalculateTime("[Linear]     Maximum subsequence difference:", (int[] a) -> runCalculation_On(a), intArray);
 
 		    intArray = genRanIntArr(10000);
 			System.out.println("\n######\nThe randomly generated integer array is of size " + intArray.length + ".");
 			System.out.println("The expected difference is " + check(intArray) + ".");
-			runFuncAndCalculateTime("[Quadratic]     Maximum subsequence difference:", (int[] a) -> runCalculation_On2(a), intArray);
-			runFuncAndCalculateTime("[Linear]     Maximum subsequence difference:", (int[] a) -> runCalculation_On(a), intArray);
+			runIntArrayFuncAndCalculateTime("[Quadratic]     Maximum subsequence difference:", (int[] a) -> runCalculation_On2(a), intArray);
+			runIntArrayFuncAndCalculateTime("[Linear]     Maximum subsequence difference:", (int[] a) -> runCalculation_On(a), intArray);
 
 			
 		    intArray = genRanIntArr(100000);
 			System.out.println("\n######\nThe randomly generated integer array is of size " + intArray.length + ".");
 			System.out.println("The expected difference is " + check(intArray) + ".");
-			runFuncAndCalculateTime("[Quadratic]     Maximum subsequence difference:", (int[] a) -> runCalculation_On2(a), intArray);
-			runFuncAndCalculateTime("[Linear]     Maximum subsequence difference:", (int[] a) -> runCalculation_On(a), intArray);
+			runIntArrayFuncAndCalculateTime("[Quadratic]     Maximum subsequence difference:", (int[] a) -> runCalculation_On2(a), intArray);
+			runIntArrayFuncAndCalculateTime("[Linear]     Maximum subsequence difference:", (int[] a) -> runCalculation_On(a), intArray);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
