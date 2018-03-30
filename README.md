@@ -19,8 +19,8 @@ Each package contains an interesting algorithmic question with solution provided
 * Key function calls will be provided with roughly estimated running time so as to cross check with the indicated time complexity.
 
 ### List of algorithmic questions
-*  [Find the largest subsequence sum of a given integer array](MaxSubseqSum.java)
-*  [Find the largest absolute difference of two non-overlapping sub-arrays of a given integer array](MaxSubseqDiff.java)
+*  [Find the largest subsequence sum of a given integer array](./src/maxSubsequenceSum/MaxSubseqSum.java)
+*  [Find the largest absolute difference of two non-overlapping sub-arrays of a given integer array](./src/maxSubsequenceDiff/MaxSubseqDiff.java)
 
 ## Background
 
