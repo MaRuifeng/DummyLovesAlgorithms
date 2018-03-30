@@ -18,6 +18,10 @@ Each package contains an interesting algorithmic question with solution provided
 * Run it as a Java application in a common IDE like Eclipse (make sure Java 8 is supported). This provides flexibility to modify code. 
 * Key function calls will be provided with roughly estimated running time so as to cross check with the indicated time complexity.
 
+### List of algorithmic questions
+*  [Find the largest subsequence sum of a given integer array](MaxSubseqSum.java)
+*  [Find the largest absolute difference of two non-overlapping sub-arrays of a given integer array](MaxSubseqDiff.java)
+
 ## Background
 
 This all started with a day when I accidentally picked a book my university professor passed me when I graduated. 
