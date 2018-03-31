@@ -14,8 +14,8 @@ import java.util.concurrent.TimeUnit;
 public class FunAlgorithm {
 	
 	@FunctionalInterface
-	protected interface IntArrayToIntFunction {
-	   int apply(int[] array);  
+	protected interface IntArrayToLongFunction {
+	   long apply(int[] array);  
 	}
 	
 	protected static int[] genRanIntArr(int size) {
@@ -27,7 +27,7 @@ public class FunAlgorithm {
 		return arr;
 	}
 	
-    protected static void runIntArrayFuncAndCalculateTime(String message, IntArrayToIntFunction intArrayFunc, int[] array) throws Exception {
+    protected static void runIntArrayFuncAndCalculateTime(String message, IntArrayToLongFunction intArrayFunc, int[] array) throws Exception {
     	long startTime = System.nanoTime();
     	System.out.printf("%-60s%d\n", message, intArrayFunc.apply(array));
     	long endTime   = System.nanoTime();
