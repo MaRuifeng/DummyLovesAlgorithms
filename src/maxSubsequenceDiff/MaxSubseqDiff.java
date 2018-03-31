@@ -195,7 +195,7 @@ public class MaxSubseqDiff extends FunAlgorithm {
     } 
 	
 	public static void main(String args[]) {
-		System.out.println("Welcome to rabbit hole of maximum sugsequence diffs!\n"); 
+		System.out.println("Welcome to the rabbit hole of maximum sugsequence diffs!\n"); 
 		int[] intArray; 
 		
 		/* All positive numbers */

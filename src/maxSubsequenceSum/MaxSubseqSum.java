@@ -111,7 +111,7 @@ public class MaxSubseqSum extends FunAlgorithm {
 	public static void main(String[] args) {
 		int[] intArray = genRanIntArr(1000);
 		//System.out.println("Integer array:" + Arrays.toString(intArray));
-		System.out.println("Welcome to rabbit hole of maximum sugsequence sums!\n"
+		System.out.println("Welcome to the rabbit hole of maximum sugsequence sums!\n"
 				+ "The randomly generated integer array is of size " + intArray.length + ".\n"); 
 		
 		try {
