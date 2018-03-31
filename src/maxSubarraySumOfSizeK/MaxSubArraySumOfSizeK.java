@@ -13,7 +13,7 @@ import utils.FunAlgorithm;
 public class MaxSubArraySumOfSizeK extends FunAlgorithm {
 	
 	/**
-	 * The most intuitive solution is to find all possible sub-arrays of size k, sum them up and then find the max. 
+	 * The most intuitive solution is to find all possible sub-arrays of size k, sum up the elements for each and then find the max. 
 	 * This gives a time complexity upper bound of O(n*k). 
 	 * @param a
 	 * @param k
@@ -34,7 +34,7 @@ public class MaxSubArraySumOfSizeK extends FunAlgorithm {
 
 	/**
 	 * The O(N*k) algorithm is not good enough because of the repeated addition operations when performing the sub-array sums freshly. 
-	 * Actually a previously calculated sum can be used to obtain the new sum by simple subtracting the first element and adding 
+	 * Actually a previously calculated sum can be used to obtain the new sum by simply subtracting the first element and adding 
 	 * a new one right after the last. 
 	 * This could bring the time complexity down to O(N).
 	 * @param a
