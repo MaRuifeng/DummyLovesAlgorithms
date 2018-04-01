@@ -11,6 +11,9 @@ import utils.FunAlgorithm;
  * Only two simple and intuitive methods are discussed here for now. Below link contains some other algorithms involving 
  * more profound data structures like heap, which the author has no knowledge of yet ...
  * 
+ * And other randomized algorithm like quickselect that gives an O(N) in average and O(N2) in worst case scenario, and 
+ * introselect that further optimizes the worst case scenario are only documented here for reference purpose. 
+ * 
  * https://www.geeksforgeeks.org/kth-smallestsmallest-element-unsorted-array/
  * @author ruifengm
  * @since 2018-Apr-01
