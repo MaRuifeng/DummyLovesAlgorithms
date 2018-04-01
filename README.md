@@ -22,7 +22,7 @@ Each package contains an interesting algorithmic question with solution provided
 *  [Find the largest subsequence sum of a given integer array](./src/maxSubsequenceSum/MaxSubseqSum.java)
 *  [Find the largest absolute difference of two non-overlapping sub-arrays of a given integer array](./src/maxSubsequenceDiff/MaxSubseqDiff.java)
 *  [Find total number of reverse pairs in a given integer array](./src/numOfReversePairs/NumOfReversePairs.java)
-*  [Find the largest sum of a sub-arry with size K in a given integer array](./src/maxSubarraySumOfSizeK/MaxSubArraySumOfSizeK.java)
+*  [Find the largest sum of a sub-array with size K in a given integer array](./src/maxSubarraySumOfSizeK/MaxSubArraySumOfSizeK.java)
 *  [Find the k'th smallest item from a given array of distinct integers](./src/kthSmallestElementInArray/kthSmallestElementInArray.java)
 
 ## Background
