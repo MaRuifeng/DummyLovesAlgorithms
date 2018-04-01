@@ -9,6 +9,9 @@ import utils.FunAlgorithm;
  * 2) Complexity of O(N2)
  * 3) Complexity of O(NlogN)
  * 4) Complexity of O(N)
+ * 
+ * Note: in current context a subsequence has the same definition as a sub-array does, though in general
+ *       a subsequence does not have to be contiguous. 
  * @author ruifengm
  * @since 2018-Jan-23
  */

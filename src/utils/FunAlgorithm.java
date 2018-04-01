@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
+import java.util.function.IntToLongFunction;
+import java.util.function.IntUnaryOperator;
 
 /**
  * Parent class for all algorithm classes 
@@ -50,6 +52,24 @@ public class FunAlgorithm {
 		for (int i=0; i<newArr.length; i++) newArr[i] = arrList.get(i);
 		return newArr;
 	}
+	
+    protected static void runIntFuncAndCalculateTime(String message, IntUnaryOperator intFunc, int value) throws Exception {
+    	long startTime = System.nanoTime();
+    	System.out.printf("%-60s%d\n", message, intFunc.applyAsInt(value));
+    	long endTime   = System.nanoTime();
+    	long totalTime = new Long(TimeUnit.MICROSECONDS.convert(endTime - startTime, TimeUnit.NANOSECONDS));
+    	DecimalFormat formatter = new DecimalFormat("#,###");
+    	System.out.printf("%-60s%s\n\n", "Function execution time in micro-seconds: ", formatter.format(totalTime));
+    }
+    
+    protected static void runIntFuncAndCalculateTime(String message, IntToLongFunction intFunc, int value) throws Exception {
+    	long startTime = System.nanoTime();
+    	System.out.printf("%-60s%d\n", message, intFunc.applyAsLong(value));
+    	long endTime   = System.nanoTime();
+    	long totalTime = new Long(TimeUnit.MICROSECONDS.convert(endTime - startTime, TimeUnit.NANOSECONDS));
+    	DecimalFormat formatter = new DecimalFormat("#,###");
+    	System.out.printf("%-60s%s\n\n", "Function execution time in micro-seconds: ", formatter.format(totalTime));
+    }
 	
     protected static void runIntArrayFuncAndCalculateTime(String message, IntArrayToLongFunction intArrayFunc, int[] array) throws Exception {
     	long startTime = System.nanoTime();
