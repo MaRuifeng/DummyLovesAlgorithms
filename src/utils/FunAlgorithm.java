@@ -1,6 +1,8 @@
 package utils;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
@@ -12,6 +14,12 @@ import java.util.concurrent.TimeUnit;
 
 
 public class FunAlgorithm {
+	
+	@FunctionalInterface
+	protected interface IntArrayToIntItemFunction {
+	   int apply(int[] array, int location) throws Exception;  
+	}
+	
 	
 	@FunctionalInterface
 	protected interface IntArrayToLongFunction {
@@ -32,6 +40,17 @@ public class FunAlgorithm {
 		return arr;
 	}
 	
+	protected static int[] genRanUniqueIntArr(int size) {
+		ArrayList<Integer> arrList = new ArrayList<Integer>();
+		for (int i=0; i<size * 5; i++) {
+			arrList.add(new Integer(i - size * 5 / 2));
+		}
+		Collections.shuffle(arrList);
+		int[] newArr = new int[size]; 
+		for (int i=0; i<newArr.length; i++) newArr[i] = arrList.get(i);
+		return newArr;
+	}
+	
     protected static void runIntArrayFuncAndCalculateTime(String message, IntArrayToLongFunction intArrayFunc, int[] array) throws Exception {
     	long startTime = System.nanoTime();
     	System.out.printf("%-60s%d\n", message, intArrayFunc.apply(array));
@@ -48,6 +67,39 @@ public class FunAlgorithm {
     	long totalTime = new Long(TimeUnit.MICROSECONDS.convert(endTime - startTime, TimeUnit.NANOSECONDS));
     	DecimalFormat formatter = new DecimalFormat("#,###");
     	System.out.printf("%-60s%s\n\n", "Function execution time in micro-seconds: ", formatter.format(totalTime));
+    }
+    
+    protected static void runIntArrayFuncAndCalculateTime(String message, IntArrayToIntItemFunction intArrayFunc, int[] array, int location) throws Exception {
+    	long startTime = System.nanoTime();
+    	System.out.printf("%-60s%d\n", message, intArrayFunc.apply(array, location));
+    	long endTime   = System.nanoTime();
+    	long totalTime = new Long(TimeUnit.MICROSECONDS.convert(endTime - startTime, TimeUnit.NANOSECONDS));
+    	DecimalFormat formatter = new DecimalFormat("#,###");
+    	System.out.printf("%-60s%s\n\n", "Function execution time in micro-seconds: ", formatter.format(totalTime));
+    }
+    
+    protected static int[] mergeSort(int[] a, int start, int end) {
+    	if (start == end) return new int[]{a[start]};
+    	
+    	int mid = (start + end) / 2; 
+    	int[] leftSortedArr = mergeSort(a, start, mid);
+    	int[] rightSortedArr = mergeSort(a, mid + 1, end);
+    	// merge
+    	int[] sortedArr = new int[leftSortedArr.length + rightSortedArr.length];
+    	int i = leftSortedArr.length - 1, j = rightSortedArr.length - 1, k = sortedArr.length - 1;
+    	while (k>=0) {
+    		if (i<0) {
+    			sortedArr[k--] = rightSortedArr[j--]; 
+    			continue;
+    		}
+    		if (j<0) {
+    			sortedArr[k--] = leftSortedArr[i--]; 
+    			continue;
+    		}
+    		if (leftSortedArr[i] > rightSortedArr[j]) sortedArr[k--] = leftSortedArr[i--];
+    		else sortedArr[k--] = rightSortedArr[j--];
+    	}
+    	return sortedArr;
     }
 
 }

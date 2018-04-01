@@ -39,7 +39,8 @@ public class NumOfReversePairs extends FunAlgorithm {
 		return count;
 	}
 	
-	private static int[] mergeSort(int[] a, int left, int right) {
+	// override with counting added
+	protected static int[] mergeSort(int[] a, int left, int right) {
 		if (left == right) {
 			return new int[] {a[left]};
 		}
