@@ -26,7 +26,7 @@ Each package contains an interesting algorithmic question with solution provided
 * [Find the k'th smallest item from a given array of distinct integers](./src/kthSmallestElementInArray/kthSmallestElementInArray.java)
 * [Dynamic Programming](./src/dynamicProgramming)
   * [Fibonacci Numbers](./src/dynamicProgramming/FibNumbers.java)
-  * [Coin change problems](./src/dynamicProgramming/coinKeeper.java)
+  * [Coin change problems](./src/dynamicProgramming/CoinKeeper.java)
     * Number of possible combinations for given sum
     * List of possible combinations for given sum
     * Least number of coins needed for given sum
