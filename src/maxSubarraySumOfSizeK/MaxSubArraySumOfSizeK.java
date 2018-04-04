@@ -63,11 +63,9 @@ public class MaxSubArraySumOfSizeK extends FunAlgorithm {
 				+ "And the sub-array should have a size of " + subArraySize + ".\n"); 
 		
 		try {
-			// Find the max subsequence sum with cubic complexity
 			runIntArrayFuncAndCalculateTime("[N*k]    Maximum sub-array sum:", (int[] a, int k) -> maxSubArraySum_Onk(a, k), intArray, subArraySize);
 			runIntArrayFuncAndCalculateTime("[Linear] Maximum sub-array sum:", (int[] a, int k) -> maxSubArraySum_On(a, k), intArray, subArraySize);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

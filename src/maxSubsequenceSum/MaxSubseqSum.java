@@ -118,13 +118,11 @@ public class MaxSubseqSum extends FunAlgorithm {
 				+ "The randomly generated integer array is of size " + intArray.length + ".\n"); 
 		
 		try {
-			// Find the max subsequence sum with cubic complexity
 			runIntArrayFuncAndCalculateTime("[Cubic]     Maximum subsequence sum:", (int[] a) -> cubicMaxSubseqSum(a), intArray);
 			runIntArrayFuncAndCalculateTime("[Quadratic] Maximum subsequence sum:", (int[] a) -> quadraticMaxSubseqSum(a), intArray);
 			runIntArrayFuncAndCalculateTime("[N*Logrithmic] Maximum subsequence sum:", (int[] a) -> recursiveMaxSubseqSumDriver(a), intArray);
 			runIntArrayFuncAndCalculateTime("[Linear]    Maximum subsequence sum:", (int[] a) -> linearMaxSubseqSum(a), intArray);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

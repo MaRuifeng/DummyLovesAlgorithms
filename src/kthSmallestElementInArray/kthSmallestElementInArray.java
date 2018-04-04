@@ -14,7 +14,7 @@ import utils.FunAlgorithm;
  * And other randomized algorithm like quickselect that gives an O(N) in average and O(N2) in worst case scenario, and 
  * introselect that further optimizes the worst case scenario are only documented here for reference purpose. 
  * 
- * https://www.geeksforgeeks.org/kth-smallestsmallest-element-unsorted-array/
+ * https://www.geeksforgeeks.org/kth-smallestlargest-element-unsorted-array/
  * @author ruifengm
  * @since 2018-Apr-01
  */
@@ -72,7 +72,6 @@ public class kthSmallestElementInArray extends FunAlgorithm {
 				+ "The randomly generated integer array is of size " + intArray.length + ".\n"); 
 		
 		try {
-			// Find the max subsequence sum with cubic complexity
 			runIntArrayFuncAndCalculateTime("[N*k]   k'th smallest element (k=" + location + "):", (int[] a, int k) -> findKthSmallestByBruteForceDriver(a, k), intArray, location);
 			runIntArrayFuncAndCalculateTime("[NlogN] k'th smallest element (k=" + location + "):", (int[] a, int k) -> findKthSmallestBySorting(a, k), intArray, location);
 		} catch (Exception e) {

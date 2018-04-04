@@ -3,8 +3,10 @@ package utils;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
+import java.util.function.IntFunction;
 import java.util.function.IntToLongFunction;
 import java.util.function.IntUnaryOperator;
 
@@ -55,47 +57,58 @@ public class FunAlgorithm {
 	
     protected static void runIntFuncAndCalculateTime(String message, IntUnaryOperator intFunc, int value) throws Exception {
     	long startTime = System.nanoTime();
-    	System.out.printf("%-60s%d\n", message, intFunc.applyAsInt(value));
+    	System.out.printf("%-70s%d\n", message, intFunc.applyAsInt(value));
     	long endTime   = System.nanoTime();
     	long totalTime = new Long(TimeUnit.MICROSECONDS.convert(endTime - startTime, TimeUnit.NANOSECONDS));
     	DecimalFormat formatter = new DecimalFormat("#,###");
-    	System.out.printf("%-60s%s\n\n", "Function execution time in micro-seconds: ", formatter.format(totalTime));
+    	System.out.printf("%-70s%s\n\n", "Function execution time in micro-seconds: ", formatter.format(totalTime));
+    }
+    
+    protected static void runIntFuncAndCalculateTime(String message, IntFunction<HashSet<ArrayList<Integer>>> intFunc, int value) throws Exception {
+    	System.out.printf("%-70s\n", message);
+    	long startTime = System.nanoTime();
+    	HashSet<ArrayList<Integer>> resultSet = intFunc.apply(value);
+    	long endTime   = System.nanoTime();
+    	long totalTime = new Long(TimeUnit.MICROSECONDS.convert(endTime - startTime, TimeUnit.NANOSECONDS));
+		for(ArrayList<Integer> item: resultSet) System.out.println(item.toString());
+    	DecimalFormat formatter = new DecimalFormat("#,###");
+    	System.out.printf("%-70s%s\n\n", "Function execution time in micro-seconds: ", formatter.format(totalTime));
     }
     
     protected static void runIntFuncAndCalculateTime(String message, IntToLongFunction intFunc, int value) throws Exception {
     	long startTime = System.nanoTime();
-    	System.out.printf("%-60s%d\n", message, intFunc.applyAsLong(value));
+    	System.out.printf("%-70s%d\n", message, intFunc.applyAsLong(value));
     	long endTime   = System.nanoTime();
     	long totalTime = new Long(TimeUnit.MICROSECONDS.convert(endTime - startTime, TimeUnit.NANOSECONDS));
     	DecimalFormat formatter = new DecimalFormat("#,###");
-    	System.out.printf("%-60s%s\n\n", "Function execution time in micro-seconds: ", formatter.format(totalTime));
+    	System.out.printf("%-70s%s\n\n", "Function execution time in micro-seconds: ", formatter.format(totalTime));
     }
 	
     protected static void runIntArrayFuncAndCalculateTime(String message, IntArrayToLongFunction intArrayFunc, int[] array) throws Exception {
     	long startTime = System.nanoTime();
-    	System.out.printf("%-60s%d\n", message, intArrayFunc.apply(array));
+    	System.out.printf("%-70s%d\n", message, intArrayFunc.apply(array));
     	long endTime   = System.nanoTime();
     	long totalTime = new Long(TimeUnit.MICROSECONDS.convert(endTime - startTime, TimeUnit.NANOSECONDS));
     	DecimalFormat formatter = new DecimalFormat("#,###");
-    	System.out.printf("%-60s%s\n\n", "Function execution time in micro-seconds: ", formatter.format(totalTime));
+    	System.out.printf("%-70s%s\n\n", "Function execution time in micro-seconds: ", formatter.format(totalTime));
     }
     
     protected static void runIntArrayFuncAndCalculateTime(String message, IntSubArrayToLongFunction intArrayFunc, int[] array, int size) throws Exception {
     	long startTime = System.nanoTime();
-    	System.out.printf("%-60s%d\n", message, intArrayFunc.apply(array, size));
+    	System.out.printf("%-70s%d\n", message, intArrayFunc.apply(array, size));
     	long endTime   = System.nanoTime();
     	long totalTime = new Long(TimeUnit.MICROSECONDS.convert(endTime - startTime, TimeUnit.NANOSECONDS));
     	DecimalFormat formatter = new DecimalFormat("#,###");
-    	System.out.printf("%-60s%s\n\n", "Function execution time in micro-seconds: ", formatter.format(totalTime));
+    	System.out.printf("%-70s%s\n\n", "Function execution time in micro-seconds: ", formatter.format(totalTime));
     }
     
     protected static void runIntArrayFuncAndCalculateTime(String message, IntArrayToIntItemFunction intArrayFunc, int[] array, int location) throws Exception {
     	long startTime = System.nanoTime();
-    	System.out.printf("%-60s%d\n", message, intArrayFunc.apply(array, location));
+    	System.out.printf("%-70s%d\n", message, intArrayFunc.apply(array, location));
     	long endTime   = System.nanoTime();
     	long totalTime = new Long(TimeUnit.MICROSECONDS.convert(endTime - startTime, TimeUnit.NANOSECONDS));
     	DecimalFormat formatter = new DecimalFormat("#,###");
-    	System.out.printf("%-60s%s\n\n", "Function execution time in micro-seconds: ", formatter.format(totalTime));
+    	System.out.printf("%-70s%s\n\n", "Function execution time in micro-seconds: ", formatter.format(totalTime));
     }
     
     protected static int[] mergeSort(int[] a, int start, int end) {

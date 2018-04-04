@@ -17,10 +17,10 @@ import utils.FunAlgorithm;
  * render the result of the problem itself, instead of computing them again and again. Below two properties are indicators on whether a problem is
  * DP-solvable. 
  * 
- * 1) Overlapping (common) sub-problems: two techniques can be used to store the sub-solutions
+ * 1) Overlapping (common) sub-problems: the same sub-problem is computed more than once. Hence their results can be stored for future usage. 
  *    a) Memoization (Top Down) --> in recursive method
  *    b) Tabulation (Bottom Up) --> in iterative method
- * 2) Optimal substructure: optimal solutions to sub-problems can be used to obtain the solution to the parent problem
+ * 2) Optimal substructure: optimal solutions to sub-problems can be used to obtain the solution to the parent problem.
  * 
  * https://www.geeksforgeeks.org/solve-dynamic-programming-problem/
  * @author ruifengm
@@ -84,6 +84,11 @@ public class FibNumbers extends FunAlgorithm {
 	
 	/**
 	 * Time complexity O(N).
+	 * It's worth mentioning that this bottom-up DP solution looks so intuitive. 
+	 * This is true because the "overlapping subproblems" and the "optimal substructure" properties
+	 * are well described in the definition of the Fibonacci Numbers itself. In other DP-solvable problems, these properties may not be 
+	 * so easy to spot. E.g. the coin change problem requires quite some smart thinking to identify the patterns. 
+	 * 
 	 * @param an integer n indicating position of wanted Fibonacci number
 	 * @return the Fibonacci number at position n
 	 */
@@ -101,7 +106,6 @@ public class FibNumbers extends FunAlgorithm {
 				+ "The randomly wanted number should be at position " + pos + ".\n"); 
 		
 		try {
-			// Find the max subsequence sum with cubic complexity
 			runIntFuncAndCalculateTime("[Recursive][Exponential]  Fibonacci Number at position " + pos + ":" , (int i) -> recursiveFib(i), pos);
 			runIntFuncAndCalculateTime("[Iterative][Linear]       Fibonacci Number at position " + pos + ":" , (int i) -> iterativeFib(i), pos);
 			initDPLookUpArray();
@@ -109,7 +113,6 @@ public class FibNumbers extends FunAlgorithm {
 			initDPLookUpArray();
 			runIntFuncAndCalculateTime("[IterativeDP][Linear]     Fibonacci Number at position " + pos + ":" , (int i) -> iterativeFibWithDP(i), pos);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

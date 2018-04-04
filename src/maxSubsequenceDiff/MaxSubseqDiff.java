@@ -242,7 +242,6 @@ public class MaxSubseqDiff extends FunAlgorithm {
 			runIntArrayFuncAndCalculateTime("[Linear]     Maximum subsequence difference:", (int[] a) -> runCalculation_On(a), intArray);
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

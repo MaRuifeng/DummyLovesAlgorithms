@@ -18,12 +18,20 @@ Each package contains an interesting algorithmic question with solution provided
 * Run it as a Java application in a common IDE like Eclipse (make sure Java 8 is supported). This provides flexibility to modify code. 
 * Key function calls will be provided with roughly estimated running time so as to cross check with the indicated time complexity.
 
-### List of algorithmic questions
-*  [Find the largest sub-array sum of a given integer array](./src/maxSubsequenceSum/MaxSubseqSum.java)
-*  [Find the largest absolute difference of two non-overlapping sub-arrays of a given integer array](./src/maxSubsequenceDiff/MaxSubseqDiff.java)
-*  [Find total number of reverse pairs in a given integer array](./src/numOfReversePairs/NumOfReversePairs.java)
-*  [Find the largest sum of a sub-array with size K in a given integer array](./src/maxSubarraySumOfSizeK/MaxSubArraySumOfSizeK.java)
-*  [Find the k'th smallest item from a given array of distinct integers](./src/kthSmallestElementInArray/kthSmallestElementInArray.java)
+## List of algorithmic questions
+* [Find the largest sub-array sum of a given integer array](./src/maxSubsequenceSum/MaxSubseqSum.java)
+* [Find the largest absolute difference of two non-overlapping sub-arrays of a given integer array](./src/maxSubsequenceDiff/MaxSubseqDiff.java)
+* [Find total number of reverse pairs in a given integer array](./src/numOfReversePairs/NumOfReversePairs.java)
+* [Find the largest sum of a sub-array with size K in a given integer array](./src/maxSubarraySumOfSizeK/MaxSubArraySumOfSizeK.java)
+* [Find the k'th smallest item from a given array of distinct integers](./src/kthSmallestElementInArray/kthSmallestElementInArray.java)
+* [Dynamic Programming](./src/dynamicProgramming)
+  * [Fibonacci Numbers](./src/dynamicProgramming/FibNumbers.java)
+  * [Coin change problems](./src/dynamicProgramming/coinKeeper.java)
+    * Number of possible combinations for given sum
+    * List of possible combinations for given sum
+    * Least number of coins needed for given sum
+  * [Number arrangements to get a fixed sum](./src/dynamicProgramming/NumberOrganizer.java)
+
 
 ## Background
 

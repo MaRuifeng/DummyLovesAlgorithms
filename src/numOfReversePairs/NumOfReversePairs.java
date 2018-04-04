@@ -77,11 +77,9 @@ public class NumOfReversePairs extends FunAlgorithm {
 				+ "The randomly generated integer array is of size " + intArray.length + ".\n"); 
 		
 		try {
-			// Find the max subsequence sum with cubic complexity
 			runIntArrayFuncAndCalculateTime("[Quadratic] Number of reverse pairs:", (int[] a) -> quadraticMethod(a), intArray);
 			runIntArrayFuncAndCalculateTime("[N*Logrithmic] Number of reverse pairs:", (int[] a) -> recursiveMethod(a), intArray);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
