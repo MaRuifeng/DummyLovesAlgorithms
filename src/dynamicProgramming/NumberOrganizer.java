@@ -99,15 +99,12 @@ public class NumberOrganizer extends FunAlgorithm {
 	 * @param sum
 	 * @return
 	 */
-	private static long iterativeArrangeDPTabu(long[] table, int sum) {
+	private static long iterativeArrangeDPTabu(int sum) {
+		long[] table = new long[sum + 1];
 		table[0] = 1; 
 		for (int i=0; i<=sum; i++) 
 			for (int n: NUM_ARR) if (i >= n) table[i] += table[i - n];
 		return table[sum];
-	}
-	private static long iterativeArrangeDPTabuDriver(int sum) {
-		long[] DPLookUP = new long[sum + 1];
-		return iterativeArrangeDPTabu(DPLookUP, sum);
 	}
 
 
@@ -121,7 +118,7 @@ public class NumberOrganizer extends FunAlgorithm {
 		try {
 			runIntFuncAndCalculateTime("[Recursive][Exponential]     Count of number arrangements for sum " + sum + ":" , (int i) -> recursiveArrange(i), sum);
 			runIntFuncAndCalculateTime("[Recursive][O(N*k)][Memo]    Count of number arrangements for sum " + sum + ":" , (int i) -> recursiveArrangeDPMemoDriver(i), sum);
-			runIntFuncAndCalculateTime("[Iterative][O(N*k)][Tabu]    Count of number arrangements for sum " + sum + ":" , (int i) -> iterativeArrangeDPTabuDriver(i), sum);
+			runIntFuncAndCalculateTime("[Iterative][O(N*k)][Tabu]    Count of number arrangements for sum " + sum + ":" , (int i) -> iterativeArrangeDPTabu(i), sum);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

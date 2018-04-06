@@ -9,7 +9,7 @@ import java.util.Iterator;
 import utils.FunAlgorithm;
 
 /**
- * A coin keeper has three types of coins whose values are 1, 2, 5, 10respectively, and he possesses infinite number of 
+ * A coin keeper has three types of coins whose values are 1, 2, 5, 10 respectively, and he possesses infinite number of 
  * such coins (rich as the person who has infinite number of dollars). 
  * 
  * One day he gets really fed up with the numerous coins he has, and decides to change them into higher value
@@ -28,7 +28,7 @@ import utils.FunAlgorithm;
  */
 public class CoinKeeper extends FunAlgorithm {
 	// private static final int[] coinArr = {5, 2, 1, 10, 25, 50};
-	private static final int[] coinArr = {1, 2, 5, 10};
+	private static final int[] coinArr = {5, 2, 1, 10};
 	private static final int NIL = -1;
 
 	/**
@@ -318,6 +318,26 @@ public class CoinKeeper extends FunAlgorithm {
 		return iterativeGetLeastNumberOfCoinsDPTabu(DPLookUp, sum);
 	}
 	
+	/**
+	 * An intuitive method to get the least number of coins that add up to the given sum. 
+	 * Time complexity if O(NlogN) because of the merge sort method used.
+	 * 
+	 * 1) Sort the coin array
+	 * 2) Start from the largest and calculate number of coins needed
+	 * @param sum
+	 * @return
+	 */
+	private static int getLeastNumberOfCoins(int sum) {
+		int[] sortedCoinArr = mergeSort(Arrays.copyOf(coinArr, coinArr.length), 0, coinArr.length - 1);
+		int count = 0;
+		for (int i=sortedCoinArr.length-1; i>=0; i--) {
+			System.out.println("Coin: " + sortedCoinArr[i] + "; Count: " + count);
+			count += sum / sortedCoinArr[i];
+			sum = sum % sortedCoinArr[i]; // remainder
+		}
+		return count;
+	}
+	
 	
 	
 	public static void main(String[] args) {
@@ -335,6 +355,7 @@ public class CoinKeeper extends FunAlgorithm {
 			runIntFuncAndCalculateTime("[Recursive][Exponential]     Least number of coins for sum " + sum + ":" , (int i) -> recursiveGetLeastNumberOfCoins(i), sum);
 			runIntFuncAndCalculateTime("[Recursive][O(N*k)][Memo]    Least number of coins for sum " + sum + ":" , (int i) -> recursiveGetLeastNumberOfCoinsDPMemoDriver(i), sum);
 			runIntFuncAndCalculateTime("[Iterative][O(N*k)][Tabu]    Least number of coins for sum " + sum + ":" , (int i) -> iterativeGetLeastNumberOfCoinsDPTabuDriver(i), sum);
+			runIntFuncAndCalculateTime("[Iterative][O(NLogN)]        Least number of coins for sum " + sum + ":" , (int i) -> getLeastNumberOfCoins(i), sum);
 
 		} catch (Exception e) {
 			e.printStackTrace();

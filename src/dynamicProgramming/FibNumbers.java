@@ -50,6 +50,24 @@ public class FibNumbers extends FunAlgorithm {
 	}
 	
 	/**
+	 * Tail recursion that produces Fibonacci Numbers. 
+	 * In functional programming languages, tail recursive optimization is by default hence this recursive method utilizes constant space 
+	 * as the iterative method. 
+	 * The "tail" property of a tail recursion is that the return value of any given recursive step is always equal to the 
+	 * return value of the next recursive call. 
+	 * @param an integer n indicating position of wanted Fibonacci number
+	 * @return the Fibonacci number at position n
+	 */
+	protected static long tailRecursiveFib(int n, int a, int b) {
+		if (n == 0) return 0;
+		if (n == 1) return b;
+		else return tailRecursiveFib(n-1, b, a+b); // run calculation first and then recur
+	}
+	protected static long tailRecursiveFibDriver(int n) {
+		return tailRecursiveFib(n, 0, 1);
+	}
+	
+	/**
 	 * Most intuitive method. Time complexity O(N).
 	 * @param an integer n indicating position of wanted Fibonacci number
 	 * @return the Fibonacci number at position n
@@ -107,6 +125,7 @@ public class FibNumbers extends FunAlgorithm {
 		
 		try {
 			runIntFuncAndCalculateTime("[Recursive][Exponential]  Fibonacci Number at position " + pos + ":" , (int i) -> recursiveFib(i), pos);
+			runIntFuncAndCalculateTime("[Recursive][Linear]       Fibonacci Number at position " + pos + ":" , (int i) -> tailRecursiveFibDriver(i), pos);
 			runIntFuncAndCalculateTime("[Iterative][Linear]       Fibonacci Number at position " + pos + ":" , (int i) -> iterativeFib(i), pos);
 			initDPLookUpArray();
 			runIntFuncAndCalculateTime("[RecursiveDP][Linear]     Fibonacci Number at position " + pos + ":" , (int i) -> recursiveFibWithDP(i), pos);

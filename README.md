@@ -31,6 +31,7 @@ Each package contains an interesting algorithmic question with solution provided
     * List of possible combinations for given sum
     * Least number of coins needed for given sum
   * [Number arrangements to get a fixed sum](./src/dynamicProgramming/NumberOrganizer.java)
+  * [Maximum sub-array sum](./src/maxSubsequenceSum/MaxSubseqSum.java)
 
 
 ## Background
