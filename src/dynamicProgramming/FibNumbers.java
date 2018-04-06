@@ -121,7 +121,7 @@ public class FibNumbers extends FunAlgorithm {
 	public static void main(String[] args) {
 		int pos = 40;
 		System.out.println("Welcome to the rabbit hole of Fibonacci numbers!\n"
-				+ "The randomly wanted number should be at position " + pos + ".\n"); 
+				+ "The wanted number should be at position " + pos + ".\n"); 
 		
 		try {
 			runIntFuncAndCalculateTime("[Recursive][Exponential]  Fibonacci Number at position " + pos + ":" , (int i) -> recursiveFib(i), pos);
