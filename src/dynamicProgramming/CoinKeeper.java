@@ -320,7 +320,7 @@ public class CoinKeeper extends FunAlgorithm {
 	
 	/**
 	 * An intuitive method to get the least number of coins that add up to the given sum. 
-	 * Time complexity if O(NlogN) because of the merge sort method used.
+	 * Time complexity is O(klogk + k) because of the merge sort performed on the coin array.
 	 * 
 	 * 1) Sort the coin array
 	 * 2) Start from the largest and calculate number of coins needed
@@ -331,7 +331,6 @@ public class CoinKeeper extends FunAlgorithm {
 		int[] sortedCoinArr = mergeSort(Arrays.copyOf(coinArr, coinArr.length), 0, coinArr.length - 1);
 		int count = 0;
 		for (int i=sortedCoinArr.length-1; i>=0; i--) {
-			System.out.println("Coin: " + sortedCoinArr[i] + "; Count: " + count);
 			count += sum / sortedCoinArr[i];
 			sum = sum % sortedCoinArr[i]; // remainder
 		}
@@ -355,7 +354,7 @@ public class CoinKeeper extends FunAlgorithm {
 			runIntFuncAndCalculateTime("[Recursive][Exponential]     Least number of coins for sum " + sum + ":" , (int i) -> recursiveGetLeastNumberOfCoins(i), sum);
 			runIntFuncAndCalculateTime("[Recursive][O(N*k)][Memo]    Least number of coins for sum " + sum + ":" , (int i) -> recursiveGetLeastNumberOfCoinsDPMemoDriver(i), sum);
 			runIntFuncAndCalculateTime("[Iterative][O(N*k)][Tabu]    Least number of coins for sum " + sum + ":" , (int i) -> iterativeGetLeastNumberOfCoinsDPTabuDriver(i), sum);
-			runIntFuncAndCalculateTime("[Iterative][O(NLogN)]        Least number of coins for sum " + sum + ":" , (int i) -> getLeastNumberOfCoins(i), sum);
+			runIntFuncAndCalculateTime("[Iterative][O(klogk + k)]    Least number of coins for sum " + sum + ":" , (int i) -> getLeastNumberOfCoins(i), sum);
 
 		} catch (Exception e) {
 			e.printStackTrace();
