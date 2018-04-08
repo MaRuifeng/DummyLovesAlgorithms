@@ -46,8 +46,8 @@ public class FunAlgorithm {
 	
 	protected static int[] genRanUniqueIntArr(int size) {
 		ArrayList<Integer> arrList = new ArrayList<Integer>();
-		for (int i=0; i<size * 5; i++) {
-			arrList.add(new Integer(i - size * 5 / 2));
+		for (int i=0; i<size * 10; i++) {
+			arrList.add(new Integer(i - size * 10 / 2));
 		}
 		Collections.shuffle(arrList);
 		int[] newArr = new int[size]; 
@@ -133,6 +133,61 @@ public class FunAlgorithm {
     		else sortedArr[k--] = rightSortedArr[j--];
     	}
     	return sortedArr;
+    }
+    
+    /**
+     * Since quickSort is a randomized algorithm, its time complexity depends on how the pivot gets picked up. 
+     * 1) Worst case: for the given partition strategy (last element), pivot is always chosen as the largest/smallest number in the array . This 
+     *                occurs when the array is already in sorted order. Time complexity is O(N^2). 
+     * 2) Best case: for the given partition strategy (last element), pivot is always chosen as the middle large number in the array. Time complexity 
+     *               is O(NLogN). 
+     * 3) Average case: time complexity is O(NLogN). 
+     * 
+     * In general quickSort is considered to be better than mergeSort because of its space efficiency, good cache locality, and the fact that the worst case
+     * scenario can be easily avoided by randomizing the pivot selection process. 
+     * When input data set is huge with external storage involved, mergeSort is the one that can do it better because it's a stable sort that does not 
+     * reorder equal elements. This gives better performance when slow-to-access media like disk storage is involved. 
+     * 
+     * https://www.geeksforgeeks.org/quicksort-better-mergesort/
+     */
+    protected static void quickSort(int[] a, int start, int end) {
+    	if (start < end) {
+    		int pivotPos = partition(a, start, end);
+			//System.out.println("Pivot position: " + pivotPos);
+			//System.out.println("Pivot value: " + a[pivotPos]);
+    		quickSort(a, start, pivotPos - 1); // sort items before the pivot
+    		quickSort(a, pivotPos + 1, end); // sort items after the pivot
+    	}
+    }
+    
+    /**
+     * The partition method for the quick sort algorithm. Its purpose is to put all items smaller than the pivot before it, 
+     * and all items larger after it. After such operations, the pivot will be in its correct position in the final sorted array, and 
+     * the method will return that position in order for the quick sort algorithm to further partition the array and sort (divide and conquer). 
+     * The pivot can be chosen randomly (which makes the quick sort algorithm a randomized algorithm). 
+     * Over here we always choose the last element as the partitioning pivot. 
+     * 
+     */
+    private static int partition(int[] a, int start, int end) {
+    	int pivotVal = a[end];
+    	int temp;
+    	int i = start - 1; // index pointing to elements smaller than the pivot
+    	for (int j=start; j<end; j++) {
+    		if (a[j] <= pivotVal) {
+    			// moving the smaller elements before the larger ones
+    			i++; 
+    			temp = a[j];
+    			a[j] = a[i];
+    			a[i] = temp;
+    		}
+    	}
+    	// All elements smaller than the pivot are now placed before those larger than the pivot, and
+    	// i is pointing to the last element smaller than the pivot. 
+    	// Now move the pivot to its correct position, which is just in between.
+    	temp = a[i+1]; 
+    	a[i+1] = a[end]; 
+    	a[end] = temp;
+    	return i+1; // correct position of the pivot in the sorted array
     }
 
 }
