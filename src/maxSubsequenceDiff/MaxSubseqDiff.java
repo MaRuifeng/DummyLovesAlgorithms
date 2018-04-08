@@ -222,20 +222,20 @@ public class MaxSubseqDiff extends FunAlgorithm {
 		/* Randomly generated numbers */
 		try {
 		    System.out.println("Randmly generating integer arrays ...");
-		    intArray = genRanIntArr(1000);
+		    intArray = genRanIntArr(1000, -5, 10);
 			System.out.println("\n######\nThe randomly generated integer array is of size " + intArray.length + ".");
 			System.out.println("The expected difference is " + check(intArray) + ".");
 			runIntArrayFuncAndCalculateTime("[Quadratic]     Maximum subsequence difference:", (int[] a) -> runCalculation_On2(a), intArray);
 			runIntArrayFuncAndCalculateTime("[Linear]     Maximum subsequence difference:", (int[] a) -> runCalculation_On(a), intArray);
 
-		    intArray = genRanIntArr(10000);
+		    intArray = genRanIntArr(10000, -5, 10);
 			System.out.println("\n######\nThe randomly generated integer array is of size " + intArray.length + ".");
 			System.out.println("The expected difference is " + check(intArray) + ".");
 			runIntArrayFuncAndCalculateTime("[Quadratic]     Maximum subsequence difference:", (int[] a) -> runCalculation_On2(a), intArray);
 			runIntArrayFuncAndCalculateTime("[Linear]     Maximum subsequence difference:", (int[] a) -> runCalculation_On(a), intArray);
 
 			
-		    intArray = genRanIntArr(100000);
+		    intArray = genRanIntArr(100000, -5, 10);
 			System.out.println("\n######\nThe randomly generated integer array is of size " + intArray.length + ".");
 			System.out.println("The expected difference is " + check(intArray) + ".");
 			runIntArrayFuncAndCalculateTime("[Quadratic]     Maximum subsequence difference:", (int[] a) -> runCalculation_On2(a), intArray);

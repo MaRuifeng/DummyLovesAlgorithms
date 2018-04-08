@@ -55,7 +55,7 @@ public class MaxSubArraySumOfSizeK extends FunAlgorithm {
 	}
 	
 	public static void main(String[] args) {
-		int[] intArray = genRanIntArr(1000000000);
+		int[] intArray = genRanIntArr(1000000000, -5, 10);
 		int subArraySize = 100;
 		//System.out.println("Integer array:" + Arrays.toString(intArray));
 		System.out.println("Welcome to the rabbit hole of maximum sum of sub-array of size K!\n"

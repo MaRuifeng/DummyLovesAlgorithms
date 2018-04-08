@@ -35,11 +35,11 @@ public class FunAlgorithm {
 	   long apply(int[] array, int size);  
 	}
 	
-	protected static int[] genRanIntArr(int size) {
+	protected static int[] genRanIntArr(int size, int start, int end) {
 		int arr[] = new int[size];
 		for (int i=0; i<size; i++) {
 			// arr[i] = ThreadLocalRandom.current().nextInt(Integer.MIN_VALUE, Integer.MAX_VALUE);
-			arr[i] = ThreadLocalRandom.current().nextInt(-5, 10);
+			arr[i] = ThreadLocalRandom.current().nextInt(start, end);
 		}
 		return arr;
 	}

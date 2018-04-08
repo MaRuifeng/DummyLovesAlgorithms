@@ -179,7 +179,7 @@ public class MaxSubseqSum extends FunAlgorithm {
 	
 
 	public static void main(String[] args) {
-		int[] intArray = genRanIntArr(3000);
+		int[] intArray = genRanIntArr(3000, -5, 10);
 		//int[] intArray = {1, -5, -1, 6, -3, 6, -3, -1, -4, -3};
 		//System.out.println("Integer array:" + Arrays.toString(intArray));
 		System.out.println("Welcome to the rabbit hole of maximum sugsequence sums!\n"

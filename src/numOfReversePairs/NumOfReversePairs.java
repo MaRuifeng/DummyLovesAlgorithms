@@ -71,7 +71,7 @@ public class NumOfReversePairs extends FunAlgorithm {
 	}
 	
 	public static void main(String[] args) {
-		int[] intArray = genRanIntArr(1000);
+		int[] intArray = genRanIntArr(1000, -5, 10);
 		//System.out.println("Integer array:" + Arrays.toString(intArray));
 		System.out.println("Welcome to the rabbit hole of reverse pairs!\n"
 				+ "The randomly generated integer array is of size " + intArray.length + ".\n"); 
