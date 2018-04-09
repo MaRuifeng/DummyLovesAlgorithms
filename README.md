@@ -19,11 +19,11 @@ Each package contains an interesting algorithmic question with solution provided
 * Key function calls will be provided with roughly estimated running time so as to cross check with the indicated time complexity.
 
 ## List of algorithmic questions
-* [Find the largest sub-array sum of a given integer array](./src/maxSubsequenceSum/MaxSubseqSum.java)
-* [Find the largest absolute difference of two non-overlapping sub-arrays of a given integer array](./src/maxSubsequenceDiff/MaxSubseqDiff.java)
-* [Find total number of reverse pairs in a given integer array](./src/numOfReversePairs/NumOfReversePairs.java)
-* [Find the largest sum of a sub-array with size K in a given integer array](./src/maxSubarraySumOfSizeK/MaxSubArraySumOfSizeK.java)
-* [Find the k'th smallest item from a given array of distinct integers](./src/kthSmallestElementInArray/kthSmallestElementInArray.java)
+* [Find the largest sub-array sum of a given integer array](./src/integerArray/maxSubsequenceSum/MaxSubseqSum.java)
+* [Find the largest absolute difference of two non-overlapping sub-arrays of a given integer array](./src/integerArray/maxSubsequenceDiff/MaxSubseqDiff.java)
+* [Find total number of reverse pairs in a given integer array](./src/integerArray/numOfReversePairs/NumOfReversePairs.java)
+* [Find the largest sum of a sub-array with size K in a given integer array](./src/integerArray/maxSubarraySumOfSizeK/MaxSubArraySumOfSizeK.java)
+* [Find the k'th smallest item from a given array of distinct integers](./src/integerArray/kthSmallestElementInArray/kthSmallestElementInArray.java)
 * [Dynamic Programming](./src/dynamicProgramming)
   * [Fibonacci Numbers](./src/dynamicProgramming/FibNumbers.java)
   * [Coin change problems](./src/dynamicProgramming/CoinKeeper.java)
@@ -34,7 +34,8 @@ Each package contains an interesting algorithmic question with solution provided
   * [Maximum sub-array sum](./src/maxSubsequenceSum/MaxSubseqSum.java)
   * [Ugly Numbers](./src/dynamicProgramming/UglyNumbers.java)
   * [Maximum stock profit](./src/dynamicProgramming/StockProfit.java)
-
+* [Remove duplicates in string](./src/string/removeDuplicates/DuplicatesRemover.java
+* [Remove alternate duplicates in string](./src/string/removeDuplicates/AlternateDuplicatesRemover.java
 
 ## Background
 

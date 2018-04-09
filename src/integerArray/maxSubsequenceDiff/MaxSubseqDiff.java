@@ -1,8 +1,8 @@
-package maxSubsequenceDiff;
+package integerArray.maxSubsequenceDiff;
 
 import java.util.Arrays;
 
-import utils.FunAlgorithm;
+import utils.FunIntAlgorithm;
 
 /**
  * [Lintcode]http://www.lintcode.com/en/problem/maximum-subarray-difference/
@@ -30,7 +30,7 @@ import utils.FunAlgorithm;
  * @author ruifengm
  * @date 2018-Feb-16
  */
-public class MaxSubseqDiff extends FunAlgorithm {
+public class MaxSubseqDiff extends FunIntAlgorithm {
 	
 	private static int max(int[] arr) {
 		int max = arr[0];

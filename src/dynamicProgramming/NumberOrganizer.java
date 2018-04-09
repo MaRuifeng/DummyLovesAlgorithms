@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 
-import utils.FunAlgorithm;
+import utils.FunIntAlgorithm;
 
 /**
  * Given a series of seed numbers, say 1, 3, and 5, find the number of all possible arrangements that sum up to a given value A. 
@@ -28,7 +28,7 @@ import utils.FunAlgorithm;
  * @since 2018-Mar-31
  */
 
-public class NumberOrganizer extends FunAlgorithm {
+public class NumberOrganizer extends FunIntAlgorithm {
 
 	private static final int[] NUM_ARR = {1, 3, 5};
 	private static final long NIL = -1; 

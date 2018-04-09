@@ -1,8 +1,8 @@
-package numOfReversePairs;
+package integerArray.numOfReversePairs;
 
 import java.util.Arrays;
 
-import utils.FunAlgorithm;
+import utils.FunIntAlgorithm;
 
 /**
  * [Lintcode] http://www.lintcode.com/en/problem/reverse-pairs/
@@ -13,7 +13,7 @@ import utils.FunAlgorithm;
  * @since 2018-Feb-20
  */
 
-public class NumOfReversePairs extends FunAlgorithm {
+public class NumOfReversePairs extends FunIntAlgorithm {
 	
 	private static long count;
 	

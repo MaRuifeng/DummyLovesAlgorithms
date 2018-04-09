@@ -1,6 +1,6 @@
 package dynamicProgramming;
 
-import utils.FunAlgorithm;
+import utils.FunIntAlgorithm;
 
 /**
  * Below algorithms to find the n'th Fibonacci number are discussed. 
@@ -27,7 +27,7 @@ import utils.FunAlgorithm;
  * @since 2018-Mar-15
  */
 
-public class FibNumbers extends FunAlgorithm {
+public class FibNumbers extends FunIntAlgorithm {
 	
 	private static final int MAX = 200; 
 	private static final long NIL = -1; 

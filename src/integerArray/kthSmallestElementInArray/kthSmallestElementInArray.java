@@ -1,9 +1,9 @@
-package kthSmallestElementInArray;
+package integerArray.kthSmallestElementInArray;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import utils.FunAlgorithm;
+import utils.FunIntAlgorithm;
 
 /**
  * Find the k'th smallest element in an unsorted array of distinct integers, where k is smaller than the size of the array. 
@@ -18,7 +18,7 @@ import utils.FunAlgorithm;
  * @author ruifengm
  * @since 2018-Apr-01
  */
-public class kthSmallestElementInArray extends FunAlgorithm {
+public class kthSmallestElementInArray extends FunIntAlgorithm {
 	
 	/**
 	 * As the name suggests, the complexity is clearly with an upper bound of O(N*k). In practice, if k > n/2, the problem can be converted into 

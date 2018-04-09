@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 
-import utils.FunAlgorithm;
+import utils.FunIntAlgorithm;
 
 /**
  * A coin keeper has three types of coins whose values are 1, 2, 5, 10 respectively, and he possesses infinite number of 
@@ -26,7 +26,7 @@ import utils.FunAlgorithm;
  * @author ruifengm
  * @since 2015-Mar-17
  */
-public class CoinKeeper extends FunAlgorithm {
+public class CoinKeeper extends FunIntAlgorithm {
 	// private static final int[] coinArr = {5, 2, 1, 10, 25, 50};
 	private static final int[] coinArr = {5, 2, 1, 10};
 	private static final int NIL = -1;

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 
-import utils.FunAlgorithm;
+import utils.FunIntAlgorithm;
 
 /**
  * Given a array of numbers which represents prices of a stock over a range of consecutive days, if it's your first time 
@@ -23,7 +23,7 @@ import utils.FunAlgorithm;
  * @since 2018-Apr-4
  */
 
-public class StockProfit extends FunAlgorithm {
+public class StockProfit extends FunIntAlgorithm {
 	
 	/**
 	 * An intuitive way that can be quickly thought of is to iterate over the array, at i'th element, find all differences

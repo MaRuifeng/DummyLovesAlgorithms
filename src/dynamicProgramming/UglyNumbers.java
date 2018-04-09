@@ -1,6 +1,6 @@
 package dynamicProgramming;
 
-import utils.FunAlgorithm;
+import utils.FunIntAlgorithm;
 
 /**
  * Ugly numbers are defined as numbers whose prime factors are 2, 3, and 5 only. Below sequence shows the first 11 ugly numbers
@@ -15,7 +15,7 @@ import utils.FunAlgorithm;
  */
 
 
-public class UglyNumbers extends FunAlgorithm {
+public class UglyNumbers extends FunIntAlgorithm {
 	
 	/**
 	 * Trivial method.

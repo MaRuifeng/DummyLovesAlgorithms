@@ -1,8 +1,8 @@
-package maxSubarraySumOfSizeK;
+package integerArray.maxSubarraySumOfSizeK;
 
 import java.util.Arrays;
 
-import utils.FunAlgorithm;
+import utils.FunIntAlgorithm;
 
 /**
  * Given an integer array of size n, find the maximum sum of a sub-array with given size of k where k<=n. 
@@ -10,7 +10,7 @@ import utils.FunAlgorithm;
  * @since 2018-Feb-23
  */
 
-public class MaxSubArraySumOfSizeK extends FunAlgorithm {
+public class MaxSubArraySumOfSizeK extends FunIntAlgorithm {
 	
 	/**
 	 * The most intuitive solution is to find all possible sub-arrays of size k, sum up the elements for each and then find the max. 

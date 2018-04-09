@@ -1,7 +1,7 @@
-package maxSubsequenceSum;
+package integerArray.maxSubsequenceSum;
 
 import java.util.Arrays;
-import utils.FunAlgorithm;
+import utils.FunIntAlgorithm;
 
 /**
  * Four algorithms that find the maximum subsequence sum of a given array
@@ -16,7 +16,7 @@ import utils.FunAlgorithm;
  * @since 2018-Jan-23
  */
 
-public class MaxSubseqSum extends FunAlgorithm {
+public class MaxSubseqSum extends FunIntAlgorithm {
 	
 	/**
 	 * Cubic maximum contiguous subsequence sum
