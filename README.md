@@ -34,8 +34,8 @@ Each package contains an interesting algorithmic question with solution provided
   * [Maximum sub-array sum](./src/maxSubsequenceSum/MaxSubseqSum.java)
   * [Ugly Numbers](./src/dynamicProgramming/UglyNumbers.java)
   * [Maximum stock profit](./src/dynamicProgramming/StockProfit.java)
-* [Remove duplicates in string](./src/string/removeDuplicates/DuplicatesRemover.java
-* [Remove alternate duplicates in string](./src/string/removeDuplicates/AlternateDuplicatesRemover.java
+* [Remove duplicates in string](./src/string/removeDuplicates/DuplicatesRemover.java)
+* [Remove alternate duplicates in string](./src/string/removeDuplicates/AlternateDuplicatesRemover.java)
 
 ## Background
 
