@@ -2,6 +2,7 @@ package utils;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.concurrent.ThreadLocalRandom;
@@ -24,6 +25,10 @@ public class FunIntAlgorithm extends FunAlgorithm {
 	   int apply(int[] array, int location) throws Exception;  
 	}
 	
+	@FunctionalInterface
+	protected interface IntArrayFunction {
+		HashSet<ArrayList<Integer>> apply(int[] array, int sum);  
+	}
 	
 	@FunctionalInterface
 	protected interface IntArrayToLongFunction {
@@ -109,6 +114,15 @@ public class FunIntAlgorithm extends FunAlgorithm {
     	long totalTime = new Long(TimeUnit.MICROSECONDS.convert(endTime - startTime, TimeUnit.NANOSECONDS));
     	DecimalFormat formatter = new DecimalFormat("#,###");
     	System.out.printf("%-70s%s\n\n", "Function execution time in micro-seconds: ", formatter.format(totalTime));
+    }
+    
+    protected static void runIntArrayFuncAndCalculateTime(String message, IntArrayFunction intArrayFunc, int[] array, int sum) throws Exception {
+    	long startTime = System.nanoTime();
+    	System.out.printf("%-80s\n%s\n", message, intArrayFunc.apply(array, sum).toString());
+    	long endTime   = System.nanoTime();
+    	long totalTime = new Long(TimeUnit.MICROSECONDS.convert(endTime - startTime, TimeUnit.NANOSECONDS));
+    	DecimalFormat formatter = new DecimalFormat("#,###");
+    	System.out.printf("%-80s%s\n\n", "Function execution time in micro-seconds: ", formatter.format(totalTime));
     }
     
     protected static int[] mergeSort(int[] a, int start, int end) {

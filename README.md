@@ -24,6 +24,7 @@ Each package contains an interesting algorithmic question with solution provided
 * [Find total number of reverse pairs in a given integer array](./src/integerArray/numOfReversePairs/NumOfReversePairs.java)
 * [Find the largest sum of a sub-array with size K in a given integer array](./src/integerArray/maxSubarraySumOfSizeK/MaxSubArraySumOfSizeK.java)
 * [Find the k'th smallest item from a given array of distinct integers](./src/integerArray/kthSmallestElementInArray/kthSmallestElementInArray.java)
+* [Find number pairs each of which sums up to a fixed value from an integer array](./src/integerArray/NumberPairOfFixedSum.java)
 * [Dynamic Programming](./src/dynamicProgramming)
   * [Fibonacci Numbers](./src/dynamicProgramming/FibNumbers.java)
   * [Coin change problems](./src/dynamicProgramming/CoinKeeper.java)
