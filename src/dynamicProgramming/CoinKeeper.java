@@ -22,6 +22,9 @@ import utils.FunIntAlgorithm;
  * 
  * This is a very typical coin-change problem discussed everywhere on DP. 
  * https://www.geeksforgeeks.org/dynamic-programming-set-7-coin-change/
+ * 
+ * Similar problem
+ * https://stackoverflow.com/questions/4632322/finding-all-possible-combinations-of-numbers-to-reach-a-given-sum
  *  
  * @author ruifengm
  * @since 2015-Mar-17
@@ -109,7 +112,7 @@ public class CoinKeeper extends FunIntAlgorithm {
 	 * @param table, coinCount, sum
 	 * @return
 	 */
-	private static long recursivePickDPTabuIn1DArray(long[] table, int sum) {
+	private static long iterativePickDPTabuIn1DArray(long[] table, int sum) {
 		// base state when sum is zero
 		table[0] = 1;
 		// bottom up
@@ -124,7 +127,7 @@ public class CoinKeeper extends FunIntAlgorithm {
 		}
 		return table[sum];
 	}
-	private static long recursivePickDPTabuIn1DArray_optimized(long[] table, int sum) {
+	private static long iterativePickDPTabuIn1DArray_optimized(long[] table, int sum) {
 		// base state when sum is zero
 		table[0] = 1;
 		// bottom up
@@ -133,11 +136,11 @@ public class CoinKeeper extends FunIntAlgorithm {
 				table[j] = table[j] + table[j-coinArr[i]]; 
 		return table[sum];
 	}
-	private static long recursivePickDPTabuIn1DArrayDriver(int sum) {
+	private static long iterativePickDPTabuIn1DArrayDriver(int sum) {
 		long[] table = new long[sum+1]; // one more row to cater for sum = 0
 		                                // storing number of solutions for {sum = i, coinCount = coinArr.length}
 		Arrays.fill(table, 0); // not necessary though as Java pre-fills any initialized no-value array with zero
-		return recursivePickDPTabuIn1DArray(table, sum);
+		return iterativePickDPTabuIn1DArray(table, sum);
 	}
 	
 	/**
@@ -149,7 +152,7 @@ public class CoinKeeper extends FunIntAlgorithm {
 	 * @param table, sum
 	 * @return
 	 */
-	private static long recursivePickDPTabuIn2DArray(long[][] table, int sum) {
+	private static long iterativePickDPTabuIn2DArray(long[][] table, int sum) {
 		// base state when sum is zero 
 		Arrays.fill(table[0], 1);
 		
@@ -170,11 +173,11 @@ public class CoinKeeper extends FunIntAlgorithm {
 		return table[sum][coinArr.length - 1];
 		
 	}
-	private static long recursivePickDPTabuIn2DArrayDriver(int sum) {
+	private static long iterativePickDPTabuIn2DArrayDriver(int sum) {
 		long[][] table = new long[sum+1][coinArr.length]; // one more row to cater for sum = 0
 		                                // storing number of solutions for {sum = i, coinCount = coinArr.length}
 		for (long[] row: table) Arrays.fill(row, 0);  // not necessary though as Java pre-fills any initialized no-value array with zero
-		return recursivePickDPTabuIn2DArray(table, sum);
+		return iterativePickDPTabuIn2DArray(table, sum);
 	}
 	
 	/**
@@ -348,8 +351,8 @@ public class CoinKeeper extends FunIntAlgorithm {
 		try {
 			runIntFuncAndCalculateTime("[Recursive][Exponential]     Number of coin combinations for sum " + sum + ":" , (int i) -> recursivePickDriver(i), sum);
 			runIntFuncAndCalculateTime("[Recursive][O(N*k)][2D-Memo] Number of coin combinations for sum " + sum + ":" , (int i) -> recursivePickDPMemoIn2DArrayDriver(i), sum);
-			runIntFuncAndCalculateTime("[Iterative][O(N*k)][1D-Tabu] Number of coin combinations for sum " + sum + ":" , (int i) -> recursivePickDPTabuIn1DArrayDriver(i), sum);
-			runIntFuncAndCalculateTime("[Iterative][O(N*k)][2D-Tabu] Number of coin combinations for sum " + sum + ":" , (int i) -> recursivePickDPTabuIn2DArrayDriver(i), sum);
+			runIntFuncAndCalculateTime("[Iterative][O(N*k)][1D-Tabu] Number of coin combinations for sum " + sum + ":" , (int i) -> iterativePickDPTabuIn1DArrayDriver(i), sum);
+			runIntFuncAndCalculateTime("[Iterative][O(N*k)][2D-Tabu] Number of coin combinations for sum " + sum + ":" , (int i) -> iterativePickDPTabuIn2DArrayDriver(i), sum);
 			runIntFuncAndCalculateTime("[Recursive][Exponential]     Coin combinations for sum " + sum + ":" , (int i) -> recursiveGetCoinCombinations(i), sum);
 			runIntFuncAndCalculateTime("[Recursive][Exponential]     Least number of coins for sum " + sum + ":" , (int i) -> recursiveGetLeastNumberOfCoins(i), sum);
 			runIntFuncAndCalculateTime("[Recursive][O(N*k)][Memo]    Least number of coins for sum " + sum + ":" , (int i) -> recursiveGetLeastNumberOfCoinsDPMemoDriver(i), sum);

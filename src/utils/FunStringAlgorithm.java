@@ -1,6 +1,7 @@
 package utils;
 
 import java.text.DecimalFormat;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -21,6 +22,16 @@ public class FunStringAlgorithm extends FunAlgorithm {
 		char[] apply(char[] charA);
 	}
 	
+	@FunctionalInterface
+	protected interface CharArrayToIntFunction {
+		int apply(char[] a, char[] b);
+	}
+	
+	@FunctionalInterface
+	protected interface DoubleCharArrayToStringFunction {
+		String apply(char[] a, char[] b);
+	}
+	
     protected static void runStringFuncAndCalculateTime(String message, CharArrayToStringFunction strFunc, char[] charA) throws Exception {
     	long startTime = System.nanoTime();
     	System.out.printf("%s%s\n", message, strFunc.apply(charA));
@@ -38,6 +49,35 @@ public class FunStringAlgorithm extends FunAlgorithm {
     	long totalTime = new Long(TimeUnit.MICROSECONDS.convert(endTime - startTime, TimeUnit.NANOSECONDS));
     	DecimalFormat formatter = new DecimalFormat("#,###");
     	System.out.printf("%-70s%s\n\n", "\nFunction execution time in micro-seconds: ", formatter.format(totalTime));
+    }
+    
+    protected static void runStringFuncAndCalculateTime(String message, CharArrayToIntFunction strFunc, char[] a, char[] b) throws Exception {
+    	long startTime = System.nanoTime();
+    	System.out.printf("%-70s%s\n", message, strFunc.apply(a, b));
+    	long endTime = System.nanoTime();
+    	long totalTime = new Long(TimeUnit.MICROSECONDS.convert(endTime - startTime, TimeUnit.NANOSECONDS));
+    	DecimalFormat formatter = new DecimalFormat("#,###");
+    	System.out.printf("%-70s%s\n\n", "Function execution time in micro-seconds: ", formatter.format(totalTime));
+    }
+    
+    protected static void runStringFuncAndCalculateTime(String message, DoubleCharArrayToStringFunction strFunc, char[] a, char[] b) throws Exception {
+    	long startTime = System.nanoTime();
+    	System.out.printf("%-70s%s\n", message, strFunc.apply(a, b));
+    	long endTime = System.nanoTime();
+    	long totalTime = new Long(TimeUnit.MICROSECONDS.convert(endTime - startTime, TimeUnit.NANOSECONDS));
+    	DecimalFormat formatter = new DecimalFormat("#,###");
+    	System.out.printf("%-70s%s\n\n", "Function execution time in micro-seconds: ", formatter.format(totalTime));
+    }
+    
+    /**
+     * Generate a printable string of given size. 
+     * @param size
+     * @return String
+     */
+    protected static String genRanStr(int size) {
+    	StringBuilder builder= new StringBuilder();
+    	while (size-- != 0) builder.append((char)ThreadLocalRandom.current().nextInt(32, 126));
+    	return builder.toString();
     }
 
 }

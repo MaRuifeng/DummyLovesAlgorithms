@@ -36,6 +36,8 @@ Each package contains an interesting algorithmic question with solution provided
   * [Ugly Numbers](./src/dynamicProgramming/UglyNumbers.java)
   * [Maximum stock profit](./src/dynamicProgramming/StockProfit.java)
   * [Digit sequence decoder](./src/dynamicProgramming/DigitSequenceDecoder.java)
+  * [Longest common subsequence](./src/dynamicProgramming/LongestCommonSebsequence.java)
+  * [Longest common substring](./src/dynamicProgramming/LongestCommonSubstring.java)
 * [Remove duplicates in string](./src/string/removeDuplicates/DuplicatesRemover.java)
 * [Remove alternate duplicates in string](./src/string/removeDuplicates/AlternateDuplicatesRemover.java)
 

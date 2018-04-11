@@ -20,7 +20,7 @@ import utils.FunIntAlgorithm;
  * and the count is 6.  
  * 
  * @author ruifengm
- *
+ * @since 2018-Apr-11
  */
 
 public class DigitSequenceDecoder extends FunIntAlgorithm {
@@ -68,15 +68,17 @@ public class DigitSequenceDecoder extends FunIntAlgorithm {
 	private static long recursiveCountDecodingsDPMemo(int[] digitSeq, int size, long[] table) {
 		if (table[size] != Long.MIN_VALUE) return table[size];
 		else {
-			if (size == 0) table[0] = 1;
-			if (size == 1) table[1] = digitSeq[0] == 0 ? 0 : 1;
-			Integer code = new Integer(digitSeq[size-2] * 10 + digitSeq[size-1]);
-			if (codebook.containsKey(code)) { 
-				if (digitSeq[size-1] != 0 && digitSeq[size-2] != 0) table[size] = recursiveCountDecodings(digitSeq, size - 1) + recursiveCountDecodings(digitSeq, size - 2);
-				else if (digitSeq[size-1] == 0) table[size] = recursiveCountDecodings(digitSeq, size - 2);
-				else table[size] = 0; // standing alone zero stops the decoding process
+			if (size == 0) table[size] = 1;
+			else if (size == 1) table[size] = digitSeq[size-1] == 0 ? 0 : 1;
+			else {
+				Integer code = new Integer(digitSeq[size-2] * 10 + digitSeq[size-1]);
+				if (codebook.containsKey(code)) { 
+					if (digitSeq[size-1] != 0 && digitSeq[size-2] != 0) table[size] = recursiveCountDecodingsDPMemo(digitSeq, size - 1, table) + recursiveCountDecodingsDPMemo(digitSeq, size - 2, table);
+					else if (digitSeq[size-1] == 0) table[size] = recursiveCountDecodingsDPMemo(digitSeq, size - 2, table);
+					else table[size] = 0; // standing alone zero stops the decoding process
+				}
+				else table[size] = digitSeq[size-1] != 0 ? recursiveCountDecodingsDPMemo(digitSeq, size - 1, table) : 0;
 			}
-			else table[size] = digitSeq[size-1] != 0 ? recursiveCountDecodings(digitSeq, size - 1) : 0;
 			return table[size];
 		}
 	}
