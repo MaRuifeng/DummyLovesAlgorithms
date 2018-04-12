@@ -33,7 +33,7 @@ Each package contains an interesting algorithmic question with solution provided
     * List of possible combinations for given sum
     * Least number of coins needed for given sum
   * [Number arrangements to get a fixed sum](./src/dynamicProgramming/NumberOrganizer.java)
-  * [Maximum sub-array sum](./src/maxSubsequenceSum/MaxSubseqSum.java)
+  * [Maximum sub-array sum](./src/integerArray/maxSubsequenceSum/MaxSubseqSum.java)
   * [Ugly Numbers](./src/dynamicProgramming/UglyNumbers.java)
   * [Maximum stock profit](./src/dynamicProgramming/StockProfit.java)
   * [Digit sequence decoder](./src/dynamicProgramming/DigitSequenceDecoder.java)
