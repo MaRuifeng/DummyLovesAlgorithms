@@ -26,6 +26,7 @@ Each package contains an interesting algorithmic question with solution provided
 * [Find the k'th smallest item from a given array of distinct integers](./src/integerArray/kthSmallestElementInArray/kthSmallestElementInArray.java)
 * [Find number pairs each of which sums up to a fixed value from an integer array](./src/integerArray/NumberPairOfFixedSum.java)
 * [**All hail Recursion!** Find required add and subtract operations to produce a fixed sum](./src/integerArray/MathOpsForFixedSum.java)
+* [Find the greatest common divisor of an array of integers](./src/integerArray/GCDOfIntegerArray.java)
 * [Dynamic Programming](./src/dynamicProgramming)
   * [Fibonacci Numbers](./src/dynamicProgramming/FibNumbers.java)
   * [Coin change problems](./src/dynamicProgramming/CoinKeeper.java)
