@@ -45,7 +45,7 @@ public class FunIntAlgorithm extends FunAlgorithm {
 	   long apply(int[] array, int size);  
 	}
 	
-	protected static int[] genRanIntArr(int size, int start, int end) {
+	public static int[] genRanIntArr(int size, int start, int end) {
 		int arr[] = new int[size];
 		for (int i=0; i<size; i++) {
 			// arr[i] = ThreadLocalRandom.current().nextInt(Integer.MIN_VALUE, Integer.MAX_VALUE);
@@ -54,7 +54,7 @@ public class FunIntAlgorithm extends FunAlgorithm {
 		return arr;
 	}
 	
-	protected static int[] genRanUniqueIntArr(int size) {
+	public static int[] genRanUniqueIntArr(int size) {
 		ArrayList<Integer> arrList = new ArrayList<Integer>();
 		for (int i=0; i<size * 10; i++) {
 			arrList.add(new Integer(i - size * 10 / 2));
@@ -140,7 +140,7 @@ public class FunIntAlgorithm extends FunAlgorithm {
     	System.out.printf("%-80s%s\n\n", "Function execution time in micro-seconds: ", formatter.format(totalTime));
     }
     
-    protected static int[] mergeSort(int[] a, int start, int end) {
+    public static int[] mergeSort(int[] a, int start, int end) {
     	if (start == end) return new int[]{a[start]};
     	
     	int mid = (start + end) / 2; 

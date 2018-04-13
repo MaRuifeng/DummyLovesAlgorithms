@@ -42,6 +42,7 @@ Each package contains an interesting algorithmic question with solution provided
   * [Longest common substring](./src/dynamicProgramming/LongestCommonSubstring.java)
 * [Remove duplicates in string](./src/string/removeDuplicates/DuplicatesRemover.java)
 * [Remove alternate duplicates in string](./src/string/removeDuplicates/AlternateDuplicatesRemover.java)
+* [Plain Binary Search Tree implementation with linked nodes](./src/binarySearchTree/BinarySearchTree.java)
 
 ## Background
 

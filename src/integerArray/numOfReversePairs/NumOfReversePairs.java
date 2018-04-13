@@ -40,7 +40,7 @@ public class NumOfReversePairs extends FunIntAlgorithm {
 	}
 	
 	// override with counting added
-	protected static int[] mergeSort(int[] a, int left, int right) {
+	public static int[] mergeSort(int[] a, int left, int right) {
 		if (left == right) {
 			return new int[] {a[left]};
 		}
