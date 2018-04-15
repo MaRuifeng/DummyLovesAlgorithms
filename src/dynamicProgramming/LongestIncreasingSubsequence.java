@@ -168,7 +168,7 @@ public class LongestIncreasingSubsequence extends FunIntAlgorithm {
 		int[] intArray = genRanIntArr(15, 0, 10);
 		//int[] intArray = {9, 4, 8, 6, 3, 5, 0, 3, 4, 9, 10, 7, 12, 5, 2, 12};
 		//int[] intArray = {8, 3, 6, 0, 2, 7, 4, 7, 9, 8, 2, 5, 4, 0, 5};
-		System.out.println("Welcome to the rabbit hole of maximum stock profits!\n"
+		System.out.println("Welcome to the rabbit hole of longest increasing subsequences!\n"
 				+ "The integer array is \n" + Arrays.toString(intArray) + "\n"); 
 		
 		try {
