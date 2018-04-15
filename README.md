@@ -40,6 +40,7 @@ Each package contains an interesting algorithmic question with solution provided
   * [Digit sequence decoder](./src/dynamicProgramming/DigitSequenceDecoder.java)
   * [Longest common subsequence](./src/dynamicProgramming/LongestCommonSebsequence.java)
   * [Longest common substring](./src/dynamicProgramming/LongestCommonSubstring.java)
+  * [Longest increasing subsequence](./src/dynamicProgramming/LongestIncreasingSubsequence.java)
 * [Remove duplicates in string](./src/string/removeDuplicates/DuplicatesRemover.java)
 * [Remove alternate duplicates in string](./src/string/removeDuplicates/AlternateDuplicatesRemover.java)
 * [Plain Binary Search Tree implementation with linked nodes](./src/binarySearchTree/BinarySearchTree.java)
