@@ -7,6 +7,9 @@ import java.util.Arrays;
  * 
  * E.g. A 3X3 matrix should look like below. 
  * 
+ * [0, 2, 3]
+ * [1, 4, 7]
+ * [5, 6, 8]
  * 
  * 
  * @author ruifengm
