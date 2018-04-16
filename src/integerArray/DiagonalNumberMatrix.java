@@ -17,7 +17,7 @@ import java.util.Arrays;
  */
 public class DiagonalNumberMatrix {
 	
-	private static int[][] printMatrix(int m, int n) {
+	private static int[][] fillMatrixDiagonal(int m, int n) {
 		int[][] matrix = new int[m][n]; 
 		int k=0; 
 		int i = 0, j = 0; // bounds for diagonal fillup
@@ -56,7 +56,7 @@ public class DiagonalNumberMatrix {
 
 	public static void main(String[] args) {
 		//int[][] matrix = printMatrix(3, 3);
-		int[][] matrix = printMatrix(4, 5);
+		int[][] matrix = fillMatrixDiagonal(4, 5);
 		//int[][] matrix = printMatrix(5, 4);
 		for (int[] row: matrix) System.out.println(Arrays.toString(row));
 	}
