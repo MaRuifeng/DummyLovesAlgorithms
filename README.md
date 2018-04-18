@@ -29,6 +29,7 @@ Each package contains an interesting algorithmic question with solution provided
 * [Find the greatest common divisor of an array of integers](./src/integerArray/GCDOfIntegerArray.java)
 * [Print numbers along matrix diagonals](./src/integerArray/DiagonalNumberMatrix.java)
 * [Print spiral numbers](./src/integerArray/SpiralNumber.java)
+* [Bitwise operations](./src/integerArray/BitOperators.java)
 * [Dynamic Programming](./src/dynamicProgramming)
   * [Fibonacci Numbers](./src/dynamicProgramming/FibNumbers.java)
   * [Coin change problems](./src/dynamicProgramming/CoinKeeper.java)
