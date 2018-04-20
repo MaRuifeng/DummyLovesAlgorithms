@@ -136,7 +136,7 @@ public class MinHeap {
 	public static void main(String[] args) {
 		MinHeap heap = new MinHeap(10); 
 		System.out.println("Welcome to the rabbit hole of min heaps!\n");
-		System.out.println("Inserting new elements...");
+		System.out.println("[O(logN)] Inserting new elements...");
 		heap.insert(4);
 		heap.insert(5);
 		heap.insert(2);
@@ -160,7 +160,7 @@ public class MinHeap {
 		System.out.println("Printing Min Heap as array: " + heap.toString());
 		System.out.println("[O(logN)] Extract min: " + heap.extractMin());
 		System.out.println("Printing Min Heap as array: " + heap.toString());
-		System.out.println("Inserting new elements...");
+		System.out.println("[O(logN)] Inserting new elements...");
 		heap.insert(9);
 		heap.insert(1);
 		heap.insert(11);
