@@ -13,8 +13,8 @@ import java.util.Arrays;
  * Following the level order traversal of a complete binary tree, marking the root element as the 
  * 1st, then we can easily deduce that at the k-th element, 
  * 		1) its left child is the (2*k)-th element
- *      2) its right child is the (2*k+1)-th element
- *      3) its parent is the (k/2)-th element
+ * 		2) its right child is the (2*k+1)-th element
+ * 		3) its parent is the (k/2)-th element
  * 
  * With above properties, a complete binary tree can be uniquely represented in an array. 
  * 
@@ -148,7 +148,7 @@ public class MinHeap {
 		/**
 		 * After above insertion, the min heap should look like
 		 * 
-		 * 		     2
+		 *           2
 		 *         /   \
 		 *        3     4
 		 *       / \   / \
@@ -156,7 +156,7 @@ public class MinHeap {
 		 */
 		System.out.println("Printing Min Heap as array: " + heap.toString());
 		System.out.println("[O(1)] Get min: " + heap.getMin());
-		System.out.println("[O(1)] Extract min: " + heap.extractMin());
+		System.out.println("[O(logN)] Extract min: " + heap.extractMin());
 		System.out.println("Printing Min Heap as array: " + heap.toString());
 		System.out.println("[O(logN)] Extract min: " + heap.extractMin());
 		System.out.println("Printing Min Heap as array: " + heap.toString());
