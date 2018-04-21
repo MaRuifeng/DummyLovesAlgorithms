@@ -110,7 +110,7 @@ public class MinHeap {
 	}
 	
 	/**
-	 * Repair a heap with root at given index if needed
+	 * Repair a heap with root at given index
 	 */
 	public void minHeapify(int idx) {
 		if (idx >= this.heapSize) {
@@ -120,11 +120,10 @@ public class MinHeap {
 		int curPos = idx;
 		int leftPos = getLeftIdx(curPos), rightPos = getRightIdx(curPos);
 		while (true) {
-			if (leftPos >= heapSize || rightPos >= heapSize) break;
-			if (heapArray[curPos] > heapArray[leftPos] && heapArray[rightPos] > heapArray[leftPos]) {
+			if (leftPos < heapSize && heapArray[curPos] > heapArray[leftPos] && (rightPos >= heapSize || heapArray[rightPos] >= heapArray[leftPos])) {
 				swap(this.heapArray, curPos, leftPos);
 				curPos = leftPos;
-			} else if (heapArray[curPos] > heapArray[rightPos] && heapArray[leftPos] > heapArray[rightPos]) {
+			} else if (rightPos < heapSize && heapArray[curPos] > heapArray[rightPos] && heapArray[leftPos] > heapArray[rightPos]) {
 				swap(this.heapArray, curPos, rightPos);
 				curPos = rightPos;
 			} else break;
