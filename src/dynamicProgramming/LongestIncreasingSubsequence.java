@@ -64,7 +64,6 @@ public class LongestIncreasingSubsequence extends FunIntAlgorithm {
 	}
 	
 	private static CopyOnWriteArrayList<ArrayList<Integer>> recursiveFindSubSeq(int[] a, int s) {
-		// purposely made it tail recursive by putting the return result into the argument list
 		// use a CopyOnWriteArrayList to avoid concurrentModificationException
 		if (s == 0) return new CopyOnWriteArrayList<ArrayList<Integer>>();
 		CopyOnWriteArrayList<ArrayList<Integer>> resList = recursiveFindSubSeq(a, s-1);
