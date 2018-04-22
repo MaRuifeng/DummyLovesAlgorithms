@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.PriorityQueue;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 import utils.FunIntAlgorithm;
@@ -116,12 +117,13 @@ public class SortedArrayMerger extends FunIntAlgorithm {
 	
 	public static void main(String[] args) {
 		int k = 4;
-		int arraySize = 100; 
 		System.out.println("Welcome to the rabbit hole of sorted array mergers!\n"
-				+ "The number of randomly generated integer arrays is " + k + ".\n"
-				+ "And the array size is " + arraySize + ".\n"); 
-		int[][] kSortedArrays = new int[k][arraySize];
-		for (int i=0; i<k; i++) kSortedArrays[i] = mergeSort(genRanIntArr(arraySize, -10*(i+1), 10*(i+1)), 0, arraySize-1);
+				+ "The number of randomly generated integer arrays is " + k + ".\n");
+		int[][] kSortedArrays = new int[k][];
+		for (int i=0; i<k; i++) {
+			int arraySize = ThreadLocalRandom.current().nextInt(10, 100);
+			kSortedArrays[i] = mergeSort(genRanIntArr(arraySize, -10*(i+1), 10*(i+1)), 0, arraySize-1);
+		}
 		System.out.println("The sorted arrays are:\n");
 		for (int[] a: kSortedArrays) System.out.println(Arrays.toString(a));
 		System.out.println("");
