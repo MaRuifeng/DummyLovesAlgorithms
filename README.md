@@ -30,6 +30,7 @@ Each package contains an interesting algorithmic question with solution provided
 * [Print numbers along matrix diagonals](./src/integerArray/DiagonalNumberMatrix.java)
 * [Print spiral numbers](./src/integerArray/SpiralNumber.java)
 * [Bitwise operations](./src/integerArray/BitOperators.java)
+* [Merge sorted integer arrays](./src/integerArray/SortedArrayMerger.java)
 * [Dynamic Programming](./src/dynamicProgramming)
   * [Fibonacci Numbers](./src/dynamicProgramming/FibNumbers.java)
   * [Coin change problems](./src/dynamicProgramming/CoinKeeper.java)
