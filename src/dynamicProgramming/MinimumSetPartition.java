@@ -22,6 +22,27 @@ import utils.FunIntAlgorithm;
  */
 public class MinimumSetPartition extends FunIntAlgorithm {
 	
+	private static void recursivePrintSubset(int[] a, int size, boolean[] ops) {
+		if (size == 0) return; // nothing to print
+		// including a[size-1]
+		ops[size-1] = true;
+		recursivePrintSubset(a, size - 1, ops);
+		//System.out.println(Arrays.toString(ops));
+		for (int i=0; i<ops.length; i++) {
+			if (ops[i] == true) System.out.print(a[i] + " ");
+		}
+		System.out.println("");
+		// excluding a[size-1]
+		ops[size-1] = false;
+		recursivePrintSubset(a, size - 1, ops);
+	}
+	private static void recursivePrintSubsetDriver(int[] a) {
+		int size = a.length;
+		boolean[] ops = new boolean[size];
+		Arrays.fill(ops, false);
+		recursivePrintSubset(a, size, ops);
+	}
+	
 	/**
 	 * Let S(n) denote the total sum of all elements, and S(i) the sum of a subset, 
 	 * then we know 1 <= i <= 2^n. 
@@ -67,7 +88,11 @@ public class MinimumSetPartition extends FunIntAlgorithm {
 	
 	/**
 	 * The problem can be better approached with DP.
-	 * Minimum sum difference can be found by a recursive pattern: either include an element in one subset or not
+	 * Minimum sum difference can be found by a recursive pattern: either include an element in one subset or not.
+	 * Let A(n) denote an array of integers from the set, starting from A[n-1], look for a subset that could yield the 
+	 * minimum sum difference with its compensating partner. If A[n-1] is included, mark subset sum as A[n-1] and continue looking
+	 * in array A(n-1); if A[n-1] is not included, mark subset sum as 0 and continue looking in array A(n-1); repeat until the array
+	 * is depleted. 
 	 */
 	private static int recursiveFindMinDiff(int[] a, int i, int subsetSum, int totalSum) {
 		// reached last element, return result
@@ -137,10 +162,11 @@ public class MinimumSetPartition extends FunIntAlgorithm {
 				+ "The integer set is \n" + Arrays.toString(intArray) + "\n"); 
 		
 		try {
+			//recursivePrintSubsetDriver(intArray);
 			runIntArrayFuncAndCalculateTime("[Exponential]                  The possible partitions are:", (int[] a) -> bruteForcePartition(a), intArray);
 			runIntArrayFuncAndCalculateTime("[Exponential][Recursive]       The minimum sum difference is:", (int[] a) -> recursiveFindMinDiffDriver(a), intArray);	
 			runIntArrayFuncAndCalculateTime("[O(n*sum)][Recursive]          The minimum sum difference is:", (int[] a) -> recursiveFindMinDiffDPMemoDriver(a), intArray);		
-			} catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
