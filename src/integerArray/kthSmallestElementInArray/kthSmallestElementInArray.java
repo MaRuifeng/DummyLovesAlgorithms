@@ -2,6 +2,8 @@ package integerArray.kthSmallestElementInArray;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.PriorityQueue;
 
 import utils.FunIntAlgorithm;
 
@@ -118,6 +120,37 @@ public class kthSmallestElementInArray extends FunIntAlgorithm {
     	a[end] = temp;
     	return i+1; // correct position of the pivot in the sorted array
     }
+    
+    /**
+     * Fill up a max heap of capacity k with the first k elements of the array, 
+     * and then filter the rest through the max heap. The final root of the max heap
+     * is the k-th smallest number in the array. 
+     * The time complexity is O(k + (n-k)*logk).
+     */
+    private static int findkthSmallestByMaxHeap(int[] a, int k) {
+    	PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
+    	for (int i=0; i<k; i++) maxHeap.add(a[i]);
+    	for (int i=k; i<a.length; i++) {
+    		if (a[i] < maxHeap.peek()) {
+    			maxHeap.poll();
+    			maxHeap.add(a[i]);
+    		}
+    	}
+    	return maxHeap.peek();
+    }
+    
+    /**
+     * Fill up a min heap with all elements of the array, and extract minimum for 
+     * (k-1) times from the min heap, then the final root of the min heap will be 
+     * the k-th smallest number in the array. 
+     * The time complexity is O(N + kLogN).
+     */
+    private static int findkthSmallestByMinHeap(int[] a, int k) {
+    	PriorityQueue<Integer> minHeap = new PriorityQueue<>(); 
+    	for (int i: a) minHeap.add(i);
+    	for (int i=0; i<k-1; i++) minHeap.poll();
+    	return minHeap.peek();
+    }
 	
 	public static void main(String[] args) {
 		int[] intArray = genRanUniqueIntArr(10000);
@@ -131,6 +164,8 @@ public class kthSmallestElementInArray extends FunIntAlgorithm {
 			runIntArrayFuncAndCalculateTime("[O(N*k)]   k'th smallest element (k=" + location + "):", (int[] a, int k) -> findKthSmallestByBruteForceDriver(a, k), intArray, location);
 			runIntArrayFuncAndCalculateTime("[O(NlogN)] k'th smallest element (k=" + location + "):", (int[] a, int k) -> findKthSmallestBySorting(a, k), intArray, location);
 			runIntArrayFuncAndCalculateTime("[O(N)]     k'th smallest element (k=" + location + "):", (int[] a, int k) -> findkthSmallestByQuickSelecting(a, k), intArray, location);
+			runIntArrayFuncAndCalculateTime("[O(k+(N-k)*Logk)]     k'th smallest element (k=" + location + "):", (int[] a, int k) -> findkthSmallestByMaxHeap(a, k), intArray, location);
+			runIntArrayFuncAndCalculateTime("[O(N+k*LogN)]     k'th smallest element (k=" + location + "):", (int[] a, int k) -> findkthSmallestByMinHeap(a, k), intArray, location);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
