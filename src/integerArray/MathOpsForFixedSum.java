@@ -20,7 +20,7 @@ public class MathOpsForFixedSum extends FunIntAlgorithm {
 	
 	/**
 	 * Let A(n) be the array of integers of size n and let K be the fixed number, and let Res(A(n)) be the result of current math operations (add and subtract), and
-	 * Let Ops(n) be an array of 1 and -1 which denote the math operation needed for each element of A (1 for '+' and -1 for '-').
+	 * let Ops(n) be an array of 1 and -1 which denotes the math operation needed for each element of A (1 for '+' and -1 for '-').
 	 * There is a recursive pattern
 	 *       Set     Ops[n-1] = 1
 	 *       Check   Res(A(n)) = Res(A(n-1)) + A[n-1] ?= K
