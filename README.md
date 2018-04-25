@@ -48,6 +48,7 @@ Each package contains an interesting algorithmic question with solution provided
   * [Longest increasing subsequence](./src/dynamicProgramming/LongestIncreasingSubsequence.java)
   * [Edit distance algorithm](./src/dynamicProgramming/MinStringEdits.java)
   * [Set partition for minimum sum difference](./src/dynamicProgramming/MinimumSetPartition.java)
+  * [Distance and steps](./src/dynamicProgramming/DistanceTraveller.java)
 * [Remove duplicates in string](./src/string/removeDuplicates/DuplicatesRemover.java)
 * [Remove alternate duplicates in string](./src/string/removeDuplicates/AlternateDuplicatesRemover.java)
 * [Plain Binary Search Tree implementation with linked nodes](./src/binarySearchTree/BinarySearchTree.java)
