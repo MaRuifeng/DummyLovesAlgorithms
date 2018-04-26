@@ -17,7 +17,7 @@ import java.util.Arrays;
  */
 public class SpiralNumber {
 	
-	private static int[][] fillSpiralMatrix(int n) {
+	public static int[][] fillSpiralMatrix(int n) {
 		int[][] matrix = new int[n][n]; 
 		int k = 1, i, j; 
 		// determine starting position

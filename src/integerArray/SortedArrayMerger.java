@@ -1,11 +1,9 @@
 package integerArray;
 
-import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.TimeUnit;
 
 import utils.FunIntAlgorithm;
 
@@ -101,20 +99,6 @@ public class SortedArrayMerger extends FunIntAlgorithm {
 		return resArr;
 	}
 	
-	@FunctionalInterface
-	protected interface IntMatrixToIntArrayFunction {
-		int[] apply(int[][] matrix) throws Exception;
-	}
-	
-    protected static void runIntArrayFuncAndCalculateTime(String message, IntMatrixToIntArrayFunction intArrayFunc, int[][] matrix) throws Exception {
-    	long startTime = System.nanoTime();
-    	System.out.printf("%-70s%s\n", message, Arrays.toString(intArrayFunc.apply(matrix)));
-    	long endTime = System.nanoTime();
-    	long totalTime = new Long(TimeUnit.MICROSECONDS.convert(endTime - startTime, TimeUnit.NANOSECONDS));
-    	DecimalFormat formatter = new DecimalFormat("#,###");
-    	System.out.printf("%-70s%s\n\n", "Function execution time in micro-seconds: ", formatter.format(totalTime));
-    }
-	
 	public static void main(String[] args) {
 		int k = 4;
 		System.out.println("Welcome to the rabbit hole of sorted array mergers!\n"
@@ -129,9 +113,9 @@ public class SortedArrayMerger extends FunIntAlgorithm {
 		System.out.println("");
 		
 		try {
-			runIntArrayFuncAndCalculateTime("[O(nkLog(nk))]   Merged array is", (int[][] m) -> mergeBySorting(m), kSortedArrays);
-			runIntArrayFuncAndCalculateTime("[O(nkLogk)][Comparator]   Merged array is", (int[][] m) -> mergeByMinHeapWithComparator(m), kSortedArrays);
-			runIntArrayFuncAndCalculateTime("[O(nkLogk)][Lambda]   Merged array is", (int[][] m) -> mergeByMinHeapWithLambdaExp(m), kSortedArrays);
+			runIntMatrixFuncAndCalculateTime("[O(nkLog(nk))]   Merged array is", (int[][] m) -> mergeBySorting(m), kSortedArrays);
+			runIntMatrixFuncAndCalculateTime("[O(nkLogk)][Comparator]   Merged array is", (int[][] m) -> mergeByMinHeapWithComparator(m), kSortedArrays);
+			runIntMatrixFuncAndCalculateTime("[O(nkLogk)][Lambda]   Merged array is", (int[][] m) -> mergeByMinHeapWithLambdaExp(m), kSortedArrays);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

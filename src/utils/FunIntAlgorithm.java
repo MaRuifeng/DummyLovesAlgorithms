@@ -45,6 +45,11 @@ public class FunIntAlgorithm extends FunAlgorithm {
 	   long apply(int[] array, int size);  
 	}
 	
+	@FunctionalInterface
+	protected interface IntMatrixToIntArrayFunction {
+		int[] apply(int[][] matrix) throws Exception;
+	}
+	
 	public static int[] genRanIntArr(int size, int start, int end) {
 		int arr[] = new int[size];
 		for (int i=0; i<size; i++) {
@@ -139,6 +144,16 @@ public class FunIntAlgorithm extends FunAlgorithm {
     	DecimalFormat formatter = new DecimalFormat("#,###");
     	System.out.printf("%-80s%s\n\n", "Function execution time in micro-seconds: ", formatter.format(totalTime));
     }
+    
+    protected static void runIntMatrixFuncAndCalculateTime(String message, IntMatrixToIntArrayFunction intArrayFunc, int[][] matrix) throws Exception {
+    	long startTime = System.nanoTime();
+    	System.out.printf("%-70s%s\n", message, Arrays.toString(intArrayFunc.apply(matrix)));
+    	long endTime = System.nanoTime();
+    	long totalTime = new Long(TimeUnit.MICROSECONDS.convert(endTime - startTime, TimeUnit.NANOSECONDS));
+    	DecimalFormat formatter = new DecimalFormat("#,###");
+    	System.out.printf("%-70s%s\n\n", "Function execution time in micro-seconds: ", formatter.format(totalTime));
+    }
+	
     
     public static int[] mergeSort(int[] a, int start, int end) {
     	if (start == end) return new int[]{a[start]};
