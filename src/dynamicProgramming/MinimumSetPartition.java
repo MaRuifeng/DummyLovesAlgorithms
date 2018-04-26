@@ -85,6 +85,7 @@ public class MinimumSetPartition extends FunIntAlgorithm {
 		for (int i: a) totalSum += i;
 		return recursiveFindMinDiff(a, a.length, 0, totalSum);
 	}
+	
 	private static int recursiveFindMinDiffDPMemo(int[] a, int i, int subsetSum, int totalSum, int[][] table, int negativeSum) {
 		if (table[i][subsetSum] != Integer.MIN_VALUE) return table[i][subsetSum]; 
 		else {
