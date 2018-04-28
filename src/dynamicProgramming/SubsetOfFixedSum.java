@@ -16,6 +16,15 @@ import utils.FunIntAlgorithm;
  * The subset seeker problem can be referenced if we are keen to know which subsets produce 
  * the given sum value. 
  * 
+ * Subset sum problem is a special case of the decision form of the Knapsack Problem where for each item, the
+ * weight equals to the value. Hence it's NP-complete and the solution runs in exponential time. 
+ * 
+ * Though DP can be used to provide a pseudo-polynomial solution which runs substantially faster given the same
+ * input, it does not eliminate the prolem's NP-completeness. The time complexity is O(n*sum), where sum is not polynomial
+ * in the length of the input to the problem. The length of the sum input to the problem is proportional to the number
+ * of bits needed to represent it, which is log(sum). Hence the time complexity is still exponential with 
+ * respect to the input length of the problem. 
+ * 
  * @author ruifengm
  * @since 2018-Apr-27
  * 

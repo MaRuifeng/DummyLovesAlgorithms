@@ -50,7 +50,7 @@ Each package contains an interesting algorithmic question with solution provided
   * [Set partition for minimum sum difference](./src/dynamicProgramming/MinimumSetPartition.java)
   * [Distance and steps](./src/dynamicProgramming/DistanceTraveller.java)
   * [Longest path in matrix](./src/dynamicProgramming/LongestPathInMatrix.java)
-  * [Subset of fixed sum](./src/dynamicProgramming/SubsetOfFixedSum.java)
+  * [**NP-Complete** Subset of fixed sum](./src/dynamicProgramming/SubsetOfFixedSum.java)
 * [Remove duplicates in string](./src/string/removeDuplicates/DuplicatesRemover.java)
 * [Remove alternate duplicates in string](./src/string/removeDuplicates/AlternateDuplicatesRemover.java)
 * [Plain Binary Search Tree implementation with linked nodes](./src/binarySearchTree/BinarySearchTree.java)
