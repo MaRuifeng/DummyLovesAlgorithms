@@ -13,9 +13,9 @@ import utils.FunIntAlgorithm;
  * all cells along the path are in increasing order with a difference of 1. 
  * 
  * E.g. for below matrix
- * 		1 2 9
+ *      1 2 9
  *      5 3 8
- *      4 5 7 
+ *      4 6 7 
  * the longest path that meet the constraints is 6 -> 7 -> 8 -> 9. 
  * 
  * @author ruifengm
