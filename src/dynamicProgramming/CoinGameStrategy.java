@@ -15,7 +15,9 @@ import utils.FunIntAlgorithm;
  * 
  * Example: an easy case would be that the coins are sorted in ascending order so the user just needs 
  *          to choose the last element in each turn. 
- *          for {1, 2, 3, 4}, the result is 6. 
+ *          for {1, 2, 3, 4}, the result is 6.
+ *          
+ * When the number of coins is odd, the user might not get the privilege to win the game by starting first. 
  * 
  * @author ruifengm
  * @since 2018-Apr-29
