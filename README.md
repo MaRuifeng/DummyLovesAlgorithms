@@ -51,6 +51,7 @@ Each package contains an interesting algorithmic question with solution provided
   * [Distance and steps](./src/dynamicProgramming/DistanceTraveller.java)
   * [Longest path in matrix](./src/dynamicProgramming/LongestPathInMatrix.java)
   * [**NP-Complete** Subset of fixed sum](./src/dynamicProgramming/SubsetOfFixedSum.java)
+  * [Optimal coin game strategy](./src/dynamicProgramming/CoinGameStrategy.java)
 * [Remove duplicates in string](./src/string/removeDuplicates/DuplicatesRemover.java)
 * [Remove alternate duplicates in string](./src/string/removeDuplicates/AlternateDuplicatesRemover.java)
 * [Plain Binary Search Tree implementation with linked nodes](./src/binarySearchTree/BinarySearchTree.java)

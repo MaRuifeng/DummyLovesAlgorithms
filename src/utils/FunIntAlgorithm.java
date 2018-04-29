@@ -37,7 +37,7 @@ public class FunIntAlgorithm extends FunAlgorithm {
 	
 	@FunctionalInterface
 	protected interface IntArrayToLongFunction {
-	   long apply(int[] array);  
+	   long apply(int[] array) throws Exception;  
 	}
 	
 	@FunctionalInterface
