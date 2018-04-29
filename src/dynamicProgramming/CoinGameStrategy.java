@@ -67,7 +67,7 @@ public class CoinGameStrategy extends FunIntAlgorithm {
 	}
 	
 	/**
-	 * Avoid repeated computations with via a look up table constructed via DP memoization.
+	 * Avoid repeated computations with a lookup table constructed via DP memoization.
 	 */
 	private static long recursiveMaxGainDPMemo(int[] a, int start, int end, long[][] table) throws Exception {
 		if (table[start][end] != -1) return table[start][end];
@@ -98,7 +98,7 @@ public class CoinGameStrategy extends FunIntAlgorithm {
 	}
 	
 	/**
-	 * Avoid repeated computations with via a look up table constructed via DP tabulation.
+	 * Avoid repeated computations with a lookup table constructed via DP tabulation.
 	 */
 	private static long iterativeMaxGainDPTabu(int[] a) throws Exception {
 		if (a.length == 0 || a.length % 2 != 0) throw new Exception ("The coin array must NOT be empty and must contain even number of coins.");
