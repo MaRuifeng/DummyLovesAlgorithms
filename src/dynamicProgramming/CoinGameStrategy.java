@@ -120,6 +120,9 @@ public class CoinGameStrategy extends FunIntAlgorithm {
 		return DPLookUp[0][a.length-1];
 	}
 	
+	/**
+	 * List game states
+	 */
 	@SuppressWarnings("unchecked")
 	private static void iterativeListCoinsForMaxGainDPTabu(int[] a) throws Exception {
 		if (a.length == 0 || a.length % 2 != 0) throw new Exception ("The coin array must NOT be empty and must contain even number of coins.");
@@ -163,41 +166,7 @@ public class CoinGameStrategy extends FunIntAlgorithm {
 			}
 		}
 		System.out.println("The winning selections of the user are:");
-		ArrayList<Integer> winList = DPLookUp[0][a.length-1];
-		long userSum = sumArrayList(winList); 
-		long opponentSum = sumArray(a) - userSum;
-		System.out.println(winList.toString());
-		System.out.println("User gains " + userSum);
-		System.out.println("Opponent gains " + opponentSum);
-		System.out.println("### Showing the game rounds ### ");
-		int start = 0, end = a.length - 1, round = 1, i = winList.size()-1;
-		while (i>=0) {
-			System.out.println("[Round " + round + "]");
-			System.out.println("User selects " + winList.get(i));
-			if (winList.get(i).intValue() == a[start]) {
-				start++; 
-				if (i==0) {
-					System.out.println("Opponent selects " + a[end]); 
-					i--; 
-				} else {
-					i--;
-					if (winList.get(i).intValue() == a[end-1] || winList.get(i).intValue() == a[start]) System.out.println("Opponent selects " + a[end--]);
-					else if (winList.get(i).intValue() == a[start+1] || winList.get(i).intValue() == a[end]) System.out.println("Opponent selects " + a[start++]);
-				}
-			} else if (winList.get(i).intValue() == a[end]) {
-				end--;
-				if (i==0) {
-					System.out.println("Opponent selects " + a[start]); 
-					i--; 
-				}
-				else {
-					i--; 
-					if (winList.get(i).intValue() == a[start+1] || winList.get(i).intValue() == a[end]) System.out.println("Opponent selects " + a[start++]);
-					else if (winList.get(i).intValue() == a[end-1] || winList.get(i).intValue() == a[start]) System.out.println("Opponent selects " + a[end--]);
-				}
-			}
-			round++; 
-		}
+		System.out.println(DPLookUp[0][a.length-1].toString());
 		System.out.println();
 	}
 	private static long sumArrayList(ArrayList<Integer> list) {
@@ -208,6 +177,80 @@ public class CoinGameStrategy extends FunIntAlgorithm {
 	private static long sumArray(int[] a) {
 		long res = 0; 
 		for (int i: a) res += i;
+		return res;
+	}
+	
+	/**
+	 * List game states with help of a customized data object. 
+	 */
+	static class GameState {
+		int userSelect; // coin selected by user
+		int oppoSelect; // coin selected by opponent
+		public GameState(int userSelect, int oppoSelect) {
+			this.userSelect = userSelect;
+			this.oppoSelect = oppoSelect;
+		}
+	}
+	@SuppressWarnings("unchecked")
+	private static void iterativeListGameStatesForMaxGainDPTabu(int[] a) throws Exception {
+		if (a.length == 0 || a.length % 2 != 0) throw new Exception ("The coin array must NOT be empty and must contain even number of coins.");
+		ArrayList<GameState>[][] DPLookUp = new ArrayList[a.length][a.length];
+		for (int i=0; i<a.length; i++) {
+			for (int j=i; j<a.length; j++) DPLookUp[i][j] = new ArrayList<GameState>();
+		}
+		for (int j=1; j<=a.length-1; j++) { 
+			for (int i=j-1; i>=0; i-=2) { // check all valid sub-arrays
+				if ((j-i) == 1) 
+					DPLookUp[i][j].add(new GameState(Math.max(a[i], a[j]), Math.min(a[i], a[j])));
+				else {
+					long opt1, opt2; 
+					long sum1 = sumUserGain(DPLookUp[i+1][j-1]);
+					long sum2 = sumUserGain(DPLookUp[i][j-2]);
+					long sum3 = sumUserGain(DPLookUp[i+2][j]);
+					ArrayList<GameState> opt1List = new ArrayList<GameState>();
+					ArrayList<GameState> opt2List = new ArrayList<GameState>();
+					if (sum1 <= sum2) {
+						opt1 = sum1 + a[j]; 
+						opt1List.addAll(DPLookUp[i+1][j-1]);
+						opt1List.add(new GameState(a[j], a[i]));
+					}
+					else {
+						opt1 = sum2 + a[j];
+						opt1List.addAll(DPLookUp[i][j-2]);
+						opt1List.add(new GameState(a[j], a[j-1]));
+					}
+					if (sum1 <= sum3) {
+						opt2 = sum1 + a[i];
+						opt2List.addAll(DPLookUp[i+1][j-1]);
+						opt2List.add(new GameState(a[i], a[j]));
+					}
+					else {
+						opt2 = sum3 + a[i];
+						opt2List.addAll(DPLookUp[i+2][j]);
+						opt2List.add(new GameState(a[i], a[i+1]));
+					}
+					if (opt1 > opt2) DPLookUp[i][j].addAll(opt1List);
+					else DPLookUp[i][j].addAll(opt2List);
+				}
+			}
+		}
+		// list out game states
+		ArrayList<GameState> winList = DPLookUp[0][a.length-1];
+		long userSum = sumUserGain(winList); 
+		long opponentSum = sumArray(a) - userSum;
+		System.out.println("User gains " + userSum);
+		System.out.println("Opponent gains " + opponentSum);
+		System.out.println("### Showing the game rounds ### ");
+		for (int i=winList.size()-1; i>=0; i--) {
+			System.out.println("[Round " + (winList.size()-i) + "]");
+			System.out.println("User selects      " + winList.get(i).userSelect);
+			System.out.println("Opponent selects  " + winList.get(i).oppoSelect);
+		}
+		System.out.println();
+	}
+	private static long sumUserGain(ArrayList<GameState> list) {
+		long res = 0; 
+		for (GameState s: list) res += s.userSelect;
 		return res;
 	}
 	
@@ -225,6 +268,7 @@ public class CoinGameStrategy extends FunIntAlgorithm {
 			runIntArrayFuncAndCalculateTime("[Recursion][DP Memo]              Max gain for moving first: ", (int[] a) -> recursiveMaxGainDPMemoDriver(a), intArray);
 			runIntArrayFuncAndCalculateTime("[Iteration][DP Tabu]              Max gain for moving first: ", (int[] a) -> iterativeMaxGainDPTabu(a), intArray);
 		    iterativeListCoinsForMaxGainDPTabu(intArray);
+		    iterativeListGameStatesForMaxGainDPTabu(intArray);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

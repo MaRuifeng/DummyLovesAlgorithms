@@ -23,7 +23,12 @@ public class FunStringAlgorithm extends FunAlgorithm {
 	}
 	
 	@FunctionalInterface
-	protected interface CharArrayToIntFunction {
+	protected interface StringToIntFunction {
+		int apply(String s);
+	}
+	
+	@FunctionalInterface
+	protected interface DoubleCharArrayToIntFunction {
 		int apply(char[] a, char[] b);
 	}
 	
@@ -51,7 +56,16 @@ public class FunStringAlgorithm extends FunAlgorithm {
     	System.out.printf("%-70s%s\n\n", "\nFunction execution time in micro-seconds: ", formatter.format(totalTime));
     }
     
-    protected static void runStringFuncAndCalculateTime(String message, CharArrayToIntFunction strFunc, char[] a, char[] b) throws Exception {
+    protected static void runStringFuncAndCalculateTime(String message, StringToIntFunction strFunc, String s) throws Exception {
+    	long startTime = System.nanoTime();
+    	System.out.printf("%-70s%s\n", message, strFunc.apply(s));
+    	long endTime = System.nanoTime();
+    	long totalTime = new Long(TimeUnit.MICROSECONDS.convert(endTime - startTime, TimeUnit.NANOSECONDS));
+    	DecimalFormat formatter = new DecimalFormat("#,###");
+    	System.out.printf("%-70s%s\n\n", "Function execution time in micro-seconds: ", formatter.format(totalTime));
+    }
+    
+    protected static void runStringFuncAndCalculateTime(String message, DoubleCharArrayToIntFunction strFunc, char[] a, char[] b) throws Exception {
     	long startTime = System.nanoTime();
     	System.out.printf("%-70s%s\n", message, strFunc.apply(a, b));
     	long endTime = System.nanoTime();
