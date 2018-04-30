@@ -121,7 +121,7 @@ public class CoinGameStrategy extends FunIntAlgorithm {
 	}
 	
 	/**
-	 * List game states
+	 * List winning coins
 	 */
 	@SuppressWarnings("unchecked")
 	private static void iterativeListCoinsForMaxGainDPTabu(int[] a) throws Exception {
@@ -267,8 +267,8 @@ public class CoinGameStrategy extends FunIntAlgorithm {
 			runIntArrayFuncAndCalculateTime("[Recursion][Exponential]          Max gain for moving first: ", (int[] a) -> recursiveMaxGainDriver(a), intArray);
 			runIntArrayFuncAndCalculateTime("[Recursion][DP Memo]              Max gain for moving first: ", (int[] a) -> recursiveMaxGainDPMemoDriver(a), intArray);
 			runIntArrayFuncAndCalculateTime("[Iteration][DP Tabu]              Max gain for moving first: ", (int[] a) -> iterativeMaxGainDPTabu(a), intArray);
-		    iterativeListCoinsForMaxGainDPTabu(intArray);
-		    iterativeListGameStatesForMaxGainDPTabu(intArray);
+			iterativeListCoinsForMaxGainDPTabu(intArray);
+			iterativeListGameStatesForMaxGainDPTabu(intArray);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

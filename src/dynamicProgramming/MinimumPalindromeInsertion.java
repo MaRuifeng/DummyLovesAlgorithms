@@ -77,7 +77,6 @@ public class MinimumPalindromeInsertion extends FunStringAlgorithm {
 	/**
 	 * Avoid repeated computations with a lookup table constructed via DP tabulation. 
 	 */
-	
 	private static int iterativeMinNumOfCharsForPalinDPTabu(String s) {
 		if (s.length() == 0) return 0;
 		int size = s.length(); 
