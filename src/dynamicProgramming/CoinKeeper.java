@@ -322,16 +322,23 @@ public class CoinKeeper extends FunIntAlgorithm {
 	}
 	
 	/**
-	 * An intuitive method to get the least number of coins that add up to the given sum. 
-	 * Time complexity is O(klogk + k) because of the merge sort performed on the coin array.
+	 * An intuitive greedy method to get the least number of coins that add up to the given
+	 * sum seems to be like below...
 	 * 
 	 * 1) Sort the coin array
 	 * 2) Start from the largest and calculate number of coins needed
+	 * Time complexity is only O(klogk + k) because of the merge sort performed on the coin array.
+	 * 
+	 * But wait...this method might pass most test cases and give us the heuristic that it's correct, 
+	 * but in fact it's not. Consider coin array [6, 5, 1] and sum value 10, the method yields a result
+	 * of 6, which is 10 = 6 + 1 + 1 + 1 + 1 + 1, but in fact the correct answer is 2, which is 
+	 *                10 = 5 + 5
+	 * 
 	 * @param sum
 	 * @return
 	 */
-	private static int getLeastNumberOfCoins(int sum) {
-		int[] sortedCoinArr = mergeSort(Arrays.copyOf(coinArr, coinArr.length), 0, coinArr.length - 1);
+	private static int doesGreedyWorkToGetLeastNumberOfCoins(int sum, int[] coinArray) {
+		int[] sortedCoinArr = mergeSort(Arrays.copyOf(coinArray, coinArray.length), 0, coinArray.length - 1);
 		int count = 0;
 		for (int i=sortedCoinArr.length-1; i>=0; i--) {
 			count += sum / sortedCoinArr[i];
@@ -357,8 +364,12 @@ public class CoinKeeper extends FunIntAlgorithm {
 			runIntFuncAndCalculateTime("[Recursive][Exponential]     Least number of coins for sum " + sum + ":" , (int i) -> recursiveGetLeastNumberOfCoins(i), sum);
 			runIntFuncAndCalculateTime("[Recursive][O(N*k)][Memo]    Least number of coins for sum " + sum + ":" , (int i) -> recursiveGetLeastNumberOfCoinsDPMemoDriver(i), sum);
 			runIntFuncAndCalculateTime("[Iterative][O(N*k)][Tabu]    Least number of coins for sum " + sum + ":" , (int i) -> iterativeGetLeastNumberOfCoinsDPTabuDriver(i), sum);
-			runIntFuncAndCalculateTime("[Iterative][O(klogk + k)]    Least number of coins for sum " + sum + ":" , (int i) -> getLeastNumberOfCoins(i), sum);
 
+			int[] coinArray = {6, 5, 1}; 
+			System.out.println("Given coin array: " + Arrays.toString(coinArray) + ",");
+			System.out.println("for sum value of 14, the greedy method works: " + doesGreedyWorkToGetLeastNumberOfCoins(14, coinArray));
+			System.out.println("for sum value of 10, the greedy method fails: " + doesGreedyWorkToGetLeastNumberOfCoins(10, coinArray));
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

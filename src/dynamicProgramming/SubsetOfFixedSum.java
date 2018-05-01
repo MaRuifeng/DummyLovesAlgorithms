@@ -178,7 +178,7 @@ public class SubsetOfFixedSum extends FunIntAlgorithm {
 	}
 	
 	/**
-	 * Recusively print the subsets by examining the DP lookup table generated through tabulation.
+	 * Recursively print the subsets by examining the DP lookup table generated through tabulation.
 	 */
 	private static void printSubsetSumDPTabu(int[] a, int sum) {
 		boolean[][] DPLookUp = new boolean[a.length+1][sum+1];
@@ -258,10 +258,10 @@ public class SubsetOfFixedSum extends FunIntAlgorithm {
 				+ "The sum value is " + sum + ".\n"); 
 		
 		try {
-			runIntArrayFuncAndCalculateTime("[Recursion][Exponential]          Subset exists? ", (int[] a, int s) -> recursiveCheckSubsetSumDriver(a, s), intArray, sum);
+			runIntArrayFuncAndCalculateTime("[Recursion][NP-complete]          Subset exists? ", (int[] a, int s) -> recursiveCheckSubsetSumDriver(a, s), intArray, sum);
 			runIntArrayFuncAndCalculateTime("[Recursion][DP Memo][O(sum*n)]    Subset exists? ", (int[] a, int s) -> recursiveCheckSubsetSumDPMemoDriver(a, s), intArray, sum);
 			runIntArrayFuncAndCalculateTime("[Iteration][DP Tabu][O(sum*n)]    Subset exists? ", (int[] a, int s) -> iterativeCheckSubsetSumDPTabu(a, s), intArray, sum);
-			runIntArrayFuncAndCalculateTime("[Recursion][Exponential]          Subset(s):\n ", (int[] a, int s) -> recursivePrintSubsetOfSumDriver(a, s), intArray, sum);
+			runIntArrayFuncAndCalculateTime("[Recursion][NP-complete]          Subset(s):\n ", (int[] a, int s) -> recursivePrintSubsetOfSumDriver(a, s), intArray, sum);
 			runIntArrayFuncAndCalculateTime("[Recursion][DP Memo]              Subset(s):\n ", (int[] a, int s) -> recursivePrintSubsetOfSumDPMemoDriver(a, s), intArray, sum);
 			runIntArrayFuncAndCalculateTime("[Iteration][DP Tabu]              Subset(s):\n ", (int[] a, int s) -> printSubsetSumDPTabu(a, s), intArray, sum);
 		} catch (Exception e) {
