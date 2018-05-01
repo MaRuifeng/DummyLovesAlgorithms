@@ -1,6 +1,7 @@
 package dynamicProgramming;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
@@ -79,6 +80,33 @@ public class KnapsackPacker extends FunIntAlgorithm {
 		return table[size][cap];
 	}
 	
+	/**
+	 * The DP lookup table formed via tabulation can be examined to list out items
+	 * that should be picked to yield the maximum value sum.
+	 */
+	private static ArrayList<Integer> iterativeFindItemsToPackForMaxValSum(int[] v, int[] w, int cap)  throws Exception {
+		if (v.length != w.length) throw new Exception("Value array and weight array must be of the same size!"); 
+		int size = v.length;
+		int[][] table = new int[v.length+1][cap+1]; // DP lookup table
+		for (int i=1; i<=size; i++) {
+			for (int j=1; j<=cap; j++) {
+				if (j < w[i-1]) table[i][j] = table[i-1][j]; 
+				else table[i][j] = Math.max(table[i-1][j], table[i-1][j-w[i-1]] + v[i-1]); 
+			}
+		}
+		
+		ArrayList<Integer> itemIdxList = new ArrayList<>();
+		int i = size, j = cap; 
+		while (i>0 && j>0) {
+			if (j >= w[i-1] && v[i-1] > 0 && table[i][j] == table[i-1][j-w[i-1]] + v[i-1]) { // last item selected if value is positive
+				itemIdxList.add(i-1);
+				j -= w[i-1]; 
+			}
+			i--; 
+		}
+		return itemIdxList;
+	}
+	
 	@FunctionalInterface
 	protected interface DoubleIntArrayToLongFunction {
 	   int apply(int[] a, int[] b, int cap) throws Exception;  
@@ -101,10 +129,27 @@ public class KnapsackPacker extends FunIntAlgorithm {
 		
 //		int[] valArr = {6, 10, 12};
 //		int[] wtArr = {1, 2, 3};
-//		int capacity = 5; 
+//		int capacity = 7; 
+		
 //		int[] valArr = {2, 2, 2, 2, 2};
 //		int[] wtArr = {1, 1, 1, 1, 1};
 //		int capacity = 5; 
+		
+//		int[] valArr = {8, 2, 1};
+//		int[] wtArr = {10, 3, 4};
+//		int capacity = 10; 
+		
+//		int[] valArr = {0, 0, 0};
+//		int[] wtArr = {2, 3, 4};
+//		int capacity = 10; 
+		
+//		int[] valArr = {2, 3, 4};
+//		int[] wtArr = {0, 0, 0};
+//		int capacity = 10;
+		
+//		int[] valArr = {0, 0, 0};
+//		int[] wtArr = {0, 0, 0};
+//		int capacity = 10;
 		System.out.println("Welcome to the rabbit hole of knapsack packers!\n"
 				+ "The value set is \n" + Arrays.toString(valArr) + "\n"
 				+ "The weight set is \n" + Arrays.toString(wtArr) + "\n"
@@ -117,6 +162,17 @@ public class KnapsackPacker extends FunIntAlgorithm {
 					(int[] a, int[] b, int c) -> recursivePackForMaxValSumDPMemoDriver(a, b, c), valArr, wtArr, capacity);
 			runIntArrayFuncAndCalculateTime("[Iteration][DP Tabu][O(n*capacity)] Max total value: ", 
 					(int[] a, int[] b, int c) -> iterativePackForMaxValSumDPTabu(a, b, c), valArr, wtArr, capacity);
+			ArrayList<Integer> itemsToBePicked = iterativeFindItemsToPackForMaxValSum(valArr, wtArr, capacity);
+			System.out.println("The " + itemsToBePicked.size() + " item(s) to be picked are:");
+			int totalVal = 0, totalWt = 0; 
+			for (Integer idx: itemsToBePicked) {
+				System.out.printf("Value: %-6dWeight: %-6d\n", valArr[idx.intValue()], wtArr[idx.intValue()]);
+				totalVal += valArr[idx.intValue()]; 
+				totalWt += wtArr[idx.intValue()]; 
+			}
+			System.out.println("Total value: " + totalVal);
+			System.out.println("Total weight: " + totalWt);
+			System.out.println();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
