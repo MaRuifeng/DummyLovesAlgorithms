@@ -21,7 +21,7 @@ import utils.FunStringAlgorithm;
  * @since 2018-Apr-10
  */
 
-public class LongestCommonSebsequence extends FunStringAlgorithm {
+public class LongestCommonSubsequence extends FunStringAlgorithm {
 	
 	/**
 	 * We look for the sub-problems. 

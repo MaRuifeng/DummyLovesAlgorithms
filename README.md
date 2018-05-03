@@ -54,6 +54,7 @@ Each package contains an interesting algorithmic question with solution provided
   * [Optimal coin game strategy](./src/dynamicProgramming/CoinGameStrategy.java)
   * [Minimum insertions for palindrome](./src/dynamicProgramming/MinimumPalindromeInsertion.java)
   * [**NP-Complete** 0-1 Knapsack problem](./src/dynamicProgramming/KnapsackPacker.java)
+  * [Wildcard pattern match check](./src/dynamicProgramming/WildcardMatching.java)
 * [Remove duplicates in string](./src/string/removeDuplicates/DuplicatesRemover.java)
 * [Remove alternate duplicates in string](./src/string/removeDuplicates/AlternateDuplicatesRemover.java)
 * [Plain Binary Search Tree implementation with linked nodes](./src/binarySearchTree/BinarySearchTree.java)
