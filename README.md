@@ -58,6 +58,7 @@ Each package contains an interesting algorithmic question with solution provided
 * [Remove duplicates in string](./src/string/removeDuplicates/DuplicatesRemover.java)
 * [Remove alternate duplicates in string](./src/string/removeDuplicates/AlternateDuplicatesRemover.java)
 * [Remove adjacent duplicates in string](./src/string/removeDuplicates/AdjacentDuplicatesRemover.java)
+* [Remove consecutive duplicates in string](./src/string/removeDuplicates/ConsecutiveDuplicatesRemover.java)
 * [Plain Binary Search Tree implementation with linked nodes](./src/binarySearchTree/BinarySearchTree.java)
 * [Plain Binary Heap implementation with array](./src/binaryHeap/MinHeap.java)
 
