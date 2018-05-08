@@ -86,6 +86,7 @@ public class SubsetOfFixedSum extends FunIntAlgorithm {
 				else DPLookUp[i][j] = DPLookUp[i-1][j] || DPLookUp[i-1][j-a[i-1]];
 			}
 		}
+		//for (boolean[] row: DPLookUp) System.out.println(Arrays.toString(row));
 		return DPLookUp[a.length][sum];
 	}
 	

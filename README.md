@@ -32,6 +32,7 @@ Each package contains an interesting algorithmic question with solution provided
 * [Bitwise operations](./src/integerArray/BitOperators.java)
 * [Merge sorted integer arrays](./src/integerArray/SortedArrayMerger.java)
 * [**All hail Recursion!** Find all subsets of an integer set](./src/integerArray/SubsetSeeker.java)
+* [Patch a given array to produce list of sums from 1 to N](./src/integerArray/IntegerArrayPatcher.java)
 * [Dynamic Programming](./src/dynamicProgramming)
   * [Fibonacci Numbers](./src/dynamicProgramming/FibNumbers.java)
   * [Coin change problems](./src/dynamicProgramming/CoinKeeper.java)
