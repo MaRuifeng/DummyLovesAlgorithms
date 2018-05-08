@@ -91,6 +91,35 @@ public class SubsetOfFixedSum extends FunIntAlgorithm {
 	}
 	
 	/**
+	 * Inspired by the integer array patching problem, we try to solve the subset sum
+	 * check problem using a greedy method. 
+	 * Given an array {1, 3, 4} and a sum value of 8, we construct a boolean array of size 
+	 * 8+1 to assist the greedy process. 
+	 * 
+	 * 	           0     1     2      3      4       5      6      7      8          <-- sum
+	 * {}        [true, false, false, false, false, false, false, false, false]      // empty set
+	 * {1}       [true, true,  false, false, false, false, false, false, false]      // add element 1 to all positions with 'true' to cover new sub sum values
+	 * {1,3}     [true, true,  false,  true, true,  false, false, false, false]      // add element 3 to all positions with 'true' to cover new sub sum values
+	 * {1,3,4}   [true, true,  false,  true, true,  true,  false, true,  true]       // add element 4 to all positions with 'true' to cover new sub sum values
+	 * 
+	 * We check the (8+1)'th position of the array and find 'true', so the answer is yes. 
+	 * 
+	 * Note that this greedy method can be considered as an improvement on the DP tabulation 
+	 * method by reducing the lookup table from a matrix to two arrays. 
+	 */
+	private static boolean checkSubSetsumGreedy(int[] a, int sum) {
+		boolean[] sumCheckList = new boolean[sum+1];
+		sumCheckList[0] = true; 
+		for (int i=0; i<a.length; i++) {
+			boolean[] temp = Arrays.copyOf(sumCheckList, sumCheckList.length);
+			for (int j=0; j<=sum; j++) 
+				if (sumCheckList[j] == true && j+a[i] <= sum) temp[j+a[i]] = true;
+			sumCheckList = Arrays.copyOf(temp, temp.length);
+		}
+		return sumCheckList[sum];
+	}
+	
+	/**
 	 * Let A(n) be an integer array of size n, and its subsets of sum S can be found via below recursive pattern.
 	 * To print all subsets of A(n) whose elements sum up to S ==> 
 	 * 		              Include element A[n-1]
@@ -253,6 +282,7 @@ public class SubsetOfFixedSum extends FunIntAlgorithm {
 	public static void main(String[] args) {
 		//int[] intArray = genRanIntArr(20, 10, 19);
 		int[] intArray = {1, 2, 4, 5, 3, 7, 8, 6, 9, 10, 11, 14, 15, 14, 12, 16, 17, 18, 19, 20, 21, 22, 23, 995, 1000};
+		//int[] intArray = {1, 3, 4, 6, 8};
 		int sum = 270; 
 		System.out.println("Welcome to the rabbit hole of subset sums!\n"
 				+ "The integer set is \n" + Arrays.toString(intArray) + "\n"
@@ -262,6 +292,7 @@ public class SubsetOfFixedSum extends FunIntAlgorithm {
 			runIntArrayFuncAndCalculateTime("[Recursion][NP-complete]          Subset exists? ", (int[] a, int s) -> recursiveCheckSubsetSumDriver(a, s), intArray, sum);
 			runIntArrayFuncAndCalculateTime("[Recursion][DP Memo][O(sum*n)]    Subset exists? ", (int[] a, int s) -> recursiveCheckSubsetSumDPMemoDriver(a, s), intArray, sum);
 			runIntArrayFuncAndCalculateTime("[Iteration][DP Tabu][O(sum*n)]    Subset exists? ", (int[] a, int s) -> iterativeCheckSubsetSumDPTabu(a, s), intArray, sum);
+			runIntArrayFuncAndCalculateTime("[Iteration][Greedy][O(sum*n)]     Subset exists? ", (int[] a, int s) -> checkSubSetsumGreedy(a, s), intArray, sum);
 			runIntArrayFuncAndCalculateTime("[Recursion][NP-complete]          Subset(s):\n ", (int[] a, int s) -> recursivePrintSubsetOfSumDriver(a, s), intArray, sum);
 			runIntArrayFuncAndCalculateTime("[Recursion][DP Memo]              Subset(s):\n ", (int[] a, int s) -> recursivePrintSubsetOfSumDPMemoDriver(a, s), intArray, sum);
 			runIntArrayFuncAndCalculateTime("[Iteration][DP Tabu]              Subset(s):\n ", (int[] a, int s) -> printSubsetSumDPTabu(a, s), intArray, sum);
