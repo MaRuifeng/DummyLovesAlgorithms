@@ -29,6 +29,7 @@ import utils.FunIntAlgorithm;
  * @since 2018-Apr-27
  * 
  * https://www.geeksforgeeks.org/dynamic-programming-subset-sum-problem/
+ * Submission on GFG: https://ide.geeksforgeeks.org/krEHL8YBQQ
  */
 public class SubsetOfFixedSum extends FunIntAlgorithm {
 	
