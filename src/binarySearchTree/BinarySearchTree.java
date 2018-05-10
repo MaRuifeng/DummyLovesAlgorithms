@@ -241,12 +241,14 @@ public class BinarySearchTree {
 		bst.insert(key);
 		bst.inorderTraverse(bst.root);
 		System.out.println("\n");
+		bst.treePrint(); 
 		
 		key = 5;
 		System.out.println("Delete an element " + key + ".");
 		bst.delete(key);
 		bst.inorderTraverse(bst.root);
 		System.out.println("\n");
+		bst.treePrint();
 		
 		System.out.println("Converting a random unique integer array into a balanced BST.");
 		int[] arr = {2, 4, 6, 3, 5, 8,7};

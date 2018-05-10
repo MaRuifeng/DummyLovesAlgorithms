@@ -146,11 +146,10 @@ public class LongestCommonSubsequence extends FunStringAlgorithm {
 		for (int i=1; i<=aL; i++) {
 			curLCS = "";
 			for (int j=1; j<=bL; j++) {
-				preLCS = curLCS;
+				preLCS = curLCS; // rotate
 				if (a[i-1] == b[j-1]) curLCS = temp[j-1] + a[i-1];
 				else curLCS = temp[j].length() > preLCS.length() ? temp[j] : preLCS;
 				temp[j-1] = preLCS; // store result for next run
-				preLCS = curLCS; // rotate
 			}
 			temp[bL] = curLCS; // store result for next run
 			//System.out.println(Arrays.toString(temp));
