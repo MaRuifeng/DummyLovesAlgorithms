@@ -64,7 +64,17 @@ Each package contains an interesting algorithmic question with solution provided
 * [Remove alternate duplicates in string](./src/string/removeDuplicates/AlternateDuplicatesRemover.java)
 * [Remove adjacent duplicates in string](./src/string/removeDuplicates/AdjacentDuplicatesRemover.java)
 * [Remove consecutive duplicates in string](./src/string/removeDuplicates/ConsecutiveDuplicatesRemover.java)
-* [Plain Binary Search Tree implementation with linked nodes](./src/binarySearchTree/BinarySearchTree.java)
+* [Longest valid parentheses substring](./src/string/removeDuplicates/LongestValidParentheses.java)
+* [Binary Tree](./src/binaryTree)
+  * [Plain Binary Tree implementation with linked nodes](./src/binaryTree/entities/BinaryTree.java)
+    * Pre-order Traversal
+    * Post-order Traversal
+    * Level-order Traversal
+    * Clone via pre-order traversal
+    * Serialization/de-serialization
+  * [Plain Binary Search Tree implementation with linked nodes](./src/binaryTree/entities/BinarySearchTree.java)
+  * [Parse a BST from its pre-order traversal](./src/binaryTree/BSTParserFromPreorderTraversal.java)
+  * [Parse a BST from its post-order traversal](./src/binaryTree/BSTParserFromPostorderTraversal.java)
 * [Plain Binary Heap implementation with array](./src/binaryHeap/MinHeap.java)
 
 ## Background

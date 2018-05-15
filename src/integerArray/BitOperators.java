@@ -58,6 +58,21 @@ public class BitOperators {
 		return (checker & y);
 	}
 	
+	// Mathematical addition without using '+' operator
+	private static int recursiveAdd(int a, int b) {
+		if ((a&b) == 0) return a^b; // no more carry-over, return result
+		return recursiveAdd((a&b)<<1, a^b); // carry-over found, add again
+	}
+	private static int iterativeAdd(int a, int b) {
+		int carryOver = a&b;
+		while (carryOver != 0) {
+			b = a^b;
+			a = carryOver<<1;
+			carryOver = a&b;
+		}
+		return a^b;
+	}
+	
 	public static void main(String args[]) {
 		//int num = Integer.MAX_VALUE; 
 		int num = 7896; 
@@ -66,6 +81,9 @@ public class BitOperators {
 		System.out.println("Binary conversion by bit operaion: " + Arrays.toString(decimalToBinaryBitOps(num)));
 		System.out.println("Turning off the " + pos + "'th bit...");
 		System.out.println(Arrays.toString(decimalToBinaryBitOps(turnOffBit(num, pos))));
+		int a = -5, b = 8; 
+		System.out.println("[Recursive] Adding integer " + a + " and " + b + " by bit operation: " + recursiveAdd(a, b));
+		System.out.println("[Iterative] Adding integer " + a + " and " + b + " by bit operation: " + iterativeAdd(a, b));
 	}
 
 }

@@ -33,6 +33,11 @@ public class FunStringAlgorithm extends FunAlgorithm {
 	}
 	
 	@FunctionalInterface
+	protected interface StringToBooleanFunction {
+		boolean apply(String s);
+	}
+	
+	@FunctionalInterface
 	protected interface DoubleCharArrayToIntFunction {
 		int apply(char[] a, char[] b);
 	}
@@ -52,6 +57,15 @@ public class FunStringAlgorithm extends FunAlgorithm {
     }
     
     protected static void runStringFuncAndCalculateTime(String message, StringToStringFunction strFunc, String s) throws Exception {
+    	long startTime = System.nanoTime();
+    	System.out.printf("%s%s\n", message, strFunc.apply(s));
+    	long endTime = System.nanoTime();
+    	long totalTime = new Long(TimeUnit.MICROSECONDS.convert(endTime - startTime, TimeUnit.NANOSECONDS));
+    	DecimalFormat formatter = new DecimalFormat("#,###");
+    	System.out.printf("%-70s%s\n\n", "Function execution time in micro-seconds: ", formatter.format(totalTime));
+    }
+    
+    protected static void runStringFuncAndCalculateTime(String message, StringToBooleanFunction strFunc, String s) throws Exception {
     	long startTime = System.nanoTime();
     	System.out.printf("%s%s\n", message, strFunc.apply(s));
     	long endTime = System.nanoTime();

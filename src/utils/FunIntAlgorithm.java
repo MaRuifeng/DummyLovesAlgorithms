@@ -194,7 +194,7 @@ public class FunIntAlgorithm extends FunAlgorithm {
      * 
      * https://www.geeksforgeeks.org/quicksort-better-mergesort/
      */
-    protected static void quickSort(int[] a, int start, int end) {
+    public static void quickSort(int[] a, int start, int end) {
     	if (start < end) {
     		int pivotPos = partition(a, start, end);
 			//System.out.println("Pivot position: " + pivotPos);
