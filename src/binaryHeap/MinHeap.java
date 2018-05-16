@@ -36,15 +36,29 @@ public class MinHeap {
 		this.heapArray = new int[capacity];
 	}
 	
-	protected int getParentIdx(int idx) {
+	// construct from a given initial integer array, time complexity O(N)
+	// https://stackoverflow.com/questions/9755721/how-can-building-a-heap-be-on-time-complexity
+	public MinHeap(int[] arr, int capacity) throws Exception { 
+		int initSize = arr.length;
+		if (capacity < initSize) throw new Exception("Given capacity is unable to hold the inital array!");
+		this.heapSize = initSize; 
+		this.capacity = capacity;
+		this.heapArray = new int[capacity]; 
+		int[] tmp = new int[initSize]; 
+		System.arraycopy(arr, 0, tmp, 0, initSize);
+		for (int i=getParentIdx(initSize-1); i>=0; i--) recursiveMinHeapify(tmp, i); // start heapifying from last parent node
+		System.arraycopy(tmp, 0, this.heapArray, 0, initSize);
+	}
+	
+	protected static int getParentIdx(int idx) {
 		return (idx-1)/2;
 	}
 	
-	protected int getLeftIdx(int idx) {
+	protected static int getLeftIdx(int idx) {
 		return idx*2 + 1;
 	}
 	
-	protected int getRightIdx(int idx) {
+	protected static int getRightIdx(int idx) {
 		return idx*2 + 2;
 	}
 	
@@ -110,7 +124,26 @@ public class MinHeap {
 	}
 	
 	/**
-	 * Repair a heap with root at given index
+	 * Print out a min heap in "heap" (complete tree) format
+	 */
+	public void treePrint() {
+		int levelSize = 1, cover = 0, level = 1;
+		int remain = this.heapSize;
+		while (remain > 0) {
+			System.out.print("Level " + (level++) + ": "); 
+			int i = cover;
+			cover += Math.min(levelSize, remain);
+			for (; i<cover; i++) System.out.print(this.heapArray[i] + " ");
+			System.out.println();
+			remain -= levelSize; 
+			levelSize <<= 1;
+		}
+	}
+	
+	/* Heapify procedure can be applied to a node only if its child nodes have been heapified. */
+	/* Hence orverall heapification on an array needs to be performed in bottom up manner. */
+	/**
+	 * Repair a heap with root at given index (assuming all sub-trees have been heapified)
 	 */
 	public void minHeapify(int idx) {
 		if (idx >= this.heapSize) {
@@ -130,6 +163,31 @@ public class MinHeap {
 			leftPos = getLeftIdx(curPos);
 			rightPos = getRightIdx(curPos);
 		}
+	}
+	
+	/**
+	 * Recursively heapify with root at a given index (assuming all sub-trees have already been heapified)
+	 */
+	private void recursiveMinHeapify(int[] a, int idx) {
+		int rootIdx = idx, leftIdx = getLeftIdx(idx), rightIdx = getRightIdx(idx);
+		if (leftIdx < a.length && a[rootIdx] > a[leftIdx]) rootIdx = leftIdx;
+		if (rightIdx < a.length && a[rootIdx] > a[rightIdx]) rootIdx = rightIdx; 
+		if (rootIdx != idx) {
+			swap(a, rootIdx, idx);
+			recursiveMinHeapify(a, rootIdx); // heapify the affected sub-tree
+		}
+	}
+	
+	/**
+	 * Check if a given integer array is completely heapified. 
+	 */
+	public static boolean isMinHeap(int[] a) {
+		for (int i=getParentIdx(a.length-1); i>=0; i--) { // start checking from last parent node
+			int l = getLeftIdx(i), r = getRightIdx(i);
+			if (l < a.length && a[l] < a[i]) return false;
+			if (r < a.length && a[r] < a[i]) return false;
+		}
+		return true;
 	}
 	
 	public static void main(String[] args) {
@@ -153,6 +211,7 @@ public class MinHeap {
 		 *       / \   / \
 		 *      8   5 7   6 
 		 */
+		heap.treePrint();
 		System.out.println("Printing Min Heap as array: " + heap.toString());
 		System.out.println("[O(1)] Get min: " + heap.getMin());
 		System.out.println("[O(logN)] Extract min: " + heap.extractMin());
@@ -174,6 +233,19 @@ public class MinHeap {
 		System.out.println("[O(logN)] Delete element at index " + idx + "...");
 		heap.delete(idx);
 		System.out.println("Printing Min Heap as array: " + heap.toString());
+		
+		System.out.println("[O(N)Initializing from a given array ...");
+		int[] init = {2, 7, 1, 9, 3, 2, 6, 8, 4, 0, 3, 5}; 
+		try {
+			heap = new MinHeap(init, Math.multiplyExact(init.length, 2));
+			System.out.println("Initial array: " + Arrays.toString(init));
+			System.out.println("Is min heap? " + MinHeap.isMinHeap(init));
+			System.out.println("Initialized min heap in array format: " + heap.toString());
+			System.out.println("Is min heap? " + MinHeap.isMinHeap(Arrays.copyOfRange(heap.heapArray, 0, heap.heapSize)));
+			heap.treePrint();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		System.out.println("\nAll rabbits gone.");
 	}
 

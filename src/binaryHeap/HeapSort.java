@@ -13,6 +13,8 @@ import utils.FunIntAlgorithm;
 
 public class HeapSort extends FunIntAlgorithm {
 	
+	/* Note that below method is not efficient in space, but gives a good overview on how heapsort works.*/
+	/* Actual heap sort should occur in place without extra space used. */
 	private static void heapSort(int[] a) {
 		// Store the array values into a Min Heap
 		MinHeap heap = new MinHeap(a.length);

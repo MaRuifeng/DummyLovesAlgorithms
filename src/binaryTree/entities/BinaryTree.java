@@ -16,12 +16,16 @@ public class BinaryTree {
 	
 	TreeNode root;
 
-	public BinaryTree(TreeNode root) {
+	public BinaryTree(TreeNode root) { // constructor
 		this.root = root;
 	}
 	
 	public BinaryTree() {
 		this.root = null;
+	}
+	
+	public BinaryTree(BinaryTree bt) { // copy constructor
+		this.root = cloneViaPreOrderTraversal(bt.root);
 	}
 	
 	/* Recursive level order traversal */
@@ -102,7 +106,7 @@ public class BinaryTree {
 	public BinaryTree clone() {
 		return new BinaryTree(cloneViaPreOrderTraversal(this.root));
 	}
-	public TreeNode cloneViaPreOrderTraversal(TreeNode ori) {
+	private TreeNode cloneViaPreOrderTraversal(TreeNode ori) {
 		if (ori != null) {
 			TreeNode cln = new TreeNode(ori.key);
 			cln.left = cloneViaPreOrderTraversal(ori.left);
@@ -223,11 +227,16 @@ public class BinaryTree {
 		bt.preorderTraverse();
 		System.out.println("Post-order traversal:");
 		bt.postorderTraverse();
-		System.out.println("Clone via pre-order traversal:");
-		BinaryTree btClone = bt.clone();
-		btClone.levelOrderTraverse();
-		System.out.println("Original identity in memory: " + System.identityHashCode(bt));
-		System.out.println("Clone identity in memory: " + System.identityHashCode(btClone));
+		System.out.println("Clone 1 via pre-order traversal clone:");
+		BinaryTree btClone1 = bt.clone();
+		btClone1.levelOrderTraverse();
+		System.out.println("Clone 2 via copy contructor (utilizing the pre-order traversal method):");
+		BinaryTree btClone2 = new BinaryTree(bt);
+		btClone2.levelOrderTraverse();
+		System.out.println("Original identity in memory:                       " + System.identityHashCode(bt)); 
+		// not using the object's hashCode() method as it's subject to override
+		System.out.println("Clone 1 identity (via the clone method) in memory: " + System.identityHashCode(btClone1));
+		System.out.println("Clone 2 identity (via copy constructor) in memory: " + System.identityHashCode(btClone2));
 		
 		System.out.println("[Recursive] Serialization:");
 		String serialized = bt.recursiveSerialize();
