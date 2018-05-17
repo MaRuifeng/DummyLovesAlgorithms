@@ -1,4 +1,4 @@
-package string.removeDuplicates;
+package string;
 
 import java.util.HashMap;
 import java.util.Stack;
