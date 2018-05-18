@@ -28,6 +28,14 @@ public class BinaryTree {
 		this.root = cloneViaPreOrderTraversal(bt.root);
 	}
 	
+	public TreeNode getRoot() {
+		return root;
+	}
+
+	public void setRoot(TreeNode root) {
+		this.root = root;
+	}
+
 	/* Recursive level order traversal */
 	public void levelOrderTraverse() {
 		List<TreeNode> list = new ArrayList<>(); 
@@ -98,6 +106,20 @@ public class BinaryTree {
 			postOrderTraversalToArray(node.left, list); // smaller ones
 			postOrderTraversalToArray(node.right, list); // larger ones
 			list.add(node.key);
+		}
+	}
+	
+	/* Inorder traversal and store results to an array */
+	public int[] inOrderTraversalToArray() {
+		ArrayList<Integer> list = new ArrayList<>();
+		inOrderTraversalToArray(this.root, list);
+		return list.stream().mapToInt(i -> i).toArray();
+	}
+	private void inOrderTraversalToArray(TreeNode node, ArrayList<Integer> list) {
+		if (node != null) {
+			inOrderTraversalToArray(node.left, list); // smaller ones
+			list.add(node.key);
+			inOrderTraversalToArray(node.right, list); // larger ones
 		}
 	}
 	

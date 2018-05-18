@@ -200,6 +200,15 @@ public class BinarySearchTree extends BinaryTree {
 		return new BinarySearchTree(recursiveDeserialize(s));
 	}
 	
+	/* Check if a given binary tree is a binary search tree */
+	public static boolean isBinarySearchTree(BinaryTree bt) {
+		int[] nodeArr = bt.inOrderTraversalToArray();
+		for (int i=1; i<nodeArr.length; i++) {
+			if (nodeArr[i] < nodeArr[i-1]) return false; 
+		}
+		return true;
+	}
+	
 	/**
 	 * Test functionalities of the implemented BST
 	 */
