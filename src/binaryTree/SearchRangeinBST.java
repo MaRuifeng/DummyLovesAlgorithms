@@ -15,7 +15,7 @@ import binaryTree.entities.TreeNode;
  * 
  * https://www.lintcode.com/problem/search-range-in-binary-search-tree/
  */
-public class SearchRangeinBST {
+public class SearchRangeInBST {
 	
 	/**
 	 * Run inorder traversal of the BST and find items in range.

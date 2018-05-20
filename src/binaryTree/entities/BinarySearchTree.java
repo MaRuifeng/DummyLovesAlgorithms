@@ -179,16 +179,16 @@ public class BinarySearchTree extends BinaryTree {
 	/* Convert a given array of unique integers into a balanced BST */
 	public static TreeNode convertArrayToBST(int[] arr) {
 		int[] sortedArr = FunIntAlgorithm.mergeSort(arr, 0, arr.length-1);
-		return convertSortdArrayToBST(sortedArr, 0, sortedArr.length - 1); 
+		return convertSortedArrayToBST(sortedArr, 0, sortedArr.length - 1); 
 	}
-	private static TreeNode convertSortdArrayToBST(int[] sortedArr, int start, int end) {
+	private static TreeNode convertSortedArrayToBST(int[] sortedArr, int start, int end) {
 		// base case
 		if (start > end)  return null; 
 		// recursion
 		int mid = (start + end) / 2; 
 		TreeNode node = new TreeNode(sortedArr[mid]); 
-		node.left = convertSortdArrayToBST(sortedArr, start, mid-1);
-		node.right = convertSortdArrayToBST(sortedArr, mid+1, end);
+		node.left = convertSortedArrayToBST(sortedArr, start, mid-1);
+		node.right = convertSortedArrayToBST(sortedArr, mid+1, end);
 		return node;
 	}
 

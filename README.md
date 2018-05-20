@@ -78,7 +78,9 @@ Each package contains an interesting algorithmic question with solution provided
   * [Parse a BST from its pre-order traversal](./src/binaryTree/BSTParserFromPreorderTraversal.java)
   * [Parse a BST from its post-order traversal](./src/binaryTree/BSTParserFromPostorderTraversal.java)
   * [Convert a BT to a BST with tree structure maintained](./src/binaryTree/BTtoBSTConverter.java)
-  * [**Divide and Conquer** Search range in BST](./src/binaryTree/SearchRangeinBST.java)
+  * [**Divide and Conquer** Search range in BST](./src/binaryTree/SearchRangeInBST.java)
+  * [Convert integer array to BST](./src/binaryTree/ArrayToBSTConverter.java)
+  * [Convert integer linked list to BST](./src/binaryTree/LinkedListToBSTConverter.java)
 * [Plain Binary Heap implementation with array](./src/binaryHeap/MinHeap.java)
 
 ## Background
