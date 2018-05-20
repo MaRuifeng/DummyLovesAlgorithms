@@ -17,7 +17,7 @@ import binaryTree.entities.TreeNode;
  * 
  * https://www.geeksforgeeks.org/convert-bst-to-a-binary-tree/
  */
-public class SumOfGreaterKeysInBST {
+public class SumWithGreaterKeysInBST {
 	
 	static class Sum { // wrapper class for primitive int since Java does not pass by reference (address)
 		int val = 0; 
@@ -26,16 +26,16 @@ public class SumOfGreaterKeysInBST {
 	/**
 	 * Traverse the BST in reverse order and sum up along the way. 
 	 */
-	private static BinaryTree sumGreaterKeys(BinarySearchTree bst) {
-		sumGreaterKeys(bst.getRoot(), new Sum());
+	private static BinaryTree sumWithGreaterKeys(BinarySearchTree bst) {
+		sumWithGreaterKeys(bst.getRoot(), new Sum());
 		return new BinaryTree(bst.getRoot());
 	}
-	private static void sumGreaterKeys(TreeNode root, Sum sum) {
+	private static void sumWithGreaterKeys(TreeNode root, Sum sum) {
 		if (root != null) {
-			sumGreaterKeys(root.getRight(), sum);
+			sumWithGreaterKeys(root.getRight(), sum);
 			sum.val += root.getKey();
 			root.setKey(sum.val);
-			sumGreaterKeys(root.getLeft(), sum);
+			sumWithGreaterKeys(root.getLeft(), sum);
 		}
 	}
 	
@@ -50,7 +50,7 @@ public class SumOfGreaterKeysInBST {
 		bst.insert(15);
 		bst.levelOrderTraverse();
 		
-		BinaryTree bt = sumGreaterKeys(bst);
+		BinaryTree bt = sumWithGreaterKeys(bst);
 		System.out.println("After summing up greater keys...\n");
 		bt.levelOrderTraverse();
 	}
