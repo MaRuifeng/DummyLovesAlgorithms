@@ -82,7 +82,12 @@ public class BTtoBSTConverter {
 		root.getLeft().setRight(new TreeNode(4));
 		
 		BinaryTree bt = new BinaryTree(root); 
-		BinaryTree btClone = bt.clone();
+		BinaryTree btClone = new BinaryTree();
+		try {
+			btClone = bt.clone(BinaryTree.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		bt.levelOrderTraverse();
 		System.out.println("Is BST? " + BinarySearchTree.isBinarySearchTree(bt) + "\n");

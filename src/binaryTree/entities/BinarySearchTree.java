@@ -209,11 +209,6 @@ public class BinarySearchTree extends BinaryTree {
 		return true;
 	}
 	
-	/* Clone */
-	public BinarySearchTree clone() {
-		return new BinarySearchTree(cloneViaPreOrderTraversal(this.root));
-	}
-	
 	/**
 	 * Test functionalities of the implemented BST
 	 */

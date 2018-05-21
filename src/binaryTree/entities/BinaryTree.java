@@ -1,5 +1,6 @@
 package binaryTree.entities;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -124,9 +125,19 @@ public class BinaryTree {
 	}
 	
 	/* Generate a clone of current tree via preorder traversal */
-	@Override
-	public BinaryTree clone() {
-		return new BinaryTree(cloneViaPreOrderTraversal(this.root));
+	//	@Override
+	//	public BinaryTree clone() {
+	//		return new BinaryTree(cloneViaPreOrderTraversal(this.root));
+	//	}
+	public <T extends BinaryTree> T clone(Class<T> type) throws Exception {
+		Constructor<? extends BinaryTree> constructor;
+		try {
+			constructor = this.getClass().getConstructor(TreeNode.class);
+		} catch (NoSuchMethodException | SecurityException e) {
+			e.printStackTrace();
+			throw new Exception("Could not get a proper constructor for " + this.getClass().getName() + ".");
+		}
+		return type.cast(constructor.newInstance(this.root));
 	}
 	protected TreeNode cloneViaPreOrderTraversal(TreeNode ori) {
 		if (ori != null) {
@@ -250,8 +261,15 @@ public class BinaryTree {
 		System.out.println("Post-order traversal:");
 		bt.postorderTraverse();
 		System.out.println("Clone 1 via pre-order traversal clone:");
-		BinaryTree btClone1 = bt.clone();
+		BinaryTree btClone1 = new BinaryTree();
+		try {
+			btClone1 = bt.clone(BinaryTree.class);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 		btClone1.levelOrderTraverse();
+
+		
 		System.out.println("Clone 2 via copy contructor (utilizing the pre-order traversal method):");
 		BinaryTree btClone2 = new BinaryTree(bt);
 		btClone2.levelOrderTraverse();

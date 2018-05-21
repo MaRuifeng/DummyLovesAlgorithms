@@ -69,5 +69,4 @@ public class ArrayToBSTConverter {
 		balBST.inorderTraverse();
 		System.out.println("All rabbits gone.");
 	}
-
 }
