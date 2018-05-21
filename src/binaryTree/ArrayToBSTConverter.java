@@ -55,7 +55,7 @@ public class ArrayToBSTConverter {
 	public static void main(String[] args) {
 		System.out.println("/** Converting a random unique integer array into a balanced BST. **/");
 		// int[] arr = {2, 4, 6, 3, 5, 8,7};
-		int[] arr = FunIntAlgorithm.genRanUniqueIntArr(19);
+		int[] arr = FunIntAlgorithm.genRanUniqueIntArr(7);
 		System.out.println("The randomly generated array is \n" + Arrays.toString(arr));
 		
 		System.out.println("\n/** From root to leaf [O(n)] **/\n");

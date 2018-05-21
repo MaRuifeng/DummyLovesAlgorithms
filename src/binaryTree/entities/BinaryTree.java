@@ -128,7 +128,7 @@ public class BinaryTree {
 	public BinaryTree clone() {
 		return new BinaryTree(cloneViaPreOrderTraversal(this.root));
 	}
-	private TreeNode cloneViaPreOrderTraversal(TreeNode ori) {
+	protected TreeNode cloneViaPreOrderTraversal(TreeNode ori) {
 		if (ori != null) {
 			TreeNode cln = new TreeNode(ori.key);
 			cln.left = cloneViaPreOrderTraversal(ori.left);

@@ -54,7 +54,7 @@ public class LinkedListToBSTConverter {
 	public static void main(String[] args) {
 		System.out.println("/** Converting a random unique integer singly linked list into a balanced BST. **/");
 		LinkedList<Integer> list = new LinkedList<>();
-		for (int i=0; i<20; i++) list.add(i);
+		for (int i=0; i<14; i++) list.add(i);
 		System.out.println("The randomly generated list is \n" + list.toString());
 		System.out.println("\n/** From root to leaf [O(nlogn)] **/\n");
 		BinarySearchTree balBST = convertSortedLinkedListToBSTfromRootToLeaf(list);

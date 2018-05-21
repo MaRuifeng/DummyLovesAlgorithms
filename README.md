@@ -83,6 +83,7 @@ Each package contains an interesting algorithmic question with solution provided
   * [Sum up greater keys for each node in BST](./src/binaryTree/BSTtoGreaterSumTreeConverter.java)
   * [Convert integer array to BST](./src/binaryTree/ArrayToBSTConverter.java)
   * [Convert integer linked list to BST](./src/binaryTree/LinkedListToBSTConverter.java)
+  * [All possible BSTs from 1 to N](./src/binaryTree/AllPossibleBSTsFromOneToN.java)
 * [Plain Binary Heap implementation with array](./src/binaryHeap/MinHeap.java)
 
 ## Background
