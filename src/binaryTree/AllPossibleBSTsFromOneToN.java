@@ -24,7 +24,7 @@ public class AllPossibleBSTsFromOneToN extends FunIntAlgorithm {
 	 * Let Sol(1..n) be the count of possible BSTs that can be formed from 1 to n, and since any number in between 
 	 * 1 and n can be the tree root, for a particular number i as root, the count of possible BSTs is 
 	 * 
-	 *         Sol(1..i-1) * Sol(i+1..n)
+	 *         Sol(1..i-1) * Sol(i+1..n)    <-- 1 to i-1 form the left sub-tree, and i+1 to n form the right sub-tree
 	 *         
 	 * We need to sum these counts up for 1 <= i <= n, so as to obtain Sol(1..n). 
 	 * 

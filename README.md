@@ -36,6 +36,8 @@ Each package contains an interesting algorithmic question with solution provided
 * [Binary search in a sorted array rotated at an unknown pivot](./src/integerArray/BinarySearchInRotatedSortedArray.java)
 * [Dynamic Programming](./src/dynamicProgramming)
   * [Fibonacci Numbers](./src/dynamicProgramming/FibNumbers.java)
+  * [Binomial Coefficients](./src/dynamicProgramming/BinomialCoefficients.java)
+  * [Catalan Numbers](./src/dynamicProgramming/CatalanNumbers.java)
   * [Coin change problems](./src/dynamicProgramming/CoinKeeper.java)
     * Number of possible combinations for given sum
     * List of possible combinations for given sum
