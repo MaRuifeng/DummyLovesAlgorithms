@@ -1,4 +1,5 @@
 package dynamicProgramming;
+import java.util.ArrayList;
 
 import utils.FunIntAlgorithm;
 
@@ -90,10 +91,59 @@ public class CatalanNumbers extends FunIntAlgorithm {
 		}
 		return val/(n+1);
 	}
-
+	
+	/**
+	 * Print all expressions that contain n pairs of balanced parentheses.
+	 * This method is trying to push the printing deep into the function call tree. 
+	 */
+	private static void printBalancedParentheses(char[] sol, int n, int idx, int leftBracketCount, int rightBracketCount) {
+		if (rightBracketCount == n) {  // fully matched, print 
+			for (char c: sol) System.out.print(c);
+			System.out.println();
+		}
+		else {
+			if (leftBracketCount < n) {
+				sol[idx] = '('; // left open brackets not depleted, add into the solution
+				printBalancedParentheses(sol, n, idx+1, leftBracketCount+1, rightBracketCount);
+			}
+			if (leftBracketCount > rightBracketCount) {
+				sol[idx] = ')'; // left open brackets exceeded, add right open bracket into the solution to match
+				printBalancedParentheses(sol, n, idx+1, leftBracketCount, rightBracketCount+1);
+			}
+		}
+	}
+	private static void printBalancedParentheses(int n) {
+		if (n<=0) return;
+		char[] parenArr = new char[n*2]; 
+		printBalancedParentheses(parenArr, n, 0, 0, 0);
+	}
+	
+	/**
+	 * Find all expressions that contain n pairs of balanced parentheses.
+	 * This method is trying to pull the solution to the surface and then print.
+	 * We can think of it as enclosing empty strings with open and close brackets.
+	 * Refer to the boolean symbol and logic operator parenthesization problem for better understanding.
+	 */
+	private static ArrayList<String> findBalancedParentheses(int start, int end) {
+		if (start > end) { // edge encountered to put parentheses
+			ArrayList<String> sol = new ArrayList<>();
+			sol.add("");
+			return sol;
+		}
+		ArrayList<String> sol = new ArrayList<>();
+		for (int i=start; i<=end; i++) {
+			ArrayList<String> left = findBalancedParentheses(start, i-1);
+			ArrayList<String> right = findBalancedParentheses(i+1, end);
+			for (String l: left)
+				for (String r: right)
+					sol.add(l + "(" + r + ")");   // use this or use below
+					//sol.add("(" +l + ")" + r);
+		}
+		return sol;
+	}
 	
 	public static void main(String[] args) {
-		int pos = 20;
+		int pos = 3;
 		System.out.println("Welcome to the rabbit hole of Catalan numbers!\n"
 				+ "The wanted number should be at position " + pos + ".\n"); 
 		
@@ -102,6 +152,12 @@ public class CatalanNumbers extends FunIntAlgorithm {
 			runIntFuncAndCalculateTime("[Recursive][DPMemo][Quadratic]     Catalan Number at position " + pos + ":" , (int i) -> recursiveCatalanDPMemo(i), pos);
 			runIntFuncAndCalculateTime("[Iterative][DPTabu][Quadratic]     Catalan Number at position " + pos + ":" , (int i) -> iterativeCatalanDPTabu(i), pos);
 			runIntFuncAndCalculateTime("[Iterative][Linear]                Catalan Number at position " + pos + ":" , (int i) -> mathematicalCatalan(i), pos);
+			System.out.println("\nPrint out all possible balanced parentheses strings:");
+			printBalancedParentheses(pos);
+			System.out.println("\nFind all possible balanced parentheses strings into a list:");
+			ArrayList<String> sol = findBalancedParentheses(0, pos-1); 
+			System.out.println("List size: " + sol.size());
+			for (String s: sol) System.out.println(s);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -126,6 +126,8 @@ public class BooleanParenthesization {
 	// Though recursion is used here to compute the total number of possible parenthesizations, it's worth noting that such 
 	// numbers might form a mathematical number sequence whose n'th value can be calculated from n via an analytical formula.
 	// A short list of such values will be printed at the end of the program to see whether that is possible. 
+	// [May-23-2018] These numbers are found to be the Catalan numbers and they do have an analytical formula! Check out
+	//               the Catalan number problem for details. 
 	private static long recursiveCountAll(int start, int end) {
 		if (start > end) return 1; // edge encountered to put parentheses
 		long sol = 0; 
@@ -347,7 +349,7 @@ public class BooleanParenthesization {
 	}
 	
 	/**
-	 * We try to avoid repeaded computations via DP memoization.
+	 * We try to avoid repeated computations via DP memoization.
 	 */
 	private static SolutionSet recursiveFindTrueAndFalseDPMemo(int[] symArr, char[] optArr, int start, int end, SolutionSet[][] table) {
 		if (table[start][end+1] != null) return table[start][end+1]; 
