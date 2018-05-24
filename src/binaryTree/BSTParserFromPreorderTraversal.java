@@ -79,7 +79,8 @@ public class BSTParserFromPreorderTraversal {
 	
 	/**
 	 * We try to optimize the recursive method to reduce the time complexity. 
-	 * A dynamic integer range can be used to decide whether to continue parsing or not. 
+	 * A dynamic integer range can be used to decide whether to continue parsing or not.
+	 * The min and max value denote the lower limit for left sub-tree nodes and upper limit for right sub-tree nodes.  
 	 * Look at the recursiveDeserialize(Queue<String> list) method in the BinaryTree class for reference. 
 	 * Time complexity: O(N)
 	 */
@@ -110,7 +111,7 @@ public class BSTParserFromPreorderTraversal {
 		BinarySearchTree foo = new BinarySearchTree(BinarySearchTree.convertArrayToBST(intArr)); 
 		System.out.println("********** Automatically generated balanced BST **********");
 		foo.levelOrderTraverse();
-		int[] fooPreOrderTraversal = foo.postOrderTraversalToArray();
+		int[] fooPreOrderTraversal = foo.preOrderTraversalToArray();
 		System.out.println("Its pre-order traversal is: \n" + Arrays.toString(fooPreOrderTraversal) + "\n");
 		System.out.println("[Iterative via Stack][O(N)] Parsing BST from the pre-order traversal:");
 		bst = iterativeParseViaStack(fooPreOrderTraversal);
@@ -139,7 +140,7 @@ public class BSTParserFromPreorderTraversal {
 		bar.insert(16);
 		System.out.println("********** Randome BST **********");
 		bar.levelOrderTraverse();
-		int[] barPreOrderTraversal = bar.postOrderTraversalToArray();
+		int[] barPreOrderTraversal = bar.preOrderTraversalToArray();
 		System.out.println("Its pre-order traversal is: \n" + Arrays.toString(barPreOrderTraversal) + "\n");
 		System.out.println("[Iterative via Stack] Parsing BST from the pre-order traversal:");
 		bst = iterativeParseViaStack(barPreOrderTraversal);
@@ -154,6 +155,10 @@ public class BSTParserFromPreorderTraversal {
 		bst.levelOrderTraverse();
 		bst.inorderTraverse();
 		
+		BinarySearchTree test = new BinarySearchTree();
+		for (int i: barPreOrderTraversal) test.insert(i);
+		test.levelOrderTraverse();
+		
 		
 		/* Left skewed BST */
 		BinarySearchTree leftSkew = new BinarySearchTree(); 
@@ -163,7 +168,7 @@ public class BSTParserFromPreorderTraversal {
 		leftSkew.insert(7);
 		System.out.println("********** Left skewed BST **********");
 		leftSkew.levelOrderTraverse();
-		int[] leftSkewPreOrderTraversal = leftSkew.postOrderTraversalToArray();
+		int[] leftSkewPreOrderTraversal = leftSkew.preOrderTraversalToArray();
 		System.out.println("Its pre-order traversal is: \n" + Arrays.toString(leftSkewPreOrderTraversal) + "\n");
 		System.out.println("[Iterative via Stack] Parsing BST from the pre-order traversal:");
 		bst = iterativeParseViaStack(leftSkewPreOrderTraversal);
@@ -186,7 +191,7 @@ public class BSTParserFromPreorderTraversal {
 		rightSkew.insert(4);
 		System.out.println("********** Right skewed BST **********");
 		rightSkew.levelOrderTraverse();
-		int[] rightSkewPreOrderTraversal = rightSkew.postOrderTraversalToArray();
+		int[] rightSkewPreOrderTraversal = rightSkew.preOrderTraversalToArray();
 		System.out.println("Its pre-order traversal is: \n" + Arrays.toString(rightSkewPreOrderTraversal) + "\n");
 		System.out.println("[Iterative via Stack] Parsing BST from the pre-order traversal:");
 		bst = iterativeParseViaStack(rightSkewPreOrderTraversal);

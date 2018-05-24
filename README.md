@@ -79,6 +79,7 @@ Each package contains an interesting algorithmic question with solution provided
   * [Plain Binary Search Tree implementation with linked nodes](./src/binaryTree/entities/BinarySearchTree.java)
   * [Parse a BST from its pre-order traversal](./src/binaryTree/BSTParserFromPreorderTraversal.java)
   * [Parse a BST from its post-order traversal](./src/binaryTree/BSTParserFromPostorderTraversal.java)
+  * [Parse a BST from its level-order traversal](./src/binaryTree/BSTParserFromLevelOrderTraversal.java)
   * [Convert a BT to a BST with tree structure maintained](./src/binaryTree/BTtoBSTConverter.java)
   * [**Divide and Conquer** Search range in BST](./src/binaryTree/SearchRangeInBST.java)
   * [Sum up greater keys with each node in BST](./src/binaryTree/SumWithGreaterKeysInBST.java)

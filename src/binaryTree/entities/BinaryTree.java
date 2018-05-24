@@ -85,27 +85,27 @@ public class BinaryTree {
 	/* Preorder traversal and store results to an array */
 	public int[] preOrderTraversalToArray() {
 		ArrayList<Integer> list = new ArrayList<>();
-		preOrderTraversalToArray(this.root, list);
+		preOrderTraversalToList(this.root, list);
 		return list.stream().mapToInt(i -> i).toArray();
 	}
-	private void preOrderTraversalToArray(TreeNode node, ArrayList<Integer> list) {
+	private void preOrderTraversalToList(TreeNode node, ArrayList<Integer> list) {
 		if (node != null) {
 			list.add(node.key);
-			preOrderTraversalToArray(node.left, list); // smaller ones
-			preOrderTraversalToArray(node.right, list); // larger ones
+			preOrderTraversalToList(node.left, list); // smaller ones
+			preOrderTraversalToList(node.right, list); // larger ones
 		}
 	}
 	
 	/* Postorder traversal and store results to an array */
 	public int[] postOrderTraversalToArray() {
 		ArrayList<Integer> list = new ArrayList<>();
-		postOrderTraversalToArray(this.root, list);
+		postOrderTraversalToList(this.root, list);
 		return list.stream().mapToInt(i -> i).toArray();
 	}
-	private void postOrderTraversalToArray(TreeNode node, ArrayList<Integer> list) {
+	private void postOrderTraversalToList(TreeNode node, ArrayList<Integer> list) {
 		if (node != null) {
-			postOrderTraversalToArray(node.left, list); // smaller ones
-			postOrderTraversalToArray(node.right, list); // larger ones
+			postOrderTraversalToList(node.left, list); // smaller ones
+			postOrderTraversalToList(node.right, list); // larger ones
 			list.add(node.key);
 		}
 	}
@@ -113,16 +113,46 @@ public class BinaryTree {
 	/* Inorder traversal and store results to an array */
 	public int[] inOrderTraversalToArray() {
 		ArrayList<Integer> list = new ArrayList<>();
-		inOrderTraversalToArray(this.root, list);
+		inOrderTraversalToList(this.root, list);
 		return list.stream().mapToInt(i -> i).toArray();
 	}
-	private void inOrderTraversalToArray(TreeNode node, ArrayList<Integer> list) {
+	private void inOrderTraversalToList(TreeNode node, ArrayList<Integer> list) {
 		if (node != null) {
-			inOrderTraversalToArray(node.left, list); // smaller ones
+			inOrderTraversalToList(node.left, list); // smaller ones
 			list.add(node.key);
-			inOrderTraversalToArray(node.right, list); // larger ones
+			inOrderTraversalToList(node.right, list); // larger ones
 		}
 	}
+	
+	/* Level traversal and store results to an array */
+	public int[] levelOrderTraversalToArray() {
+		ArrayList<Integer> list = new ArrayList<>();
+		levelOrderTraversalToList(this.root, list);
+		return list.stream().mapToInt(i -> i).toArray();
+	}
+	private void levelOrderTraversalToList(TreeNode node, ArrayList<Integer> list) {
+		if (node == null) return; 
+		Queue<TreeNode> nodeQ = new LinkedList<>();
+		nodeQ.add(root);
+		list.add(root.getKey());
+		while(true) {
+			int count = nodeQ.size(); 
+			if (count == 0) break; 
+			while (count > 0) {
+				TreeNode top = nodeQ.remove();
+				if (top.getLeft() != null) {
+					nodeQ.add(top.getLeft());
+					list.add(top.getLeft().getKey());
+				}
+				if (top.getRight() != null) {
+					nodeQ.add(top.getRight());
+					list.add(top.getRight().getKey());
+				}
+				count--;
+			}
+		}
+	}
+	
 	
 	/* Generate a clone of current tree via preorder traversal */
 	//	@Override

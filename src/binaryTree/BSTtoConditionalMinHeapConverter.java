@@ -20,7 +20,7 @@ public class BSTtoConditionalMinHeapConverter {
 	/**
 	 * Step 1): take out smallest node as root of the final min-heap, substitute subsequent values inorder, and then substitute 
 	 *          the rightmost node in left sub-tree with root, so as to maintain left sub-tree completeness
-	 * Step 2): recursively convert the left sub-tree and right sub-tree into min-heaps
+	 * Step 2): convert the left sub-tree and right sub-tree into min-heaps (recursively)
 	 * Step 3): connect them to the root of the final min-heap
 	 */
 	private static void inplaceConvertToConditionalMinHeap(BinarySearchTree bst) {

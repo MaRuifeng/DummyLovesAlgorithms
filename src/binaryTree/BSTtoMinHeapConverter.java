@@ -112,9 +112,9 @@ public class BSTtoMinHeapConverter {
 		bst.insert(6);
 		bst.insert(10);
 		bst.insert(14);
-//		bst.insert(1);
-//		bst.insert(20);
-//		bst.insert(7);
+		bst.insert(1);
+		bst.insert(20);
+		bst.insert(7);
 		BinarySearchTree bstCopy = null;
 		try {
 		    bstCopy = bst.clone(BinarySearchTree.class);
