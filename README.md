@@ -88,6 +88,7 @@ Each package contains an interesting algorithmic question with solution provided
   * [All possible BSTs from 1 to N **Catalan Numbers**](./src/binaryTree/AllPossibleBSTsFromOneToN.java)
   * [Convert BST to min heap](./src/binaryTree/BSTtoMinHeapConverter.java)
   * [Convert BT to doubly linked list](./src/binaryTree/BTtoDoublyLinkedListConverter.java)
+  * [Convert complete BST to conditional min heap where left sub-tree smaller than right sub-tree](./src/binaryTree/BSTtoConditionalMinHeapConverter.java)
 * [Plain Binary Heap implementation with array](./src/binaryHeap/MinHeap.java)
 
 ## Background
