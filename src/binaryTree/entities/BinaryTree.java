@@ -137,7 +137,7 @@ public class BinaryTree {
 			e.printStackTrace();
 			throw new Exception("Could not get a proper constructor for " + this.getClass().getName() + ".");
 		}
-		return type.cast(constructor.newInstance(this.root));
+		return type.cast(constructor.newInstance(cloneViaPreOrderTraversal(this.root)));
 	}
 	protected TreeNode cloneViaPreOrderTraversal(TreeNode ori) {
 		if (ori != null) {
