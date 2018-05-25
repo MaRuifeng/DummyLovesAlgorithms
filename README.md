@@ -34,6 +34,8 @@ Each package contains an interesting algorithmic question with solution provided
 * [**All hail Recursion!** Find all subsets of an integer set](./src/integerArray/SubsetSeeker.java)
 * [Patch a given array to produce list of sums from 1 to N](./src/integerArray/IntegerArrayPatcher.java)
 * [Binary search in a sorted array rotated at an unknown pivot](./src/integerArray/BinarySearchInRotatedSortedArray.java)
+* [**All hail Recursion!** Number permutation](./src/integerArray/NumberPermutation.java)
+* [**All hail Recursion!** Number combination](./src/integerArray/NumberCombination.java)
 * [Dynamic Programming](./src/dynamicProgramming)
   * [Fibonacci Numbers](./src/dynamicProgramming/FibNumbers.java)
   * [Binomial Coefficients](./src/dynamicProgramming/BinomialCoefficients.java)
@@ -70,6 +72,7 @@ Each package contains an interesting algorithmic question with solution provided
 * [Longest valid parentheses substring](./src/string/LongestValidParentheses.java)
 * [Parentheses checker](./src/string/ParenthesisChecker.java)
 * [In-place string rotator](./src/string/StringRotator.java)
+* [**Backtracking** String permutation](./src/string/StringPermutation.java)
 * [Binary Tree](./src/binaryTree)
   * [Plain Binary Tree implementation with linked nodes](./src/binaryTree/entities/BinaryTree.java)
     * Pre-order Traversal
