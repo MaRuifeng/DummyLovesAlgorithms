@@ -62,6 +62,7 @@ Each package contains an interesting algorithmic question with solution provided
   * [**Beware of integer overflow!** Boolean parenthesization](./src/dynamicProgramming/BooleanParenthesization.java)
   * [**DP Enhancement** Find required add and subtract operations to produce a fixed sum](./src/integerArray/MathOpsForFixedSum.java)
   * [Shortest common supersequence](./src/dynamicProgramming/ShortestCommonSupersequence.java)
+  * [Least arithmetic operations for matrix chain multiplication](./src/dynamicProgramming/MatrixChainMultiplication.java)
 * [Remove duplicates in string](./src/string/removeDuplicates/DuplicatesRemover.java)
 * [Remove alternate duplicates in string](./src/string/removeDuplicates/AlternateDuplicatesRemover.java)
 * [Remove adjacent duplicates in string](./src/string/removeDuplicates/AdjacentDuplicatesRemover.java)
