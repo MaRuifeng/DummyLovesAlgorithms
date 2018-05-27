@@ -65,6 +65,7 @@ Each package contains an interesting algorithmic question with solution provided
   * [**DP Enhancement** Find required add and subtract operations to produce a fixed sum](./src/integerArray/MathOpsForFixedSum.java)
   * [Shortest common supersequence](./src/dynamicProgramming/ShortestCommonSupersequence.java)
   * [Least arithmetic operations for matrix chain multiplication](./src/dynamicProgramming/MatrixChainMultiplication.java)
+  * [Rod cutting for maximum gain **`equals` and `hashCode` method override**](./src/dynamicProgramming/RodCutter.java)
 * [Remove duplicates in string](./src/string/removeDuplicates/DuplicatesRemover.java)
 * [Remove alternate duplicates in string](./src/string/removeDuplicates/AlternateDuplicatesRemover.java)
 * [Remove adjacent duplicates in string](./src/string/removeDuplicates/AdjacentDuplicatesRemover.java)

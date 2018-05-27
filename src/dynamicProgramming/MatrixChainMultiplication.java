@@ -25,6 +25,8 @@ import utils.FunIntAlgorithm;
  * 
  * For above example, the array is [10, 30, 5, 60, 10]. 
  * 
+ * The solution to this problem is analogous to that of the rod cutting problem.
+ * 
  * @author ruifengm
  * @since 2018-May-25
  * 
@@ -166,7 +168,8 @@ public class MatrixChainMultiplication extends FunIntAlgorithm {
 	}
 	
 	/**
-	 * We modify the tabulation method above to return a complete soltuion. 
+	 * We modify the tabulation method above to return a complete solution. 
+	 * Note that there might be multiple solutions, instead of collecting all, we just return one. 
 	 */
 	private static Solution iterativeFindSolutionDPTabu(char[] matrixList, int[] dimensionList) {
 		int size = dimensionList.length;
@@ -234,6 +237,9 @@ public class MatrixChainMultiplication extends FunIntAlgorithm {
 		
 //		char[] matrixList = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'}; 
 //		int[] dimensionList = {10, 20, 30, 40, 30, 20, 10, 40, 80}; 
+
+//		char[] matrixList = {'A', 'B', 'C'}; 
+//		int[] dimensionList = {10, 10, 10, 10}; 
 		
 		genMatrixAndDimenList(15);
 
