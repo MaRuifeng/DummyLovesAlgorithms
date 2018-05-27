@@ -1,6 +1,7 @@
 package dynamicProgramming;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Objects;
@@ -158,10 +159,14 @@ public class RodCutter extends FunIntAlgorithm {
 	}
 	
 	@SuppressWarnings("unchecked")
+	/**
+	 * This isn't a neat solution hence duplicate solutions will be encountered and a hashset is used to avoid them. 
+	 * Checkout the better approach below for a neater implementation that won't encounter duplicates. 
+	 */
 	private static void iterativePrintAllMaxGainSolutionDPTabu(int[] priceList) {
 		int size = priceList.length;
 		HashSet<Solution>[][] table = new HashSet[size][size]; // DP lookup table
-		                                                       // use hashset to avoid identical solutions collected
+		                                                       // use hashset to avoid duplicate solutions collected
 		// fill up the DP lookup table in a diagonal way
 		for (int j=0; j<size; j++) 
 			for (int i=j; i>=0; i--) {
@@ -203,6 +208,180 @@ public class RodCutter extends FunIntAlgorithm {
 		}
 	}
 	
+	/**
+	 * Let's try to find a neater solution than above. We can still consider the final cut, but this time we think in a way
+	 * that cutting is always done from left to right (cutting sequence doesn't really matter). 
+	 * Let n be the length of the rod, and P(n) be the array containing prices for sub-pieces, and Sol(n) is the the maximum gain
+	 * for the rod, then there is
+	 * 
+	 *    Sol(n) = MAX (P[n-1-i] + Sol(i)), for i ranging from n-1 to 0       <-- final cut occurs at position i, hence right part of 
+	 *                                                                            the rod remains, yielding price of P[n-1-i].
+	 *                                                                            
+	 * Another way to interpret this is that a sub-piece of the rod can be of size 1 to n, and for each of them, firstly we cut the rod
+	 * to obtain that sub-piece and then cut the remaining rod in a way that the local maximum gain can be obtained for that particular 
+	 * sub-piece. Then we obtain the global optimal from these local optimal points (greedy).
+	 * 
+	 * This neater solution has a much lower space complexity, and a time complexity of O(n^2) when DP is applied, whereas above
+	 * solution has a time complexity of O(n^3) when DP is applied. 
+	 */
+	private static int recursiveFindMaxGainByCut(int[] priceList, int rodLen) {
+		if (rodLen == 0) return 0; 
+		int max = Integer.MIN_VALUE;
+		for (int i=rodLen-1; i>=0; i--) { // look up all possible final cut positions
+			max = Math.max(max, priceList[rodLen-1-i] + recursiveFindMaxGainByCut(priceList, i));
+		}
+		return max;
+	}
+	private static int recursiveFindMaxGainByCut(int[] priceList) {
+		return recursiveFindMaxGainByCut(priceList, priceList.length);
+	}
+	
+	/**
+	 * We try to optimize the above solution with DP memoization.
+	 */
+	private static int recursiveFindMaxGainByCutDPMemo(int[] priceList, int rodLen, int[] table) {
+		if (table[rodLen] != -1) return table[rodLen];
+		else {
+			if (rodLen == 0) table[rodLen] = 0;
+			else {
+				int max = Integer.MIN_VALUE;
+				for (int i=rodLen-1; i>=0; i--) { // look up all possible final cut positions
+					max = Math.max(max, priceList[rodLen-1-i] + recursiveFindMaxGainByCutDPMemo(priceList, i, table));
+				}
+				table[rodLen] = max;
+			}
+			return table[rodLen];
+		}
+	}
+	private static int recursiveFindMaxGainByCutDPMemo(int[] priceList) {
+		int[] DPLookUp = new int[priceList.length+1];
+		Arrays.fill(DPLookUp, -1);
+		int res = recursiveFindMaxGainByCutDPMemo(priceList, priceList.length, DPLookUp);
+		// System.out.println(Arrays.toString(DPLookUp));
+		return res;
+	}
+	
+	/**
+	 * We try to optimize above solution with DP tabulation.
+	 */
+	private static int iterativeFindMaxGainByCutDPTabu(int[] priceList) {
+		int size = priceList.length; 
+		int[] table = new int[size+1]; // DP lookup table
+		table[0] = 0; // base case
+		// fill up the DP lookup table from start to end
+		for (int i=1; i<=size; i++) {
+			int max = Integer.MIN_VALUE;
+			for (int j=i-1; j>=0; j--) { // i is the current rod length
+				max = Math.max(max, priceList[i-1-j] + table[j]);
+			}
+			table[i] = max;
+		}
+		// System.out.println(Arrays.toString(table));
+		return table[size];
+	}
+	
+	/**
+	 * We try to return a complete solution that tells how to cut the rod via the DP tabulation method. 
+	 * Note that there might be multiple ways of cutting which return the same max gain. 
+	 * We try to find the one that involves the least number of cuts. 
+	 */
+	private static Solution iterativeFindMaxGainSolutionByCutDPTabu(int[] priceList) {
+		int size = priceList.length; 
+		Solution[] table = new Solution[size+1]; // DP lookup table
+		table[0] = new Solution("", 0, 0); // base case
+		// fill up the DP lookup table from start to end
+		for (int i=1; i<=size; i++) {
+			Solution optimal = new Solution("", 0, Integer.MIN_VALUE);
+			for (int j=i-1; j>=0; j--) { // i is the current rod length
+				String solStr = " "; 
+				for (int k=j+1; k<=i; k++) solStr += String.valueOf(k) + " ";
+				int solNumOfCuts = table[j].numOfCuts; 
+				if (!table[j].cutPoints.equals("")) {
+					solStr = table[j].cutPoints + "|" + solStr;
+					solNumOfCuts += 1;
+				} 
+				Solution sol = new Solution(solStr, solNumOfCuts, table[j].gain + priceList[i-1-j]); 
+				if (optimal.gain < sol.gain) optimal = sol; 
+				if (optimal.gain == sol.gain && optimal.numOfCuts > sol.numOfCuts) optimal = sol;
+			}
+			table[i] = optimal;
+		}
+		return table[size];
+	}
+	
+	@SuppressWarnings("unchecked")
+	private static void iterativePrintAllMaxGainSolutionByCutDPTabu(int[] priceList) {
+		int size = priceList.length; 
+		ArrayList<Solution>[] table = new ArrayList[size+1]; // DP lookup table
+		table[0] = new ArrayList<>();
+		table[0].add(new Solution("", 0, 0)); // base case
+		// fill up the DP lookup table from start to end
+		for (int i=1; i<=size; i++) {
+			Solution optimal = new Solution("", 0, Integer.MIN_VALUE);
+			table[i] = new ArrayList<>();
+			table[i].add(optimal);
+			for (int j=i-1; j>=0; j--) { // i is the current rod length
+				for (Solution prevSol: table[j]) {
+					String solStr = " "; 
+					for (int k=j+1; k<=i; k++) solStr += String.valueOf(k) + " ";
+					int solNumOfCuts = prevSol.numOfCuts; 
+					if (!prevSol.cutPoints.equals("")) {
+						solStr = prevSol.cutPoints + "|" + solStr;
+						solNumOfCuts += 1;
+					} 
+					Solution sol = new Solution(solStr, solNumOfCuts, prevSol.gain + priceList[i-1-j]); 
+					if (optimal.gain < sol.gain) {
+						optimal = sol; 
+						table[i].clear(); // reset
+					}
+					if (optimal.gain == sol.gain) table[i].add(sol);
+				}
+
+			}
+		}
+		System.out.println("\n/************* List of all rod cutting solutions that yield the max gain *************/");
+		System.out.println("Size of the list: " + table[size].size() + "\n");
+		if (table[size].size() < 40) { // do not print if the list is too long
+			for (Solution sol: table[size]) {
+		    	System.out.println("Rod cutting points: " + sol.cutPoints);
+		    	System.out.println("Max gain: " + sol.gain);
+		    	System.out.println("Number of cuts: " + sol.numOfCuts);
+		    	System.out.println();
+			}
+		}
+	}
+	
+	/**
+	 * We try to count the optimal solutions via the DP tabulation method. 
+	 */
+	static class SolutionCount {
+		int count;
+		int gain; 
+		public SolutionCount(int count, int gain) {
+			this.count = count;
+			this.gain = gain;
+		}
+	}
+	private static void iterativeCountAllMaxGainSolutionByCutDPTabu(int[] priceList) {
+		int size = priceList.length; 
+		SolutionCount[] table = new SolutionCount[size+1]; // DP lookup table
+		table[0] = new SolutionCount(1, 0); // base case
+		// fill up the DP lookup table from start to end
+		for (int i=1; i<=size; i++) {
+			SolutionCount optimal = new SolutionCount(1, Integer.MIN_VALUE);
+			for (int j=i-1; j>=0; j--) { // i is the current rod length
+				SolutionCount solCount = new SolutionCount(table[j].count, table[j].gain + priceList[i-1-j]); 
+				if (optimal.gain < solCount.gain) optimal = solCount; // reset
+				else if (optimal.gain == solCount.gain) optimal.count += solCount.count;
+			}
+			table[i] = optimal;
+		}
+		System.out.println("\n/************* Count of all rod cutting solutions that yield the max gain *************/");
+    	System.out.println("Total count: " + table[size].count);
+    	System.out.println("Max gain: " + table[size].gain);
+    	System.out.println();
+	}
+	
 	@FunctionalInterface
 	protected interface ArrayToSolutionFunction {
 	   Solution apply(int[] a) throws Exception;  
@@ -229,9 +408,9 @@ public class RodCutter extends FunIntAlgorithm {
 //		int[] priceList = {3, 5, 8, 9, 10, 17, 17, 20};
 //		int[] priceList = {1, 2, 4, 3, 2, 1, 5, 1, 1, 4, 2, 1, 2, 4, 5, 4, 4, 4, 4, 3}; 
 //		int[] priceList = {2, 4, 3, 1, 2, 3, 2, 5, 3, 3, 5, 3, 4, 3, 5, 4, 2, 4, 3, 4};
-//		int[] priceList = {1, 2, 6, 1, 2, 35, 42, 8, 3, 3, 5, 3, 4, 7, 20, 4, 2, 4, 3, 4};
-		int[] priceList = {1, 2, 6, 1, 2, 42, 35, 8, 3, 3, 5, 3, 4, 7, 20, 4, 2, 4, 3, 4};
-//		int[] priceList = genRanIntArr(20, 1, 6);
+		int[] priceList = {1, 2, 6, 1, 2, 35, 42, 8, 3, 3, 5, 3, 4, 7, 20, 4, 2, 4, 3, 4};
+//		int[] priceList = {1, 2, 6, 1, 2, 42, 35, 8, 3, 3, 5, 3, 4, 7, 20, 4, 2, 4, 3, 4};
+//		int[] priceList = genRanIntArr(28, 1, 6);
 
 		System.out.println("Welcome to the rabbit hole of rod cutters!\n"
 				+ "The length of the rod is " + priceList.length + ".\n"
@@ -243,12 +422,24 @@ public class RodCutter extends FunIntAlgorithm {
 					(int[] a) -> recursiveFindMaxGain(a), priceList);
 			runIntArrayFuncAndCalculateTime("[Recursive][DP Memo]      Max gain:" , 
 					(int[] a) -> recursiveFindMaxGainDPMemo(a), priceList);	
-			runIntArrayFuncAndCalculateTime("[Recursive][DP Tabu]      Max gain:" , 
+			runIntArrayFuncAndCalculateTime("[Iterative][DP Tabu]      Max gain:" , 
 					(int[] a) -> iterativeFindMaxGainDPTabu(a), priceList);	
-			runFuncAndCalculateTime("[Recursive][DP Tabu]      Least rod cuts for max gain:" , 
+			runFuncAndCalculateTime("[Iterative][DP Tabu]      Least rod cuts for max gain:" , 
 					(int[] a) -> iterativeFindMaxGainSolutionDPTabu(a), priceList);	
+			runIntArrayFuncAndCalculateTime("[Recursive][Neater Approach]   Max gain:" , 
+					(int[] a) -> recursiveFindMaxGainByCut(a), priceList);
+			runIntArrayFuncAndCalculateTime("[Recursive][Neater Approach][DP Memo]   Max gain:" , 
+					(int[] a) -> recursiveFindMaxGainByCutDPMemo(a), priceList);
+			runIntArrayFuncAndCalculateTime("[Iterative][Neater Approach][DP Tabu]   Max gain:" , 
+					(int[] a) -> iterativeFindMaxGainByCutDPTabu(a), priceList);
+			runFuncAndCalculateTime("[Iterative][Neater Approach][DP Tabu]      Least rod cuts for max gain:" , 
+					(int[] a) -> iterativeFindMaxGainSolutionByCutDPTabu(a), priceList);	
 			
 			iterativePrintAllMaxGainSolutionDPTabu(priceList);
+			
+			System.out.println("The neater approach...");
+			iterativePrintAllMaxGainSolutionByCutDPTabu(priceList);
+			iterativeCountAllMaxGainSolutionByCutDPTabu(priceList);
 		
 		} catch (Exception e) {
 			e.printStackTrace();
