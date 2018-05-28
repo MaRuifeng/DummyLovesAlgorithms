@@ -214,7 +214,7 @@ public class RodCutter extends FunIntAlgorithm {
 	 * Let n be the length of the rod, and P(n) be the array containing prices for sub-pieces, and Sol(n) is the the maximum gain
 	 * for the rod, then there is
 	 * 
-	 *    Sol(n) = MAX (P[n-1-i] + Sol(i)), for i ranging from n-1 to 0       <-- final cut occurs at position i, hence right part of 
+	 *    Sol(n) = MAX(P[n-1-i] + Sol(i)), for i ranging from n-1 to 0       <-- final cut occurs at position i, hence right part of 
 	 *                                                                            the rod remains, yielding price of P[n-1-i].
 	 *                                                                            
 	 * Another way to interpret this is that a sub-piece of the rod can be of size 1 to n, and for each of them, firstly we cut the rod
@@ -410,7 +410,7 @@ public class RodCutter extends FunIntAlgorithm {
 //		int[] priceList = {2, 4, 3, 1, 2, 3, 2, 5, 3, 3, 5, 3, 4, 3, 5, 4, 2, 4, 3, 4};
 		int[] priceList = {1, 2, 6, 1, 2, 35, 42, 8, 3, 3, 5, 3, 4, 7, 20, 4, 2, 4, 3, 4};
 //		int[] priceList = {1, 2, 6, 1, 2, 42, 35, 8, 3, 3, 5, 3, 4, 7, 20, 4, 2, 4, 3, 4};
-//		int[] priceList = genRanIntArr(28, 1, 6);
+//		int[] priceList = genRanIntArr(2000, 1, 6);
 
 		System.out.println("Welcome to the rabbit hole of rod cutters!\n"
 				+ "The length of the rod is " + priceList.length + ".\n"
@@ -440,7 +440,6 @@ public class RodCutter extends FunIntAlgorithm {
 			System.out.println("The neater approach...");
 			iterativePrintAllMaxGainSolutionByCutDPTabu(priceList);
 			iterativeCountAllMaxGainSolutionByCutDPTabu(priceList);
-		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

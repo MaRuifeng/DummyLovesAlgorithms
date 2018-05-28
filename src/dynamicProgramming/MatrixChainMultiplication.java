@@ -114,7 +114,8 @@ public class MatrixChainMultiplication extends FunIntAlgorithm {
 	}
 	
 	/**
-	 * We try optimize the above method with DP memoization.
+	 * We try to optimize the above method with DP memoization.
+	 * Time complexity: O(n^3)
 	 */
 	private static long recursiveFindLeastNumOfOpsDPMemo(int[] dimensionList, int start, int end, long[][] table) {
 		if (table[start][end-1] != -1) return table[start][end-1];
@@ -143,6 +144,7 @@ public class MatrixChainMultiplication extends FunIntAlgorithm {
 	
 	/**
 	 * We try to optimize the above method with DP tabulation. 
+	 * Time complexity: O(n^3)
 	 */
 	private static long iterativeFindLeastNumOfOpsDPTabu(int[] dimensionList) {
 		int size = dimensionList.length;

@@ -47,6 +47,11 @@ public class FunStringAlgorithm extends FunAlgorithm {
 		String apply(char[] a, char[] b);
 	}
 	
+	@FunctionalInterface
+	protected interface StringToVoidFunction {
+		void apply(String s);
+	}
+	
     protected static void runStringFuncAndCalculateTime(String message, CharArrayToStringFunction strFunc, char[] charA) throws Exception {
     	long startTime = System.nanoTime();
     	System.out.printf("%s%s\n", message, strFunc.apply(charA));
@@ -65,13 +70,15 @@ public class FunStringAlgorithm extends FunAlgorithm {
     	System.out.printf("%-70s%s\n\n", "Function execution time in micro-seconds: ", formatter.format(totalTime));
     }
     
-    protected static void runStringFuncAndCalculateTime(String message, StringToBooleanFunction strFunc, String s) throws Exception {
+    protected static boolean runStringFuncAndCalculateTime(String message, StringToBooleanFunction strFunc, String s) throws Exception {
     	long startTime = System.nanoTime();
-    	System.out.printf("%s%s\n", message, strFunc.apply(s));
+    	boolean res = strFunc.apply(s);
+    	System.out.printf("%s%s\n", message, res);
     	long endTime = System.nanoTime();
     	long totalTime = new Long(TimeUnit.MICROSECONDS.convert(endTime - startTime, TimeUnit.NANOSECONDS));
     	DecimalFormat formatter = new DecimalFormat("#,###");
     	System.out.printf("%-70s%s\n\n", "Function execution time in micro-seconds: ", formatter.format(totalTime));
+    	return res;
     }
     
     protected static void runStringFuncAndCalculateTime(String message, CharArrayFunction strFunc, char[] charA) throws Exception {
@@ -113,6 +120,16 @@ public class FunStringAlgorithm extends FunAlgorithm {
     	DecimalFormat formatter = new DecimalFormat("#,###");
     	System.out.printf("%-70s%s\n\n", "Function execution time in micro-seconds: ", formatter.format(totalTime));
     	return result;
+    }
+    
+    protected static void runStringFuncAndCalculateTime(String message, StringToVoidFunction strFunc, String s) throws Exception {
+    	long startTime = System.nanoTime();
+    	System.out.printf("%s\n", message);
+    	strFunc.apply(s);
+    	long endTime = System.nanoTime();
+    	long totalTime = new Long(TimeUnit.MICROSECONDS.convert(endTime - startTime, TimeUnit.NANOSECONDS));
+    	DecimalFormat formatter = new DecimalFormat("#,###");
+    	System.out.printf("%-70s%s\n\n", "Function execution time in micro-seconds: ", formatter.format(totalTime));
     }
     
     /**

@@ -1,4 +1,4 @@
-package integerArray;
+package dynamicProgramming;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
