@@ -68,6 +68,7 @@ Each package contains an interesting algorithmic question with solution provided
   * [**`equals` and `hashCode` method override** Rod cutting for maximum gain](./src/dynamicProgramming/RodCutter.java)
   * [Resolve a string with dictionary words](./src/dynamicProgramming/StringResolver.java)
   * [Rope cutting for maximum length product](./src/dynamicProgramming/RopeCutter.java)
+  * [Dice rolling for fixed sum](./src/dynamicProgramming/DiceRoller.java)
 * [Remove duplicates in string](./src/string/removeDuplicates/DuplicatesRemover.java)
 * [Remove alternate duplicates in string](./src/string/removeDuplicates/AlternateDuplicatesRemover.java)
 * [Remove adjacent duplicates in string](./src/string/removeDuplicates/AdjacentDuplicatesRemover.java)
