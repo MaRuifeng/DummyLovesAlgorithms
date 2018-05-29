@@ -319,7 +319,6 @@ public class RodCutter extends FunIntAlgorithm {
 		for (int i=1; i<=size; i++) {
 			Solution optimal = new Solution("", 0, Integer.MIN_VALUE);
 			table[i] = new ArrayList<>();
-			table[i].add(optimal);
 			for (int j=i-1; j>=0; j--) { // i is the current rod length
 				for (Solution prevSol: table[j]) {
 					String solStr = " "; 
