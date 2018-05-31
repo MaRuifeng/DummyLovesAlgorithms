@@ -77,6 +77,7 @@ Each package contains an interesting algorithmic question with solution provided
 * [Parentheses checker](./src/string/ParenthesisChecker.java)
 * [In-place string rotator](./src/string/StringRotator.java)
 * [**Backtracking** String permutation](./src/string/StringPermutation.java)
+* [**KMP Algorithm** Search for patterns in string](./src/string/StringPatternSearch.java)
 * [Binary Tree](./src/binaryTree)
   * [Plain Binary Tree implementation with linked nodes](./src/binaryTree/entities/BinaryTree.java)
     * Pre-order Traversal
