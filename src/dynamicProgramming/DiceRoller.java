@@ -80,6 +80,39 @@ public class DiceRoller {
 	}
 	
 	/**
+	 * The DP lookup table generated via the tabulation method can be used to 
+	 * calculate all possible sum values and their probabilities. In the implementation, 
+	 * the DP table is reduced to two arrays for space optimization. 
+	 */
+	private static void iterativeGetSumValAndProbDPTabu(int n, int m) {
+		int largestSum = n*m; 
+		long[] table = new long[largestSum+1]; // DP lookup table
+		table[0] = 1; 
+		for (int i=1; i<=n; i++) {
+			long[] temp = new long[largestSum+1];
+			for (int j=1; j<=largestSum; j++) {
+				long count = 0; 
+				for (int k=1; k<=m; k++) {
+					if (j>=k) count += table[j-k];
+				}
+				temp[j] = count;
+			}
+			table = temp; 
+		}
+		long totalCount = 0; 
+		for (int i=n; i<=largestSum; i++) totalCount += table[i];
+		
+		System.out.println("Total count: " + totalCount);
+		DecimalFormat foramt = new DecimalFormat("#0.000000");
+		//List<Map.Entry<Integer, Double>> list = new ArrayList<>();
+		for (int i=n; i<=largestSum; i++) {
+			System.out.printf("Sum: %-20d Count: %-20d Probability: %s\n", i, table[i],
+					foramt.format((double)table[i]/totalCount));
+			//list.add(new java.util.AbstractMap.SimpleEntry<Integer, Double>(i, (double)table[i]/totalCount));
+		}
+	}
+	
+	/**
 	 * We try to print out all possible situations.
 	 */
 	private static void recursivePrintAllDiceCombinations(String solution, int n, int m, int sum) {
@@ -199,6 +232,10 @@ public class DiceRoller {
 					(int a, int b, int c) -> recursivePrintAllDiceCombinationsDPMemo(a, b, c), numOfDices, numOfFaces, sum);
 			runDiceCountFuncAndCalculateTime("[Iterative][DP Tabu]      List of all possible dice rolling situations: ", 
 					(int a, int b, int c) -> iterativePrintAllDiceCombinationsDPTabu(a, b, c), numOfDices, numOfFaces, sum);
+			
+			System.out.println("List of all possible sum values and their probabilities(DP Tabu):");
+			iterativeGetSumValAndProbDPTabu(numOfDices, numOfFaces);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
