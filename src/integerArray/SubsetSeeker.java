@@ -3,6 +3,7 @@ package integerArray;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -171,6 +172,79 @@ public class SubsetSeeker {
 		}
 	}
 	
+	/**
+	 * What if the integer array contains duplicates? By observing the recursive call stack of the first method, 
+	 * we can see that when a duplicate element is added to the base solution to form a new solution, the next recursive
+	 * call with that new solution as a base solution will occur as a duplicate, because the same element had been added to the 
+	 * same base solution in higher level of the recursive call stack pending for execution. 
+	 * 
+	 * We need to look for a way to tell our recursion program when such a duplicate occurs. The idea is to establish a map for each base
+	 * solution which takes each array element as a key (unique) and a boolean as the value that indicates whether the array element has been 
+	 * added to the base solution or not. Then during each recursion, we check current array element against this map, if it's not added, we recur
+	 * with both the base solution and the new solution; otherwise we recur with the base solution only. 
+	 * 
+	 * The map works in a way very much like the DP lookup table. 
+	 * 
+	 * Note that as opposed to some other solutions which require the array to be sorted as to eliminate duplicates,
+	 * this solution does not need so. 
+	 */
+	private static void recursivePrintSubSetWithDup(ArrayList<Integer> baseSol, int[] arr, int size, HashMap<Integer, Boolean> table) {
+		if (size == arr.length) {
+			// array is depleted, print solution
+			String subset = "[";
+			for (Integer i: baseSol) subset += (i + " ");
+			subset = subset.trim() + "]";
+			System.out.println(subset);
+		}
+		else {
+			if (!table.get(arr[size])) { // element not added to base solution
+				ArrayList<Integer> newSol = new ArrayList<>(baseSol);
+				newSol.add(arr[size]); 
+				table.put(arr[size], true); // set value in lookup table for current base solution
+				recursivePrintSubSetWithDup(baseSol, arr, size+1, table);
+				table.put(arr[size], false); // recover the lookup table for new base solution
+				recursivePrintSubSetWithDup(newSol, arr, size+1, table);
+			} else { // element already added to base solution in a previous recursion
+				recursivePrintSubSetWithDup(baseSol, arr, size+1, table);
+			}
+		}	
+	}
+	private static void recursivePrintSubSetWithDup(int[] arr) {
+		HashMap<Integer, Boolean> lookup = new HashMap<>(); 
+		for (int i: arr) lookup.put(i, false);
+		recursivePrintSubSetWithDup(new ArrayList<>(), arr, 0, lookup);
+	}
+	
+	/**
+	 * If the array is sorted, we can just use a boolean value to indicate
+	 * whether the new solution formation should be skipped or not for current base solution.
+	 */
+	private static void recursivePrintSubSetWithDupAndSortedArr(ArrayList<Integer> baseSol, int[] arr, int size, boolean skip) {
+		if (size == arr.length) {
+			// array is depleted, print solution
+			String subset = "[";
+			for (Integer i: baseSol) subset += (i + " ");
+			subset = subset.trim() + "]";
+			System.out.println(subset);
+		}
+		else {
+			if (skip) { // skip new solution formation due to duplicate
+				if (!(size < arr.length-1 && arr[size+1] == arr[size])) skip = false; // stop skipping
+				recursivePrintSubSetWithDupAndSortedArr(baseSol, arr, size+1, skip);
+			}
+			else {
+				ArrayList<Integer> newSol = new ArrayList<>(baseSol);
+				newSol.add(arr[size]); 
+				if (size < arr.length-1 && arr[size+1] == arr[size]) skip = true;
+				recursivePrintSubSetWithDupAndSortedArr(baseSol, arr, size+1, skip);
+				recursivePrintSubSetWithDupAndSortedArr(newSol, arr, size+1, false); // skip reset for new base solution
+			}
+		}	
+	}
+	private static void recursivePrintSubSetWithDupAndSortedArr(int[] arr) {
+		Arrays.sort(arr);
+		recursivePrintSubSetWithDupAndSortedArr(new ArrayList<>(), arr, 0, false);
+	}
 	
 	@FunctionalInterface
 	protected interface IntArrayToVoidFunction {
@@ -188,8 +262,9 @@ public class SubsetSeeker {
     }
 	
 	public static void main(String[] args) {
-		int[] intArray = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
-		//int[] intArray = {1, 2, 3, 4};
+		//int[] intArray = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+		int[] intArray = {1, 2, 3, 4};
+		int[] intArrayWithDuplicates = {1, 2, 1, 1, 2};
 		System.out.println("Welcome to the rabbit hole of subset seekers!\n"
 				+ "The integer set is \n" + Arrays.toString(intArray) + "\n"); 
 		
@@ -197,11 +272,21 @@ public class SubsetSeeker {
 			/**
 			 * It's worth noting the outputs form some very different shapes yet with mathematical beauty inside. 
 			 */
-			runIntArrayFuncAndCalculateTime("[Exponential][Simple Recursion][O(n*2^(n-1)]  The subsets are:", (int[] a) -> recursivePrintSubsetDriver(a), intArray);
-			runIntArrayFuncAndCalculateTime("[Exponential][Recursion with Boolean Array][O(n*2^n]       The subsets are:", (int[] a) -> recursivePrintSubsetWithOpsArrayDriver(a), intArray);
-			runIntArrayFuncAndCalculateTime("[Exponential][Recursion with Bit Operations][O(n*2^n]       The subsets are:", (int[] a) -> recursivePrintSubsetWithBitOpsDriver(a), intArray);
-			runIntArrayFuncAndCalculateTime("[Exponential][Recursion with ArrayList]       The subsets are:", (int[] a) -> recursiveFindAndPrintSubsetDriver(a), intArray);
-			runIntArrayFuncAndCalculateTime("[Exponential][Iteration with Bit Operations][O(n*2^n]       The subsets are:", (int[] a) -> iterativePrintSubSet(a), intArray);
+			runIntArrayFuncAndCalculateTime("[Exponential][Simple Recursion][O(n*2^(n-1)]  The subsets are:", 
+					(int[] a) -> recursivePrintSubsetDriver(a), intArray);
+			runIntArrayFuncAndCalculateTime("[Exponential][Recursion with Boolean Array][O(n*2^n]       The subsets are:", 
+					(int[] a) -> recursivePrintSubsetWithOpsArrayDriver(a), intArray);
+			runIntArrayFuncAndCalculateTime("[Exponential][Recursion with Bit Operations][O(n*2^n]       The subsets are:", 
+					(int[] a) -> recursivePrintSubsetWithBitOpsDriver(a), intArray);
+			runIntArrayFuncAndCalculateTime("[Exponential][Recursion with ArrayList]       The subsets are:", 
+					(int[] a) -> recursiveFindAndPrintSubsetDriver(a), intArray);
+			runIntArrayFuncAndCalculateTime("[Exponential][Iteration with Bit Operations][O(n*2^n]       The subsets are:", 
+					(int[] a) -> iterativePrintSubSet(a), intArray);
+			runIntArrayFuncAndCalculateTime("[Exponential][Simple Recursion][With Duplicates]       The subsets are:", 
+					(int[] a) -> recursivePrintSubSetWithDup(a), intArrayWithDuplicates);
+			runIntArrayFuncAndCalculateTime("[Exponential][Simple Recursion][With Duplicates and Sorted Array]   The subsets are:", 
+					(int[] a) -> recursivePrintSubSetWithDupAndSortedArr(a), intArrayWithDuplicates);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
