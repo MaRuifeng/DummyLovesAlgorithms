@@ -100,6 +100,11 @@ Each package contains an interesting algorithmic question with solution provided
   * [Convert BT to doubly linked list](./src/binaryTree/BTtoDoublyLinkedListConverter.java)
   * [Convert complete BST to conditional min heap where left sub-tree smaller than right sub-tree](./src/binaryTree/BSTtoConditionalMinHeapConverter.java)
 * [Plain Binary Heap implementation with array](./src/binaryHeap/MinHeap.java)
+* [Graph](./src/graph)
+  * [Plain Directed Graph implementation with adjacency list](./src/graph/GraphAdjacencyList.java)
+    * Breadth First Search
+    * Depth First Search
+    * Linear paths from source to destination
 
 ## Background
 

@@ -23,6 +23,9 @@ import java.util.concurrent.TimeUnit;
  * number of elements increases monotonically, which is pretty interesting. 
  * http://applied-math.org/subset.pdf
  * 
+ * https://www.lintcode.com/problem/subsets/note/145899
+ * https://www.lintcode.com/problem/subsets-ii/note/145909
+ * 
  * @author ruifengm
  * @since 2018-Apr-24
  *
