@@ -51,6 +51,11 @@ public class FunIntAlgorithm extends FunAlgorithm {
 	}
 	
 	@FunctionalInterface
+	protected interface TwoIntToIntFunction {
+	   int apply(int a, int b);  
+	}
+	
+	@FunctionalInterface
 	protected interface IntMatrixToIntArrayFunction {
 		int[] apply(int[][] matrix) throws Exception;
 	}
@@ -105,6 +110,15 @@ public class FunIntAlgorithm extends FunAlgorithm {
     }
 	
     protected static void runIntFuncAndCalculateTime(String message, TwoIntToLongFunction intFunc, int a, int b) throws Exception {
+    	long startTime = System.nanoTime();
+    	System.out.printf("%-70s%d\n", message, intFunc.apply(a, b));
+    	long endTime = System.nanoTime();
+    	long totalTime = new Long(TimeUnit.MICROSECONDS.convert(endTime - startTime, TimeUnit.NANOSECONDS));
+    	DecimalFormat formatter = new DecimalFormat("#,###");
+    	System.out.printf("%-70s%s\n\n", "Function execution time in micro-seconds: ", formatter.format(totalTime));
+    }
+    
+    protected static void runIntFuncAndCalculateTime(String message, TwoIntToIntFunction intFunc, int a, int b) throws Exception {
     	long startTime = System.nanoTime();
     	System.out.printf("%-70s%d\n", message, intFunc.apply(a, b));
     	long endTime = System.nanoTime();
