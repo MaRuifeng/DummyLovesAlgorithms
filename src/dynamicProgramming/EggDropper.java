@@ -1,7 +1,5 @@
 package dynamicProgramming;
 
-import java.sql.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 
@@ -163,7 +161,4 @@ public class EggDropper extends FunIntAlgorithm {
 		
 		System.out.println("All rabbits gone.");
 	}
-	
-	
-
 }
