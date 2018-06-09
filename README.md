@@ -101,7 +101,10 @@ Each package contains an interesting algorithmic question with solution provided
   * [Convert BST to min heap](./src/binaryTree/BSTtoMinHeapConverter.java)
   * [Convert BT to doubly linked list](./src/binaryTree/BTtoDoublyLinkedListConverter.java)
   * [Convert complete BST to conditional min heap where left sub-tree smaller than right sub-tree](./src/binaryTree/BSTtoConditionalMinHeapConverter.java)
-* [Plain Binary Heap implementation with array](./src/binaryHeap/MinHeap.java)
+* [Binary Heap](./src/binaryHeap)
+  * [Plain Binary Heap implementation with array](./src/binaryHeap/MinHeap.java)
+  * [Heap Sort](./src/binaryHeap/HeapSort.java)
+  * [Least Frequently Used Cache implementation via PriorityQueue](./src/binaryHeap/LFUCache.java)
 * [Graph](./src/graph)
   * [Plain Directed Graph implementation with adjacency list](./src/graph/GraphAdjacencyList.java)
     * Breadth First Search
