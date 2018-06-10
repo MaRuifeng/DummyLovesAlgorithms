@@ -77,7 +77,7 @@ public class BinarySearchInRotatedSortedArray extends FunIntAlgorithm {
 	}
 	
 	/**
-	 * Pivor binary search in one shot.
+	 * Pivot binary search in one shot.
 	 */
 	private static int recursivePivotBinarySearch3(int[] a, int t, int start, int end) {
 		if (end<start) return -1; 
@@ -88,7 +88,7 @@ public class BinarySearchInRotatedSortedArray extends FunIntAlgorithm {
 			else return recursivePivotBinarySearch3(a, t, middle+1, end);
 		}
 		else { // right half sorted
-			if (a[middle] <= t && a[end] >= t) return recursiveBinarySearch(a, t, middle+1, end);
+			if (a[middle] <= t && a[end] >= t) return recursivePivotBinarySearch3(a, t, middle+1, end);
 			else return recursivePivotBinarySearch3(a, t, start, middle-1);
 		}
 	}
