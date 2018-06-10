@@ -114,6 +114,8 @@ Each package contains an interesting algorithmic question with solution provided
     * Breadth First Search
     * Depth First Search
     * Linear paths from source to destination
+* [Backtracking Technique](./src/backtracking)
+  * [N-Queen puzzle](./src/backtracking/NQueenPuzzle.java)
 
 ## Background
 
