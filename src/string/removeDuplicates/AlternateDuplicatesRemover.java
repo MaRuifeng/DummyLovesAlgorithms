@@ -27,7 +27,7 @@ public class AlternateDuplicatesRemover extends FunStringAlgorithm {
 	 * To just denote whether a character should appear or not, a boolean array can be used. 
 	 * 
 	 * This is based on the fact that the character set is finite, so we are actually constructing a direct access table
-	 * using character's ASSII code as indices, which has the capability of doing item querying/updating in O(1) time complexity.
+	 * using character's ASCII code as indices, which has the capability of doing item querying/updating in O(1) time complexity.
 	 * 
 	 */
 	private static String removeAltDup(char[] charA) {
