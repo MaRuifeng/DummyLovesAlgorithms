@@ -116,6 +116,7 @@ Each package contains an interesting algorithmic question with solution provided
     * Linear paths from source to destination
 * [Backtracking Technique](./src/backtracking)
   * [N-Queen puzzle](./src/backtracking/NQueenPuzzle.java)
+  * [Knight tour problem](./src/backtracking/KnightTour.java)
 
 ## Background
 
