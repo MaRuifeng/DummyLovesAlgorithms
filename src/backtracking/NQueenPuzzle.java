@@ -35,7 +35,7 @@ public class NQueenPuzzle {
 	}
 	private static boolean queenPlacedInCol(char[][] board, int col) {
 		int N = board.length;
-		boolean placed = false;
+		boolean placed = false; // denoting whether a queen has been placed in the column as part of a complete solution
 		if (col == N) { // all queens are properly placed
 			printBoard(board);
 			return true; 
@@ -43,8 +43,8 @@ public class NQueenPuzzle {
 		for (int i=0; i<N; i++) { // check all rows for current column
 			if (safetyCheck(board, i, col)) {
 				board[i][col] = 'Q'; // mark queen location to form a possible solution
-				if (queenPlacedInCol(board, col+1) == true) {// the solution can be completed
-					placed = true;
+				if (queenPlacedInCol(board, col+1) == true) {
+					placed = true;       // the solution can be completed
 					board[i][col] = '_'; // unmark the queen location for next possible solution
 					// break;            // break to obtain one solution only
 				} else { // unmark the queen location as the solution can't be completed (backtracking)

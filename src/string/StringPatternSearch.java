@@ -53,6 +53,27 @@ public class StringPatternSearch {
 		}
 		return idx; 
 	}
+	
+	/**
+	 * The above method can be more clearly written with two for loops.
+	 */
+	private static int getPatternFirstIdxForLoop(String src, String pat) {
+		if (src == null || pat == null) return -1; 
+		if (src.isEmpty() && pat.isEmpty()) return 0;
+		int idx = -1; 
+		for (int i=0; i<=src.length()-pat.length(); i++) {
+			idx = i;
+			int j;
+			for (j=0; j<pat.length(); j++) {
+				if (src.charAt(i+j) != pat.charAt(j)) {
+					idx = -1; 
+					break;
+				}
+			}
+			if (j == pat.length()) return idx;
+		}
+		return idx;
+	}
 
 	private static ArrayList<Integer> getPatternAllIndices(String src, String pat) {
 		ArrayList<Integer> idxList = new ArrayList<>(); 
@@ -158,7 +179,11 @@ public class StringPatternSearch {
 		int actualIdx; 
 		
 		actualIdx = getPatternFirstIdx(data.src, data.pat);
-		System.out.println("The first index is at " + actualIdx);
+		System.out.println("[Single while loop]The first index is at " + actualIdx);
+		assertEquals(data.idx, actualIdx);
+		
+		actualIdx = getPatternFirstIdxForLoop(data.src, data.pat);
+		System.out.println("[Double for loop]The first index is at " + actualIdx);
 		assertEquals(data.idx, actualIdx);
 		
 		System.out.println("/******** TEST End ********/");

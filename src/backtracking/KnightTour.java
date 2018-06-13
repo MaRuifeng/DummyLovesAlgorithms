@@ -46,7 +46,7 @@ public class KnightTour {
 	}
 	private static boolean nextMove(int[][] board, int curRow, int curCol) {
 		int size = board.length;
-		boolean moved = false;
+		boolean moved = false; // denoting whether the move has been made as part of a complete solution
 		if (board[curRow][curCol] == size*size) {
 			printBoard(board);
 			return true; // found solution
@@ -54,7 +54,7 @@ public class KnightTour {
 		for (int i=0; i<8; i++) {
 			int newRow = curRow + verticalMoves[i], newCol = curCol + horizontalMoves[i];
 			if (movable(board, newRow, newCol)) {
-				board[newRow][newCol] = board[curRow][curCol] + 1; // make a move as part of a possible solution
+				board[newRow][newCol] = board[curRow][curCol] + 1; // make a move as part of a possible complete solution
 				if (nextMove(board, newRow, newCol)) {
 					moved = true;              // solution can be completed
 					board[newRow][newCol] = 0; // reset for next possible solution
