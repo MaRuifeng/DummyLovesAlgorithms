@@ -40,6 +40,7 @@ Each package contains an interesting algorithmic question with solution provided
 	* [Random number with different entropies](./src/integerArray/RandNumberGenerator.java)
 	* [Binary search in matrix](./src/integerArray/BinarySearchInMatrix.java)
 	* [**Multiple-Condition Check** Insert intervals](./src/integerArray/Intervals.java)
+	* [Reverse linked list](./src/integerArray/ReverseLinkedList.java)
 * [Dynamic Programming](./src/dynamicProgramming)
   * [Fibonacci Numbers](./src/dynamicProgramming/FibNumbers.java)
   * [Binomial Coefficients](./src/dynamicProgramming/BinomialCoefficients.java)
