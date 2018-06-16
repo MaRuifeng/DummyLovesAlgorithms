@@ -16,6 +16,7 @@ import org.junit.Test;
  * @author ruifengm
  * @since 2018-Jun-16
  *
+ * https://www.lintcode.com/problem/insert-interval/description
  */
 
 public class Intervals {

@@ -85,6 +85,7 @@ Each package contains an interesting algorithmic question with solution provided
   * [**Backtracking** String permutation](./src/string/StringPermutation.java)
   * [**KMP Algorithm** Search for patterns in string](./src/string/StringPatternSearch.java)
   * [**DP** Check interleaved string](./src/string/InterleavedString.java)
+  * [Minimum window substring](./src/string/MinimumWindowSubstring.java)
 * [Binary Tree](./src/binaryTree)
   * [Plain Binary Tree implementation with linked nodes](./src/binaryTree/entities/BinaryTree.java)
     * Pre-order Traversal
