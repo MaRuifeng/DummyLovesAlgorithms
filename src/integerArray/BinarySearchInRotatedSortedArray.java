@@ -21,7 +21,7 @@ import utils.FunIntAlgorithm;
 public class BinarySearchInRotatedSortedArray extends FunIntAlgorithm {
 	
 	/**
-	 * Apply normal binary search in both halves if needed until the rotation pivot is encountered.
+	 * Normal binary search.
 	 */
 	private static int recursiveBinarySearch(int[] a, int t, int start, int end) {
 		if (end<start) return -1; 
@@ -70,8 +70,8 @@ public class BinarySearchInRotatedSortedArray extends FunIntAlgorithm {
 	private static int findPivot(int[] a, int start, int end) {
 		if (end < start) return -1; // no rotation pivot, array is sorted
 		int middle = (start + end) >> 1; 
-		if (middle < a.length-1 && a[middle] > a[middle+1]) return middle;
-		if (0 < middle && a[middle-1] > a[middle]) return middle-1; 
+		if (middle < end && a[middle] > a[middle+1]) return middle;
+		if (start < middle && a[middle-1] > a[middle]) return middle-1; 
 		else if (a[start] >= a[middle]) return findPivot(a, start, middle-1); 
 		else return findPivot(a, middle+1, end);
 	}

@@ -42,6 +42,7 @@ Each package contains an interesting algorithmic question with solution provided
 	* [**Multiple-Condition Check** Insert intervals](./src/integerArray/Intervals.java)
 	* [Reverse a linked list](./src/integerArray/ReverseLinkedList.java)
 	* [Reverse an integer number](./src/integerArray/ReverseInteger.java)
+	* [Recover a rotated sorted array](./src/integerArray/RecoverRotatedSortedArray.java)
 * [Dynamic Programming](./src/dynamicProgramming)
   * [Fibonacci Numbers](./src/dynamicProgramming/FibNumbers.java)
   * [Binomial Coefficients](./src/dynamicProgramming/BinomialCoefficients.java)
