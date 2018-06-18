@@ -14,6 +14,16 @@ import utils.FunIntAlgorithm;
  *       a subsequence does not have to be contiguous. 
  * @author ruifengm
  * @since 2018-Jan-23
+ * 
+ * [Variation]
+ * Given an array of integers, find two non-overlapping sub-arrays which have the largest sum.
+ * The number in each sub-array should be contiguous.
+ * The subarray should contain at least one number.
+ * Return the largest sum.
+ * 
+ * https://www.lintcode.com/problem/maximum-subarray-ii/description
+ * @author ruifengm 
+ * @since 2018-Jun-18
  */
 
 public class MaxSubseqSum extends FunIntAlgorithm {
@@ -177,11 +187,50 @@ public class MaxSubseqSum extends FunIntAlgorithm {
 		return resArr[array.length - 1];
 	}
 	
+	/**
+	 * Greedy.
+	 * The idea is to traverse the array twice. Firstly from left to right, and 
+	 * then from right to left. Store the local max sums that can be obtained at each position
+	 * and then look for the global max. 
+	 */
+	private static int maxTwoSubArraySum(int[] array) {
+		int size = array.length, max = Integer.MIN_VALUE;
+		int[] LtoR = new int[size-1], RtoL = new int[size-1]; 
+		int curSum = 0, maxSum = Integer.MIN_VALUE, maxItem = Integer.MIN_VALUE;
+		// traverse from left to right
+		for (int i=0; i<size-1; i++) {
+			if (maxItem < array[i]) maxItem = array[i];
+			curSum += array[i];
+			if (maxSum < curSum) maxSum = curSum;
+			if (curSum < 0) curSum = 0;
+			if (maxItem < 0) LtoR[i] = maxItem;
+			else LtoR[i] = maxSum;
+		}
+		curSum = 0;
+		maxSum = Integer.MIN_VALUE; 
+		maxItem = Integer.MIN_VALUE;
+		// traverse from right to left
+		for (int i=size-1; i>0; i--) {
+			if (maxItem < array[i]) maxItem = array[i];
+			curSum += array[i];
+			if (maxSum < curSum) maxSum = curSum;
+			if (curSum < 0) curSum = 0;
+			if (maxItem < 0) RtoL[i-1] = maxItem;
+			else RtoL[i-1] = maxSum;
+		}
+		
+		// look for global maximum
+		for (int i=0; i<size-1; i++) {
+			max = Math.max(max, LtoR[i] + RtoL[i]);
+		}
+		return max;
+	}
 
 	public static void main(String[] args) {
 		int[] intArray = genRanIntArr(3000, -5, 10);
-		//int[] intArray = {1, -5, -1, 6, -3, 6, -3, -1, -4, -3};
-		//System.out.println("Integer array:" + Arrays.toString(intArray));
+		// int[] intArray = {1, -5, -1, 6, -3, 6, -3, -1, -4, -3};
+		// int[] intArray = {-1, 2, 3, -2, 4};
+		// System.out.println("Integer array:" + Arrays.toString(intArray));
 		System.out.println("Welcome to the rabbit hole of maximum sugsequence sums!\n"
 				+ "The randomly generated integer array is of size " + intArray.length + ".\n"); 
 		
@@ -193,6 +242,7 @@ public class MaxSubseqSum extends FunIntAlgorithm {
 			runIntArrayFuncAndCalculateTime("[Linear][DP][Recursive]      Maximum subsequence sum:", (int[] a) -> recursiveMaxSubseqSumDPDriver(a), intArray);
 			runIntArrayFuncAndCalculateTime("[Linear][DP][Tail Recursive] Maximum subsequence sum:", (int[] a) -> tailRecursiveMaxSubseqSumDPDriver(a), intArray);
 			runIntArrayFuncAndCalculateTime("[Linear][DP][Iterative]      Maximum subsequence sum:", (int[] a) -> iterativeMaxSubseqSumDP(a), intArray);
+			runIntArrayFuncAndCalculateTime("[Linear]                     Maximum two sub-array sum:", (int[] a) -> maxTwoSubArraySum(a), intArray);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
