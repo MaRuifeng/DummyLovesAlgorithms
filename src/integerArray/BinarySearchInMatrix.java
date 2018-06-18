@@ -13,10 +13,18 @@ import utils.FunIntAlgorithm;
  * 
  * Target: O(log(n) + log(m)) in time
  * 
+ * [Variation]
+ * Write an efficient algorithm that searches for a value in an m x n matrix, return the occurrence of it.
+ * This matrix has the following properties:
+ * - Integers in each row are sorted from left to right.
+ * - Integers in each column are sorted from up to bottom.
+ * - No duplicate integers in each row or column.
+ * 
  * @author ruifengm
  * @since 2018-Jun-10
  * 
  * https://www.lintcode.com/problem/search-a-2d-matrix/description
+ * https://www.lintcode.com/problem/search-a-2d-matrix-ii/description
  */
 
 public class BinarySearchInMatrix extends FunIntAlgorithm {
@@ -57,6 +65,29 @@ public class BinarySearchInMatrix extends FunIntAlgorithm {
 		return new Location(-1, -1);
 	}
 	
+	/**
+	 * Since all matrix rows and columns are sorted in order, we can start looking from the bottom left
+	 * corner to the top right corner. 
+	 * - if element > target, rowIdx--
+	 * - else if element < target, colIdx++
+	 * - else, count++, rowIdx--, colIdx++
+	 * 
+	 * Time complexity: O(m+n)
+	 */
+	private static int countInMatrix(int[][] matrix, int target) {
+		if (matrix == null || matrix.length == 0) return 0;
+		int rowCount = matrix.length, colCount = matrix[0].length; 
+		int count = 0, i = rowCount-1, j = 0; 
+		while (i>-1 && j<colCount) {
+			if (matrix[i][j] > target) i--; 
+			else if (matrix[i][j] < target) j++;
+			else {
+				count++; i--; j++;
+			}
+		}
+		return count;
+	}
+	
 	public static void main(String[] args) {
 		int m = 50, n = 60; // row & column
 		int[][] matrix = new int[m][n];
@@ -77,6 +108,16 @@ public class BinarySearchInMatrix extends FunIntAlgorithm {
 		
 		Location loc = binarySearchInMatrix(matrix, target);
 		System.out.println("\nLocation of the target in the matrix:\nrow: " + loc.rowIdx + ", column: " + loc.colIdx);
+		
+		int[][] sortedMatrix = {
+				{1, 3, 5, 7},
+				{2, 4, 7, 8}, 
+				{3, 5, 9, 10},
+		};
+		target = 3; 
+		System.out.println("\n\nThe sorted matrix is given as below and the search target is " + target + ".\n");
+		for (int i=0; i<3; i++) System.out.println(Arrays.toString(sortedMatrix[i]));
+		System.out.println("Occurrences of the target in the matrix: " + countInMatrix(sortedMatrix, target));
 		
 		System.out.println("\nAll rabbits gone.");
 	}
