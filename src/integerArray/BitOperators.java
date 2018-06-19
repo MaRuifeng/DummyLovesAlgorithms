@@ -53,9 +53,15 @@ public class BitOperators {
 	
 	// Given an integer y, turn off its xth bit (i.e. 1 --> 0, 0 --> 0), counting from right to left.
 	private static int turnOffBit(int y, int x) {
-		// perform & operation with a number whose xth bit is 0 and all others are 1
+		// perform & operation with a number whose x'th bit is 0 and all others are 1
 		int checker = ~(1 << (x-1)); 
 		return (checker & y);
+	}
+	private static int turnOffBit2(int y, int x) {
+		// perform | operation with a number whose x'th bit is 1 and all others are 0 --> force turn on
+		// perform ^ operation with a number whose x'th bit is 1 and all others are 0 --> force turn off
+		int checker = 1 << (x-1); 
+		return (checker | y) ^ checker;
 	}
 	
 	// Mathematical addition without using '+' operator
@@ -81,6 +87,7 @@ public class BitOperators {
 		System.out.println("Binary conversion by bit operaion: " + Arrays.toString(decimalToBinaryBitOps(num)));
 		System.out.println("Turning off the " + pos + "'th bit...");
 		System.out.println(Arrays.toString(decimalToBinaryBitOps(turnOffBit(num, pos))));
+		System.out.println(Arrays.toString(decimalToBinaryBitOps(turnOffBit2(num, pos))));
 		int a = -5, b = 8; 
 		System.out.println("[Recursive] Adding integer " + a + " and " + b + " by bit operation: " + recursiveAdd(a, b));
 		System.out.println("[Iterative] Adding integer " + a + " and " + b + " by bit operation: " + iterativeAdd(a, b));

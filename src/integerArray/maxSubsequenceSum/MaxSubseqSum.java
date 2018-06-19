@@ -15,11 +15,14 @@ import utils.FunIntAlgorithm;
  * @author ruifengm
  * @since 2018-Jan-23
  * 
- * [Variation]
+ * [Variation II]
  * Given an array of integers, find two non-overlapping sub-arrays which have the largest sum.
  * The number in each sub-array should be contiguous.
  * The subarray should contain at least one number.
  * Return the largest sum.
+ * 
+ * [Variation III]
+ * Refer to /DataStructuresAndAlgorithms/src/dynamicProgramming/MaxKSubArraySum.java
  * 
  * https://www.lintcode.com/problem/maximum-subarray-ii/description
  * @author ruifengm 
@@ -196,27 +199,20 @@ public class MaxSubseqSum extends FunIntAlgorithm {
 	private static int maxTwoSubArraySum(int[] array) {
 		int size = array.length, max = Integer.MIN_VALUE;
 		int[] LtoR = new int[size-1], RtoL = new int[size-1]; 
-		int curSum = 0, maxSum = Integer.MIN_VALUE, maxItem = Integer.MIN_VALUE;
+		int curSum = 0, maxSum = Integer.MIN_VALUE;
 		// traverse from left to right
 		for (int i=0; i<size-1; i++) {
-			if (maxItem < array[i]) maxItem = array[i];
-			curSum += array[i];
-			if (maxSum < curSum) maxSum = curSum;
-			if (curSum < 0) curSum = 0;
-			if (maxItem < 0) LtoR[i] = maxItem;
-			else LtoR[i] = maxSum;
+			curSum = Math.max(curSum + array[i], array[i]);
+			maxSum = Math.max(maxSum, curSum);
+			LtoR[i] = maxSum;
 		}
 		curSum = 0;
 		maxSum = Integer.MIN_VALUE; 
-		maxItem = Integer.MIN_VALUE;
 		// traverse from right to left
 		for (int i=size-1; i>0; i--) {
-			if (maxItem < array[i]) maxItem = array[i];
-			curSum += array[i];
-			if (maxSum < curSum) maxSum = curSum;
-			if (curSum < 0) curSum = 0;
-			if (maxItem < 0) RtoL[i-1] = maxItem;
-			else RtoL[i-1] = maxSum;
+			curSum = Math.max(curSum + array[i], array[i]);
+			maxSum = Math.max(maxSum, curSum);
+			RtoL[i-1] = maxSum;
 		}
 		
 		// look for global maximum

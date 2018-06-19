@@ -77,6 +77,7 @@ Each package contains an interesting algorithmic question with solution provided
   * [Rope cutting for maximum length product](./src/dynamicProgramming/RopeCutter.java)
   * [Dice rolling for fixed sum](./src/dynamicProgramming/DiceRoller.java)
   * [Egg dropping puzzle](./src/dynamicProgramming/EggDropper.java)
+  * [K non-overlapping subarrays of maximum sum](./src/dynamicProgramming/MaxKSubArraySum.java)
 * [String](./src/string)
   * [Remove duplicates in string](./src/string/removeDuplicates/DuplicatesRemover.java)
   * [Remove alternate duplicates in string](./src/string/removeDuplicates/AlternateDuplicatesRemover.java)
