@@ -87,7 +87,7 @@ public class Graph {
 		}
 	}
 	
-	/* Find all non-cyclic paths from source vertex to destinaion vertex */
+	/* Find all non-cyclic paths from source vertex to destination vertex */
 	/* Use the idea of DFS. */
 	/* Cyclic paths are infinite hence we don't count them. */
 	public void printAllLinearPaths(int src, int dest) {

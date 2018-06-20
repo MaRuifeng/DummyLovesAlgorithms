@@ -1,5 +1,7 @@
 package dynamicProgramming;
 
+import java.util.Arrays;
+
 import utils.FunIntAlgorithm;
 
 /**
@@ -12,7 +14,6 @@ import utils.FunIntAlgorithm;
  * 
  * https://www.lintcode.com/problem/maximum-subarray-iii/description
  * https://www.lintcode.com/problem/maximum-subarray-iii/note/147076
- * https://pobenliu.gitbooks.io/leetcode/Maximum%20Subarray%20III.html
  */
 public class MaxKSubArraySum extends FunIntAlgorithm {
 	
@@ -181,6 +182,43 @@ public class MaxKSubArraySum extends FunIntAlgorithm {
 		return table[size][k].sum;
 	}
 	
+	
+	/**
+	 * A genius solution found online that applies DP tabulation in a neater manner. 
+	 * Define a matrix localMax[i][j], indicating the largest sum obtainable with the i'th number included when selecting
+	 * j subarrays from i numbers.  
+	 * Define a matrix globalMax[i][j], indicating the largest sum obtainable when selecting j subarrays from i numbers. The
+	 * underlying message is that the i'th number can be included or not included. 
+	 * 
+	 * localMax[i][j] = MAX (localMax[i-1][j] + A[i-1],           --> A[i-1] belong to the j'th subarray
+	 *                       globalMax[i-1][j-1] + A[i-1])        --> A[i-1] does not belong to the j'th subarray
+	 * globalMax[i][j] = MAX (localMax[i][j], globalMax[i-1][j])
+	 */
+	private static int maxKSubArraySum(int[] arr, int k) {
+		int size = arr.length; 
+		if (k > size) return Integer.MIN_VALUE;
+		int[][] localMax = new int[size+1][k+1];
+		int[][] globalMax = new int[size+1][k+1];
+		// base state
+		for (int i=0; i<k; i++) localMax[i][k] = Integer.MIN_VALUE;
+		// proliferation
+		for (int j=1; j<=k; j++) {
+			for (int i=j; i<=size; i++) {
+				localMax[i][j] = Math.max(globalMax[i-1][j-1], localMax[i-1][j]) + arr[i-1]; 
+				if (i==j) globalMax[i][j] = localMax[i][j];
+				else globalMax[i][j] = Math.max(localMax[i][j], globalMax[i-1][j]);
+			}
+		}
+		
+//		System.out.println("Local max matrix:\n");
+//		for (int[] row: localMax) System.out.println(Arrays.toString(row));
+//		System.out.println("Global max matrix:\n");
+//		for (int[] row: globalMax) System.out.println(Arrays.toString(row));
+		
+		return globalMax[size][k];
+	}
+	
+	
 	public static void main(String[] args) {
 		int[] intArray = genRanIntArr(200, -99, 99);
 	
@@ -196,10 +234,12 @@ public class MaxKSubArraySum extends FunIntAlgorithm {
 		try {
 //			runIntArrayFuncAndCalculateTime("[Recursive][Exponential]      Maximum k subarray sum:", 
 //					(int[] a, int b) -> recursiveMaxKSubArraySum(a, b), intArray, k);
-			runIntArrayFuncAndCalculateTime("[Recursive][DP Memo][]        Maximum k subarray sum:", 
+			runIntArrayFuncAndCalculateTime("[Recursive][DP Memo][O(k*n)]        Maximum k subarray sum:", 
 					(int[] a, int b) -> recursiveMaxKSubArraySumDPMemo(a, b), intArray, k);
-			runIntArrayFuncAndCalculateTime("[Iterative][DP Tabu][]        Maximum k subarray sum:", 
+			runIntArrayFuncAndCalculateTime("[Iterative][DP Tabu][O(k*n)]        Maximum k subarray sum:", 
 					(int[] a, int b) -> iterativeMaxKSubArraySumDPTabu(a, b), intArray, k);
+			runIntArrayFuncAndCalculateTime("[Iterative][DP Tabu][O(k*n)][Neat]  Maximum k subarray sum:", 
+					(int[] a, int b) -> maxKSubArraySum(a, b), intArray, k);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
