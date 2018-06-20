@@ -43,6 +43,7 @@ Each package contains an interesting algorithmic question with solution provided
 	* [Reverse a linked list](./src/integerArray/ReverseLinkedList.java)
 	* [Reverse an integer number](./src/integerArray/ReverseInteger.java)
 	* [Recover a rotated sorted array](./src/integerArray/RecoverRotatedSortedArray.java)
+	* [**NP Hard** Bin packing problem](./src/integerArray/BinPacker.java)
 * [Dynamic Programming](./src/dynamicProgramming)
   * [Fibonacci Numbers](./src/dynamicProgramming/FibNumbers.java)
   * [Binomial Coefficients](./src/dynamicProgramming/BinomialCoefficients.java)
