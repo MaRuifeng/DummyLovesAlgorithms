@@ -44,6 +44,7 @@ Each package contains an interesting algorithmic question with solution provided
 	* [Reverse an integer number](./src/integerArray/ReverseInteger.java)
 	* [Recover a rotated sorted array](./src/integerArray/RecoverRotatedSortedArray.java)
 	* [**NP Hard** Bin packing problem](./src/integerArray/BinPacker.java)
+	* [**Boyer–Moore Majority Vote Algorithm** Find majority numbers](./src/integerArray/MajorityNumber.java)
 * [Dynamic Programming](./src/dynamicProgramming)
   * [Fibonacci Numbers](./src/dynamicProgramming/FibNumbers.java)
   * [Binomial Coefficients](./src/dynamicProgramming/BinomialCoefficients.java)
