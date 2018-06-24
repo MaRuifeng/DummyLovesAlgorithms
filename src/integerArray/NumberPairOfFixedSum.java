@@ -3,8 +3,10 @@ package integerArray;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 import utils.FunIntAlgorithm;
 
@@ -109,19 +111,53 @@ public class NumberPairOfFixedSum extends FunIntAlgorithm {
 		return resList;
 	}
 	
+	/**
+	 * A much clearer implementation using HashMap, where each number is taken distinctly, though the value might be the same.
+	 */
+	private static ArrayList<ArrayList<Integer>> findNumPairOfFixedSumViaHashMap(int[] a, int sum) {
+		ArrayList<ArrayList<Integer>> resList = new ArrayList<>();
+		HashMap<Integer, LinkedList<Integer>> hash = new HashMap<>();
+		for (int i=0; i<a.length; i++) {
+			if (hash.containsKey(a[i])) hash.get(a[i]).add(i); 
+			else {
+				LinkedList<Integer> idxList = new LinkedList<>();
+				idxList.add(i);
+				hash.put(a[i], idxList);
+			}
+			if (hash.containsKey(sum-a[i])) {
+				LinkedList<Integer> diffIdxList = hash.get(sum-a[i]); 
+				for (Integer idx: diffIdxList) {
+					if (i != idx) { // avoid counting element itself that is half of the sum
+						ArrayList<Integer> res = new ArrayList<>(); 
+						res.add(a[i]);
+						res.add(a[idx]);
+						resList.add(res);
+					}
+				}
+			}
+		}
+		return resList;
+	}
+	
 	public static void main(String[] args) {
-		int[] intArray = genRanIntArr(50000, -298, 301);
 		int sum = 298;
-		//int[] intArray = {11, 9, 8, 5, 7, 12, 12, 14, 8, 14, 11, 8, 10, 10, 10, 10, 10, 10, 10, 10};
-		//System.out.println("Integer array:" + Arrays.toString(intArray));
+		int[] intArray = genRanIntArr(200, -298, 301);
+		//int sum = 20;
+		//int[] intArray = {11, 9, 8, 5, 7, 12, 12, 14, 8, 14, 11, 8, 10, 10, 10};
+		System.out.println("Integer array:" + Arrays.toString(intArray));
 		System.out.println("Welcome to the rabbit hole of number pairs of fixed sum!\n"
 				+ "The randomly generated integer array is of size " + intArray.length + ".\n"
 				+ "The fixed sum is " + sum + ".\n"); 
 		
 		try {
-			runIntArrayFuncAndCalculateTime("[Quadratic]              The number pairs are (not found if shown as MAX INT):", (int[] a, int v) -> findNumPairsOfFixedSum(a, v), intArray, sum);
-			runIntArrayFuncAndCalculateTime("[Linear][Hashing]        The number pairs are (not found if shown as MAX INT):", (int[] a, int v) -> findNumPairOfFixedSumViaHash(a, v), intArray, sum);
-			runIntArrayFuncAndCalculateTime("[Linear][Inline Hashing] The number pairs are (not found if shown as MAX INT):", (int[] a, int v) -> findNumPairOfFixedSumViaHashRefined(a, v), intArray, sum);
+			runIntArrayFuncAndCalculateTime("[Quadratic]              The number pairs are (not found if shown as MAX INT):", 
+					(int[] a, int v) -> findNumPairsOfFixedSum(a, v), intArray, sum);
+			runIntArrayFuncAndCalculateTime("[Linear][Hashing]        The number pairs are (not found if shown as MAX INT):", 
+					(int[] a, int v) -> findNumPairOfFixedSumViaHash(a, v), intArray, sum);
+			runIntArrayFuncAndCalculateTime("[Linear][Inline Hashing] The number pairs are (not found if shown as MAX INT):", 
+					(int[] a, int v) -> findNumPairOfFixedSumViaHashRefined(a, v), intArray, sum);
+			runIntArrayFuncAndCalculateTime("[Linear][HashMap]        The number pairs are (not found if shown as MAX INT):", 
+					(int[] a, int v) -> findNumPairOfFixedSumViaHashMap(a, v), intArray, sum);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

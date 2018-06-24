@@ -31,6 +31,11 @@ public class FunIntAlgorithm extends FunAlgorithm {
 	}
 	
 	@FunctionalInterface
+	protected interface IntArrayAndIntToArrayListFunction {
+		ArrayList<ArrayList<Integer>> apply(int[] array, int sum);  
+	}
+	
+	@FunctionalInterface
 	protected interface IntArrayToArrayListFunction {
 		ArrayList<String> apply(int[] array);  
 	}
@@ -155,6 +160,15 @@ public class FunIntAlgorithm extends FunAlgorithm {
     }
     
     protected static void runIntArrayFuncAndCalculateTime(String message, IntArrayToHashSetFunction intArrayFunc, int[] array, int sum) throws Exception {
+    	long startTime = System.nanoTime();
+    	System.out.printf("%-80s\n%s\n", message, intArrayFunc.apply(array, sum).toString());
+    	long endTime = System.nanoTime();
+    	long totalTime = new Long(TimeUnit.MICROSECONDS.convert(endTime - startTime, TimeUnit.NANOSECONDS));
+    	DecimalFormat formatter = new DecimalFormat("#,###");
+    	System.out.printf("%-80s%s\n\n", "Function execution time in micro-seconds: ", formatter.format(totalTime));
+    }
+    
+    protected static void runIntArrayFuncAndCalculateTime(String message, IntArrayAndIntToArrayListFunction intArrayFunc, int[] array, int sum) throws Exception {
     	long startTime = System.nanoTime();
     	System.out.printf("%-80s\n%s\n", message, intArrayFunc.apply(array, sum).toString());
     	long endTime = System.nanoTime();
