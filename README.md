@@ -44,7 +44,7 @@ Each package contains an interesting algorithmic question with solution provided
 	* [Reverse an integer number](./src/integerArray/ReverseInteger.java)
 	* [Recover a rotated sorted array](./src/integerArray/RecoverRotatedSortedArray.java)
 	* [**NP Hard** Bin packing problem](./src/integerArray/BinPacker.java)
-	* [**Boyer–Moore Majority Vote Algorithm** Find majority numbers](./src/integerArray/MajorityNumber.java)
+	* [**Boyerâ€“Moore Majority Vote Algorithm** Find majority numbers](./src/integerArray/MajorityNumber.java)
 	* [Monkey crossing river](./src/integerArray/MonkeyAndRiver.java)
 	* [Number of ways to sum up to a given number with consecutive positive integers](./src/integerArray/SumOfConsecutiveInt.java)
 * [Dynamic Programming](./src/dynamicProgramming)
@@ -135,7 +135,7 @@ This all started with a day when I accidentally picked a book my university prof
 *Data Structures & Algorithm Analysis in Java* by *Weiss, Mark Allen* (ISBN 0-201-35754-2). It's a textbook for first-year graduate student in computer 
 science so it should be a good starting point.
 
-A lot of examples in this repository will be from this book.  
+Well eventually it turned out that reading book is rather slow and solving problems can be more challenging and rewarding. Hence eventually this repository became a place where I keep my practice and notes. Each question comes with a detailed explanation in code comments. When I do coding practice on LintCode, LeetCode or Geeks For Geeks and encounter certain typical and interesting problems, I will add them to the list here.   
 
 ## Owners
 Author: Ruifeng Ma
