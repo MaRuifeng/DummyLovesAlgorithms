@@ -5,7 +5,7 @@
 This is a repository where I keep all interesting algorithms and data structures I came across either in work or learning. 
 
 Lack of a well-trained background in computer science always pushed me back in taking time to catch up in algorithms and data structures. But that is indeed
-the area where a programmer trains his brain and align with his beloved machine. 
+the area where a programmer shines and aligns the thinking process with his beloved machine. Behind the general software engineering principles, it's the carefully designed algorithms and data structures in vaiours code snippets that make the overall product performant and wonderful. 
 
 ## Requirements
 
