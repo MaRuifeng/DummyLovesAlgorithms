@@ -31,10 +31,9 @@ import java.util.regex.Pattern;
  * Output: 127.0.0.1, 27.0.0.1, 7.0.0.1, 0.0.1.0, 0.1.0.2, 20.0.0.2, 0.0.0.2
  * <p>
  * [Time complexity analysis of the Regex based approach]
- * Let n be the size of the string, and m be the size of the matching regex, since
- * this is a partial match, a single match would require m*n steps in the worst case.
- * Hence the ultimate time complexity will be roughly at O(m*n^2) in the worst case
- * where the whole string consists of valid IPv4 addresses.
+ * Let n be the size of the string, and m be the size of the matching regex.
+ * Since this is a partial match, the ultimate time complexity is roughly at O(m*n)
+ * in the worst case where the whole string consists of valid IPv4 addresses.
  *
  * @author Ruifeng Ma
  * @since 2019-Mar-30
@@ -56,27 +55,21 @@ public class IPv4AddressMatcher {
         if (inputString == null) return matches;
 
         int i = 0;
-        while (inputString.length() >= MIN_IPv4_ADDRESS_LENGTH) {
-            inputString = inputString.substring(i);
-            Matcher digitMater = DIGIT_PATTERN.matcher(inputString);
+        while (i <= inputString.length() - MIN_IPv4_ADDRESS_LENGTH) {
+            Matcher digitMater = DIGIT_PATTERN.matcher(inputString.substring(i));
             if (digitMater.find()) {
-                i = digitMater.start(); // index pointing to first matched digit
-                inputString = inputString.substring(i);
+                i += digitMater.start(); // index pointing to first matched digit
 
-                Matcher iPv4Matcher = IPV4_PATTERN.matcher(inputString);
+                Matcher iPv4Matcher = IPV4_PATTERN.matcher(inputString.substring(i));
 
                 if (iPv4Matcher.find()) {
                     String match = iPv4Matcher.group(); // greedily obtain match like 127.0.0.198
                     matches.add(match);
-                    String lastByte = iPv4Matcher.group(1);
-                    String matchPrefix = match.substring(0, match.lastIndexOf(".") + 1); // get prefix like 127.0.0.
-                    if (lastByte.length() > 1) {
-                        matches.add(matchPrefix + lastByte.substring(0, 1));
-                    }
-                    if (lastByte.length() > 2) {
-                        matches.add(matchPrefix + lastByte.substring(0, 2));
-                    }
-                    i = iPv4Matcher.start() + 1; // move index to next match check point
+
+                    String lastByte = iPv4Matcher.group(1); // backtracking for matches like 127.0.0.1 and 127.0.0.19
+                    for (int j = 1; j<lastByte.length(); j++) matches.add(match.substring(0, match.length() - j));
+
+                    i = i + iPv4Matcher.start() + 1; // move index to next match check point
                 } else break;
 
             } else break;
