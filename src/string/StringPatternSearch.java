@@ -30,28 +30,58 @@ public class StringPatternSearch {
 	 * push the time complexity to an upper bound of O(n*m). 
 	 * E.g. source = "AAAAAAAAAAB", pattern = "AAB"
 	 */
-	private static int getPatternFirstIdx(String src, String pat) {
-		if (src == null || pat == null) return -1; 
-		if (src.isEmpty() && pat.isEmpty()) return 0; 
-		int idx = -1, srcIdx = 0, patIdx = 0; 
+	private static int getPatternFirstIdx(String a, String b) {
+		if (a.isEmpty() && b.isEmpty()) return 0;
+		if (a.isEmpty()) return -1;
+		if (b.isEmpty()) return 0;
+		if (a.length() < b.length()) return -1;
+		if (a.length() == b.length()) {
+			if (a.equals(b)) return 0;
+			else return -1;
+		}
+
+		int i = 0; // index traversing string a
+		int j = 0; // index traversing string b
+		char[] aArr = a.toCharArray();
+		char[] bArr = b.toCharArray();
+
+		while (i < aArr.length) {
+			int k = i; // sub-index traversing string a
+			while (aArr[k] == bArr[j]) {
+				k++;
+				j++;
+				if (j == bArr.length) return i;
+			}
+			// restart searching
+			i++;
+			j = 0;
+		}
+
+		return -1;
+	}
+
+	private static int getPatternFirstIdx2(String src, String pat) {
+		if (src == null || pat == null) return -1;
+		if (src.isEmpty() && pat.isEmpty()) return 0;
+		int idx = -1, srcIdx = 0, patIdx = 0;
 		while (srcIdx < src.length()) {
 			if (pat.isEmpty()) return 0;
 			if (src.charAt(srcIdx) == pat.charAt(patIdx)) {
-				if(idx == -1) idx = srcIdx; 
-				patIdx++; 
+				if(idx == -1) idx = srcIdx;
+				patIdx++;
 			} else {
 				idx = -1;
 				if (patIdx != 0) {
 					srcIdx -= patIdx;
 					patIdx = 0; // reset and look up again
-					
+
 				}
 			}
 			if (patIdx == pat.length()) return idx; // pattern found
 			srcIdx++;
 			if (src.length()-srcIdx < pat.length()-patIdx) return -1; // remaining source not able to cover remaining pattern
 		}
-		return idx; 
+		return idx;
 	}
 	
 	/**
