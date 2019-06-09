@@ -6,7 +6,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * A LEGO workshop is going to put a weekend show. Currently there is only a single worker who can only
+ * A LEGO workshop is going to put up a weekend show. Currently there is only a single worker who can only
  * assemble 2 parts at a time. The time it takes to assemble them equals to the total size of these two parts.
  * <p>
  * Suppose there is a model that consists of 5 parts of size 1, 2, 3, 4 and 5, a possible assembly process could be
@@ -34,7 +34,7 @@ public class LegoAssembler extends FunIntAlgorithm {
      * Given a list of n parts, denoted as P let Sol(P) be the minimum time it requires to assemble them, we'll have
      * below recursive pattern.
      * <p>
-     * Sol(P) = MIN(P[i] + p[j] + Sol(P with i & j'th elements merged)), where 0 < i < n, 0 < j < n and i != j
+     * Sol(P) = MIN(P[i] + P[j] + Sol(P with i & j'th element merged)), where 0 < i < n, 0 < j < n and i != j
      * <p>
      * Since the worker can only assemble two parts at a time, we can search for the solution exhaustively
      * by checking through all pairs until assembled into a single model.
