@@ -82,6 +82,7 @@ Each package contains an interesting algorithmic question with solution provided
   * [Dice rolling for fixed sum](./src/dynamicProgramming/DiceRoller.java)
   * [Egg dropping puzzle](./src/dynamicProgramming/EggDropper.java)
   * [K non-overlapping subarrays of maximum sum](./src/dynamicProgramming/MaxKSubArraySum.java)
+  * [LEGO part assembler](./src/dynamicProgramming/LegoAssembler.java)
 * [String](./src/string)
   * [Remove duplicates in string](./src/string/removeDuplicates/DuplicatesRemover.java)
   * [Remove alternate duplicates in string](./src/string/removeDuplicates/AlternateDuplicatesRemover.java)
