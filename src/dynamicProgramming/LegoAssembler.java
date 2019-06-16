@@ -31,7 +31,7 @@ public class LegoAssembler extends FunIntAlgorithm {
 
     /**
      * <b>Divide & Conquer</b>
-     * Given a list of n parts, denoted as P let Sol(P) be the minimum time it requires to assemble them, we'll have
+     * Given a list of n parts, denoted as P; let Sol(P) be the minimum time it requires to assemble them, we'll have
      * below recursive pattern.
      * <p>
      * Sol(P) = MIN(P[i] + P[j] + Sol(P with i & j'th element merged)), where 0 < i < n, 0 < j < n and i != j
