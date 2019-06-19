@@ -97,6 +97,7 @@ Each package contains an interesting algorithmic question with solution provided
   * [Minimum window substring](./src/string/MinimumWindowSubstring.java)
   * [IPv4 address regex matcher](./src/string/IPv4AddressMatcher.java)
   * [**Functional Programming** Credit card number Luhn check](./src/string/CreditCardNumberValidator.java)
+  * [String to int converter](./src/string/StringToIntConverter.java)
 * [Binary Tree](./src/binaryTree)
   * [Plain Binary Tree implementation with linked nodes](./src/binaryTree/entities/BinaryTree.java)
     * Pre-order Traversal
