@@ -44,18 +44,14 @@ public class ReverseLinkedList {
 	 * Reverse the linked list iteratively.
 	 */
 	private static ListNode iterativeReverse(ListNode head) {
-		if (head == null) return null;
-		ListNode pre = head;
-		ListNode cur = pre.next;
-		ListNode temp = null;
-		head.next = null;
-		while (cur != null) {
-			temp = cur.next;
-			cur.next = pre;
-			pre = cur;
-			cur = temp;
+		ListNode prev = null, next;
+		while(head != null) {
+			next = head.next;
+			head.next = prev;
+			prev = head;
+			head = next;
 		}
-		return pre;
+		return prev;
 	}
 	
 	/**

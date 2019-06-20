@@ -47,6 +47,7 @@ Each package contains an interesting algorithmic question with solution provided
 	* [**Boyer–Moore Majority Vote Algorithm** Find majority numbers](./src/integerArray/MajorityNumber.java)
 	* [Monkey crossing river](./src/integerArray/MonkeyAndRiver.java)
 	* [Number of ways to sum up to a given number with consecutive positive integers](./src/integerArray/SumOfConsecutiveInt.java)
+	* [Array based circular queue](./src/integerArray/CircularArrayQueue.java)
 * [Dynamic Programming](./src/dynamicProgramming)
   * [Fibonacci Numbers](./src/dynamicProgramming/FibNumbers.java)
   * [Binomial Coefficients](./src/dynamicProgramming/BinomialCoefficients.java)
