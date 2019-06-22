@@ -1,4 +1,4 @@
-package integerArray;
+package linkedList;
 
 /**
  * Reverse a linked list in-place and in one pass. 

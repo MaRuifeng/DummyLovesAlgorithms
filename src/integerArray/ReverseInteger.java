@@ -62,7 +62,7 @@ public class ReverseInteger {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println("Welcome to the rabbit hole of reversed singly linked list.");
+		System.out.println("Welcome to the rabbit hole of reversed integers.");
 		
 //		int num = 123; 
 //		int num = 900; 
@@ -71,7 +71,7 @@ public class ReverseInteger {
 //		int num = 12580; 
 		int num = 2014503010;
 		System.out.println("Input: " + num);
-//		System.out.println("Output: " + naiveReverse(num));
+		System.out.println("Output: " + naiveReverse(num));
 		System.out.println("Output: " + reverse(num));
 		
 		System.out.println("All rabbits gone.");
