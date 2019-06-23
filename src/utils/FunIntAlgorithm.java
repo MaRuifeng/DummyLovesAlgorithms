@@ -312,4 +312,27 @@ public class FunIntAlgorithm extends FunAlgorithm {
     	return i+1; // correct position of the pivot in the sorted array
     }
 
+	private static int partition2(int[] arr, int start, int end) {
+		int pivotValue = arr[end]; // randomly chosen pivot value
+
+		int temp;
+		int index = start; // index pointing to elements smaller than pivot
+		for (int i=start; i<=end; i++) {
+			// increase "smaller-than-pivot-element" index until it reaches the immediate smaller one
+			if (arr[i] < pivotValue) {
+				temp = arr[index];
+				arr[index] = arr[i];
+				arr[i] = temp;
+				index++;
+			}
+		}
+
+		// now idx is pointing to the pivot position
+		temp = arr[index];
+		arr[index] = pivotValue;
+		arr[end] = temp;
+
+		return index;
+	}
+
 }
