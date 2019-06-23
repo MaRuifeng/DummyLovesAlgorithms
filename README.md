@@ -49,6 +49,8 @@ Each package contains an interesting algorithmic question with solution provided
 	* [Array based circular queue](./src/integerArray/CircularArrayQueue.java)
 * [Linked List](./src/linkedList)
     * [Reverse a linked list](./src/linkedList/ReverseLinkedList.java)
+    * [LRU cache implemented with HashMap and LinkedList](./src/linkedList/LRUCache.java)
+    * [LRU cache implemented plainly](./src/linkedList/LRUCachePlain.java)
 * [Dynamic Programming](./src/dynamicProgramming)
   * [Fibonacci Numbers](./src/dynamicProgramming/FibNumbers.java)
   * [Binomial Coefficients](./src/dynamicProgramming/BinomialCoefficients.java)
