@@ -231,6 +231,31 @@ public class FunIntAlgorithm extends FunAlgorithm {
     	}
     	return sortedArr;
     }
+
+	public static int[] mergeSort2(int[] arr, int start, int end) {
+		if (start == end) return new int[]{arr[start]}; // base state
+
+		int middle = start + (end - start) / 2;
+
+		// divide and conquer
+		int[] sortedLeft = mergeSort(arr, start, middle);
+		int[] sortedRight = mergeSort(arr, middle + 1, end);
+
+		// merge sorted parts
+		int mergedSize = sortedLeft.length + sortedRight.length;
+		int[] merged = new int[mergedSize];
+		int i = 0, j = 0, k = 0;
+		while (k < mergedSize) {
+			if (i == sortedLeft.length) merged[k++] = sortedRight[j++];
+			else if (j == sortedRight.length) merged[k++] = sortedLeft[i++];
+			else {
+				if (sortedLeft[i] < sortedRight[j]) merged[k++] = sortedLeft[i++];
+				else merged[k++] = sortedRight[j++];
+			}
+		}
+
+		return merged;
+	}
     
     /**
      * Since quickSort is a randomized algorithm, its time complexity depends on how the pivot gets picked up. 
