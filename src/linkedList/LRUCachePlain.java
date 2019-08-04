@@ -2,22 +2,24 @@ package linkedList;
 
 /**
  * LRU (Least Recently Used) is a cache eviction algorithm.
- *
+ * <p>
  * A cache keeps a certain capacity of data in memory for quick access. When inserting a new value into an LRU cache and
  * the cache is full, the least recently used value will be evicted to free up a slot.
- *
+ * <p>
  * Design a data structure for LRU cache which implements below operations.
- *
+ * <p>
  * - get(key)
  * - set(key, value)
- *
+ * <p>
  * For a quick start, both key and value are of integer type. Target at time complexity O(1) for both operations.
- *
+ * <p>
  * https://www.lintcode.com/problem/lru-cache/description
  *
  * @author Ruifeng Ma
  * @since 2019-Jun-22
  */
+
+import java.util.Arrays;
 
 /**
  * TODO
@@ -62,7 +64,8 @@ public class LRUCachePlain {
     private LRUCacheNode evictionQueueHead;
     private LRUCacheNode evictionQueueTail;
 
-    public LRUCachePlain(final int capacity) {
+    public LRUCachePlain(final int capacity) throws Exception {
+        if (capacity <= 0) throw new Exception("Capacity cannot be negative!");
         this.capacity = capacity;
         this.occupancy = 0;
         this.cacheStoreArraySize = roundUpToNearestPowerOfTwo(this.capacity);
@@ -86,31 +89,41 @@ public class LRUCachePlain {
     }
     /* Learnt form what Java 8 does in HashMap implementation */
 
-
     public int get(int key) throws Exception {
-        LRUCacheNode target = findNodeFromCache(key);
+        LRUCacheNode target = findNodeFromHashTable(key);
         if (target == null) throw new Exception("Not found!");
         locateToEvictionQueueHead(target);
         return target.value;
     }
 
     public void set(int key, int value) {
-        LRUCacheNode target = findNodeFromCache(key);
+        LRUCacheNode target = findNodeFromHashTable(key);
         if (target != null) { // update
             target.value = value;
             locateToEvictionQueueHead(target);
         } else { // insert
             if (this.occupancy == this.capacity) { // cache is full
-                removeEvictionQueueTailFromCache();
+                LRUCacheNode tail = this.evictionQueueTail;
+                this.evictionQueueTail = this.evictionQueueTail.prev;
+                removeNodeFromEvictionQueue(tail);
+
+                int index = hashTableIndex(tail.key, this.cacheStoreArraySize);
+                this.cacheStore[index] = removeNodeFromHashTableChain(this.cacheStore[index], tail);
+
                 this.occupancy--;
             }
             LRUCacheNode node = new LRUCacheNode(key, value);
-            addNodeToCache(node);
+            locateToEvictionQueueHead(node);
+            addNodeToHashTable(node);
             this.occupancy++;
         }
     }
 
-    public void print() {
+    public boolean contains(int key) {
+        return null != findNodeFromHashTable(key);
+    }
+
+    public void printEvictionQueue() {
         LRUCacheNode start = this.evictionQueueHead;
         while (start != null) {
             System.out.printf(start.toString() + " > ");
@@ -119,21 +132,55 @@ public class LRUCachePlain {
         System.out.println();
     }
 
-    private void removeEvictionQueueTailFromCache() {
-        LRUCacheNode tail = this.evictionQueueTail;
-        this.evictionQueueTail = this.evictionQueueTail.prev;
-        removeNodeFromEvictionQueue(tail);
-
-        int index = hashTableIndex(tail.key, this.cacheStoreArraySize);
-        this.cacheStore[index] = removeNodeFromHashTableChain(this.cacheStore[index], tail);
+    public void printCacheStore() {
+        Arrays.stream(cacheStore).forEach(node -> {
+            while (node != null) {
+                System.out.print(node.toString() + " ");
+                node = node.hashNext;
+            }
+            System.out.println();
+        });
     }
 
-    private void addNodeToCache(LRUCacheNode node) {
-        locateToEvictionQueueHead(node);
-        addNodeToHashTable(node);
+    /* Doubly linked list for eviction queue (start) */
+    private void locateToEvictionQueueHead(LRUCacheNode node) {
+        if (node == this.evictionQueueTail) this.evictionQueueTail = this.evictionQueueTail.prev;
+
+        removeNodeFromEvictionQueue(node);
+
+        if (this.evictionQueueHead != null) {
+            this.evictionQueueHead.prev = node;
+            node.next = this.evictionQueueHead;
+        } else {
+            this.evictionQueueTail = node;
+        }
+
+        this.evictionQueueHead = node;
     }
 
-    private LRUCacheNode findNodeFromCache(int key) {
+    private void removeNodeFromEvictionQueue(LRUCacheNode node) {
+        if (node.prev != null && node.next != null) {
+            // reconnect the list
+            node.next.prev = node.prev;
+            node.prev.next = node.next;
+            // void the node to be removed
+            node.prev = node.next = null;
+        } else if (node.next != null) {
+            // detach from head
+            node.next.prev = null;
+            node.next = null;
+        } else if (node.prev != null) {
+            // detach from tail
+            node.prev.next = null;
+            node.prev = null;
+        } else {
+            // do nothing
+        }
+    }
+    /* Doubly linked list for eviction queue (end) */
+
+    /* Hash table with chain based collision resolution for cache storage (start) */
+    private LRUCacheNode findNodeFromHashTable(int key) {
         int index = hashTableIndex(key, this.cacheStoreArraySize);
         LRUCacheNode targetChainRoot = this.cacheStore[index];
         LRUCacheNode target = null;
@@ -142,7 +189,7 @@ public class LRUCachePlain {
                 target = targetChainRoot;
                 break;
             }
-            targetChainRoot = targetChainRoot.next;
+            targetChainRoot = targetChainRoot.hashNext;
         }
         return target;
     }
@@ -155,19 +202,6 @@ public class LRUCachePlain {
             while (root.hashNext != null) root = root.hashNext;
             root.hashNext = node;
         }
-    }
-
-    private void locateToEvictionQueueHead(LRUCacheNode node) {
-        removeNodeFromEvictionQueue(node);
-
-        if (this.evictionQueueHead != null) {
-            this.evictionQueueHead.prev = node;
-            node.next = this.evictionQueueHead;
-        } else {
-            this.evictionQueueTail = node;
-        }
-
-        this.evictionQueueHead = node;
     }
 
     /**
@@ -190,72 +224,93 @@ public class LRUCachePlain {
 
         return root;
     }
+    /* Hash table with chain based collision resolution for cache storage (end) */
 
-    private void removeNodeFromEvictionQueue(LRUCacheNode node) {
-        if (node.prev != null && node.next != null) {
-            // reconnect the list
-            node.next.prev = node.prev;
-            node.prev.next = node.next;
-            // void the node to be removed
-            node.prev = node.next = null;
-        }
-        else if (node.next != null) {
-            // detach from head
-            node.next.prev = null;
-            node.next = null;
-        }
-        else if (node.prev != null) {
-            // detach from tail
-            node.prev.next = null;
-            node.prev = null;
-        } else {
-            // do nothing
-        }
-    }
 
     public static void main(String[] args) {
         System.out.println("Welcome to the rabbit hole of LRU caches.");
-        LRUCachePlain cache = new LRUCachePlain(4);
-        System.out.println("Set first 5 new entries ...");
+        LRUCachePlain cache = null;
+        try {
+            cache = new LRUCachePlain(4);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("\nSet first 5 new entries ...");
         cache.set(1, 11);
         cache.set(2, 21);
         cache.set(3, 31);
         cache.set(4, 41);
         cache.set(5, 51);
-        cache.print();
+        System.out.println("Eviction queue: ");
+        cache.printEvictionQueue();
+        System.out.println("Cache store: ");
+        cache.printCacheStore();
 
-        System.out.println("Set existing entry ...");
+        System.out.println("\nSet existing entry ...");
         cache.set(3, 33);
-        cache.print();
+        System.out.println("Eviction queue: ");
+        cache.printEvictionQueue();
+        System.out.println("Cache store: ");
+        cache.printCacheStore();
 
-        System.out.println("Set a new entry to trigger eviction...");
+        System.out.println("\nSet a new entry to trigger eviction...");
         cache.set(6, 61);
-        cache.print();
+        System.out.println("Eviction queue: ");
+        cache.printEvictionQueue();
+        System.out.println("Cache store: ");
+        cache.printCacheStore();
 
-        System.out.println("Get an existing entry...");
+        System.out.println("\nGet an existing entry...");
         try {
             cache.get(4);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        cache.print();
+        System.out.println("Eviction queue: ");
+        cache.printEvictionQueue();
+        System.out.println("Cache store: ");
+        cache.printCacheStore();
 
-        System.out.println("Get a non-existing entry...");
+        System.out.println("\nGet a non-existing entry...");
         try {
             cache.get(9999);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        cache.print();
+        System.out.println("Eviction queue: ");
+        cache.printEvictionQueue();
+        System.out.println("Cache store: ");
+        cache.printCacheStore();
 
-        System.out.println("Get an evicted entry...");
+        System.out.println("\nGet an evicted entry...");
         try {
             cache.get(1);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        cache.print();
-        System.out.println("\nAll rabbits gone.");
+        System.out.println("Eviction queue: ");
+        cache.printEvictionQueue();
+        System.out.println("Cache store: ");
+        cache.printCacheStore();
 
+        System.out.println("\nCheck hash table chaining...");
+        try {
+            cache = new LRUCachePlain(7);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        cache.set(0, 0);
+        cache.set(8, 8);
+        cache.set(16, 16);
+        cache.set(1, 1);
+        cache.set(2, 2);
+        cache.set(9, 9);
+        System.out.println("Eviction queue: ");
+        cache.printEvictionQueue();
+        System.out.println("Cache store: ");
+        cache.printCacheStore();
+
+        System.out.println("\nAll rabbits gone.");
     }
 }
