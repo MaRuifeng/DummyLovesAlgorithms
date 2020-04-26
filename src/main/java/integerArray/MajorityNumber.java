@@ -11,7 +11,7 @@ import java.util.Map;
  * 
  * Challenge: O(n) time and O(1) extra space
  * 
- * This is a voting problem. Refer to the Boyer–Moore majority vote algorithm for details. 
+ * This is a voting problem. Refer to the Boyer-Moore majority vote algorithm for details.
  * 
  * [Variation II]
  * Given an array of integers, a majority number is the number that occurs more than 1/3 of the size of the array. Return all such
@@ -61,7 +61,7 @@ public class MajorityNumber {
 	/**
 	 * [Variation II]
 	 * It can be easily deduced that at most there will be 2 candidates with more than 1/3 votes. 
-	 * We look at them as a bundle and try to find them using the Boyer–Moore majority vote algorithm. 
+	 * We look at them as a bundle and try to find them using the Boyer-Moore majority vote algorithm.
 	 * And then traverse the array once more to verify.
 	 */
 	private static List<Integer> findMoreThanOneThirdMajorNum(int[] a) {
@@ -101,7 +101,7 @@ public class MajorityNumber {
 	 * Proof by Contradiction: 
 	 * Given an candidate array of size n, suppose there are m candidates with more than 1/k votes and m >= k, 
 	 * then the total count of such candidates is m * (n/k) > n, which isn't possible. 
-	 * We look at all such candidates as a bundle and try to find them using the Boyer–Moore majority vote algorithm. 
+	 * We look at all such candidates as a bundle and try to find them using the Boyer-Moore majority vote algorithm.
 	 * And then traverse the array once more to verify.
 	 * 
 	 * Time complexity: O(n*k)

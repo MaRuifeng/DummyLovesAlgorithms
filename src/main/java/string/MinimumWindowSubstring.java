@@ -1,5 +1,11 @@
 package string;
 
+import org.junit.Assert;
+import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Given a string source and a string target, find the minimum window in source which will contain all the characters in target.
  * If there is no such window in source that covers all characters in target, return the empty string "".
@@ -64,6 +70,4 @@ public class MinimumWindowSubstring {
 		
 		System.out.println("All rabbits gone.");
 	}
-	
-
 }
