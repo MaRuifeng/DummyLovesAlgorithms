@@ -87,6 +87,7 @@ Each package contains an interesting algorithmic question with solution provided
   * [Egg dropping puzzle](./src/main/java/dynamicProgramming/EggDropper.java)
   * [K non-overlapping subarrays of maximum sum](./src/main/java/dynamicProgramming/MaxKSubArraySum.java)
   * [LEGO part assembler](./src/main/java/dynamicProgramming/LegoAssembler.java)
+  * [**NP-Complete** Minimum time for fixed sum of points](./src/main/java/dynamicProgramming/MinTimeForFixedPoints.java)
 * [String](./src/main/java/string)
   * [Remove duplicates in string](./src/main/java/string/removeDuplicates/DuplicatesRemover.java)
   * [Remove alternate duplicates in string](./src/main/java/string/removeDuplicates/AlternateDuplicatesRemover.java)

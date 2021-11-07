@@ -66,6 +66,10 @@ public class FunIntAlgorithm extends FunAlgorithm {
 	protected interface IntListToIntFunction {
 		int apply(List<Integer> list);
 	}
+
+	public static int genRanInt(int start, int end) {
+		return ThreadLocalRandom.current().nextInt(start, end);
+	}
 	
 	public static int[] genRanIntArr(int size, int start, int end) {
 		int arr[] = new int[size];
