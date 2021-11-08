@@ -2,8 +2,8 @@ package dynamicProgramming;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
@@ -14,7 +14,7 @@ import utils.FunIntAlgorithm;
  * Given a set of questions, each question carries a given number of points. A student gets either
  * full points or zero points depending on whether the question is solved. Each question takes the
  * student a different amount of time to solve. Find the minimum time needed by the student to
- * obtain a target total number of points. Return 0 if there is no way to reach the exact target
+ * obtain a target total number of points. Return Integer.MAX_VALUE if there is no way to reach the exact target
  * number of points.
  * <p>
  * Refer to the {@link SubsetOfFixedSum} problem.
@@ -40,141 +40,103 @@ public class MinTimeForFixedPoints {
      * This problem can be reduced to the Knapsack problem hence it's NP-complete with an exponential
      * time complexity.
      * <p>
-     * The solution can be pursued in two steps. Firstly we try to write an algorithm to determine
-     * whether there exist a subset of questions whose points sum up to P. If positive, we iterate
-     * over all such subsets and look for the one which produces the minimum total time.
-     * <p>
      * We try to observe the sub-problem property.
      * <p>
      * Let Q(n) be a question array of size n, and P be the target number of points. Let Sol(Q(n), P)
-     * denote a boolean value indicating whether there exists a subset whose points sum up to P.
+     * denote the minimum total time required to score a target points of P.
      * <p>
      * We reduce the problem by removing one question Q[n-1] from the question array. From subarray
-     * Q(n-1), to determine whether a solution exists for Q(n), it's possible that some of its
+     * Q(n-1), to determine the solution for Q(n), it's possible that some of its
      * elements can already sum up to P, meaning Q[n-1] does not need to be included for the final
      * solution, or they can sum up to P - Q[n-1], meaning Q[n-1] needs to be included for the final
      * solution. There are no other possibilities for the parent solution to exist.
      * <p>
      * Below is the recursive pattern:
      * <p>
-     * Sol(Q(n), P) = Sol(Q(n-1), P)               removed element not included
-     * ||
-     * Sol(Q(n-1),P-Q[n-1])         removed element included
+     * Sol(Q(n), P) = Min(Sol(Q(n-1), P),                             removed element not included
+     *                    Sol(Q(n-1), P-Q[n-1]) + Q[n-1].time)        removed element included
      */
-    private static boolean subsetExists( List<Question> questionList, int size, int sum ) {
+    private static int minTime( List<Question> questionList, int size, int sum ) {
         if (sum == 0) {
-            return true; // sum reached
+            return 0; // sum reached
         }
         if (size == 0) {
-            return false; // sum not reached and question list depleted
+            return Integer.MAX_VALUE; // sum not reached and question list depleted
         }
         if (sum < 0) {
-            return false; // sum surpassed
+            return Integer.MAX_VALUE; // sum surpassed
         }
 
-        return subsetExists( questionList, size - 1, sum )
-                || subsetExists( questionList, size - 1,
-                sum - questionList.get( size - 1 ).points );
+        int excl = minTime(questionList, size - 1, sum); // last element not to be included
+        int incl = minTime(questionList, size - 1, sum - questionList.get(size - 1).points); // last element to be included
+
+        return Math.min(excl, incl == Integer.MAX_VALUE ? Integer.MAX_VALUE : incl + questionList.get(size - 1).time);
     }
 
-    private static boolean subsetExistsDriver( List<Question> questionList, int sum ) {
-        return subsetExists( questionList, questionList.size(), sum );
+    private static int minTimeDriver( List<Question> questionList, int sum ) {
+        return minTime(questionList, questionList.size(), sum);
     }
 
     /**
-     * DP top down memoization. Complexity is pseudo-polynomial.
+     * DP top down memoization. Complexity is pseudo-polynomial at O(n*sum).
      */
-    private static boolean subsetExistsDPMemo( List<Question> questionList, int size, int sum, Boolean[][] dpTable ) {
-        if (dpTable[size][sum] != null) return dpTable[size][sum];
-        if (sum == 0) dpTable[size][sum] = true;
+    private static int minTimeDPMemo( List<Question> questionList, int size, int sum, int[][] dpTable ) {
+        if (dpTable[size][sum] != -1) return dpTable[size][sum];
+        if (sum == 0) dpTable[size][sum] = 0;
         else if (size == 0) {
-            dpTable[size][sum] = false;
+            dpTable[size][sum] = Integer.MAX_VALUE;
         } else {
-            if (sum < questionList.get( size - 1 ).points)
-                dpTable[size][sum] = subsetExistsDPMemo( questionList, size - 1, sum, dpTable );
-            else
-                dpTable[size][sum] = subsetExistsDPMemo( questionList, size - 1, sum, dpTable )
-                        || subsetExistsDPMemo( questionList, size - 1, sum - questionList.get( size - 1 ).points, dpTable );
+            if (sum < questionList.get(size - 1).points)
+                dpTable[size][sum] = minTimeDPMemo(questionList, size - 1, sum, dpTable);
+            else {
+                int excl = minTimeDPMemo(questionList, size - 1, sum, dpTable);
+                int incl = minTimeDPMemo(questionList, size - 1, sum - questionList.get(size - 1).points, dpTable);
+                dpTable[size][sum] = Math.min(excl, incl == Integer.MAX_VALUE ? Integer.MAX_VALUE : incl + questionList.get(size - 1).time);
+            }
+
         }
         return dpTable[size][sum];
     }
 
-    private static boolean subsetExistsDPMemoDriver( List<Question> questionList, int sum ) {
-        Boolean[][] dpTable = new Boolean[questionList.size() + 1][sum + 1];
-        return subsetExistsDPMemo( questionList, questionList.size(), sum, dpTable );
+    private static int minTimeDPMemoDriver( List<Question> questionList, int sum ) {
+        int[][] dpTable = new int[questionList.size() + 1][sum + 1];
+        for (int[] row : dpTable) {
+            Arrays.fill(row, -1);
+        }
+        return minTimeDPMemo(questionList, questionList.size(), sum, dpTable);
     }
 
     /**
-     * DP bottom up tabulation. Complexity is pseudo-polynomial.
+     * DP bottom up tabulation. Complexity is pseudo-polynomial at O(n*sum).
      */
-    private static boolean subsetExistsDPTabu( List<Question> questionList, int sum ) {
-        boolean[][] DPLookUp = new boolean[questionList.size() + 1][sum + 1];
+    private static int minTimeDPTabu( List<Question> questionList, int sum ) {
+        int[][] DPLookUp = new int[questionList.size() + 1][sum + 1];
         // base state
-        for (int i = 0; i <= questionList.size(); i++) DPLookUp[i][0] = true;
-        for (int i = 1; i <= sum; i++) DPLookUp[0][i] = false;
+        for (int i = 0; i <= questionList.size(); i++) DPLookUp[i][0] = 0;
+        for (int i = 1; i <= sum; i++) DPLookUp[0][i] = Integer.MAX_VALUE;
         // proliferation
         for (int i = 1; i <= questionList.size(); i++) {
             for (int j = 1; j <= sum; j++) {
-                if (j < questionList.get( i - 1 ).points) DPLookUp[i][j] = DPLookUp[i - 1][j];
-                else DPLookUp[i][j] = DPLookUp[i - 1][j] || DPLookUp[i - 1][j - questionList.get( i - 1 ).points];
+                if (j < questionList.get(i - 1).points) DPLookUp[i][j] = DPLookUp[i - 1][j];
+                else {
+                    int excl = DPLookUp[i - 1][j];
+                    int incl = DPLookUp[i - 1][j - questionList.get(i - 1).points];
+                    DPLookUp[i][j] = Math.min(excl, incl == Integer.MAX_VALUE ? Integer.MAX_VALUE : incl + questionList.get(i - 1).time);
+                }
             }
         }
         return DPLookUp[questionList.size()][sum];
     }
 
-    /**
-     * Get total time of all qualified subsets through DP top down memoization.
-     */
-    private static Boolean getTotalTimesDPMemo( List<Question> solution, List<Question> questionList, int sum, Boolean[][] table, List<Integer> totalTimes ) {
-        if (table[questionList.size()][sum] != null && !table[questionList.size()][sum]) {
-            // no solution, return boolean check only
-            return table[questionList.size()][sum];
-        } else {
-            if (sum == 0) {
-                // sum achieved, solution found, get total time
-                System.out.println("Time: " + solution.stream().map( q -> q.time ).mapToInt( Integer::intValue ).sum());
-                totalTimes.add( solution.stream().map( q -> q.time ).mapToInt( Integer::intValue ).sum() );
-                // update DP Lookup table
-                table[questionList.size()][sum] = true;
-            } else if (questionList.size() == 0) {
-                // set is depleted and no solution found, print nothing
-                // update DP Lookup table
-                table[questionList.size()][sum] = false;
-            } else {
-                List<Question> newSolution = new ArrayList<>( solution );
-                newSolution.add( questionList.get( questionList.size() - 1 ) );
-                List<Question> newQuestionList = new ArrayList<>( questionList );
-                newQuestionList.remove( questionList.get( questionList.size() - 1 ) );
-                if (sum < questionList.get( questionList.size() - 1 ).points) table[questionList.size()][sum] =
-                        // exclude last element of set and recur
-                        getTotalTimesDPMemo( solution, newQuestionList, sum, table, totalTimes );
-                else {
-                    // include last element of set and recur
-                    Boolean incl = getTotalTimesDPMemo( newSolution, newQuestionList, sum - questionList.get( questionList.size() - 1 ).points, table, totalTimes );
-                    // exclude last element of set and recur
-                    Boolean excl = getTotalTimesDPMemo( solution, newQuestionList, sum, table, totalTimes );
-                    table[questionList.size()][sum] = incl || excl;
-                }
-            }
-            return table[questionList.size()][sum];
-        }
-    }
-
-    private static int getTotalTimesDPMemoDriver( List<Question> questionList, int sum ) {
-        List<Question> solution = new ArrayList<>();
-        Boolean[][] DPLookUp = new Boolean[questionList.size() + 1][sum + 1];
-        List<Integer> totalTimes = new ArrayList<>();
-        getTotalTimesDPMemo( solution, questionList, sum, DPLookUp, totalTimes );
-
-        OptionalInt optionalMin = totalTimes.stream().mapToInt( Integer::intValue ).min();
-        return optionalMin.isPresent() ? optionalMin.getAsInt() : 0;
-    }
 
     /**
      * Recursively look up all qualified subsets of questions by examining the DP lookup table generated through tabulation, and then consolidate
      * their total amounts of time.
+     * <p>
+     * Note that although this solution is able to find the subset that produces the optimal solution,
+     * its complexity is exponential without being pseudo-polynomial, which might be further improved with another DP lookup table.
      */
-    private static int getMinTimeDPTabu( List<Question> questionList, int sum ) {
+    private static int recursiveMinTimeDPTabu( List<Question> questionList, int sum ) {
         boolean[][] DPLookUp = new boolean[questionList.size() + 1][sum + 1];
         // base state
         for (int i = 0; i <= questionList.size(); i++) DPLookUp[i][0] = true;
@@ -182,53 +144,39 @@ public class MinTimeForFixedPoints {
         // proliferation
         for (int i = 1; i <= questionList.size(); i++) {
             for (int j = 1; j <= sum; j++) {
-                if (j < questionList.get( i - 1 ).points) DPLookUp[i][j] = DPLookUp[i - 1][j];
-                else DPLookUp[i][j] = DPLookUp[i - 1][j] || DPLookUp[i - 1][j - questionList.get( i - 1 ).points];
+                if (j < questionList.get(i - 1).points) DPLookUp[i][j] = DPLookUp[i - 1][j];
+                else DPLookUp[i][j] = DPLookUp[i - 1][j] || DPLookUp[i - 1][j - questionList.get(i - 1).points];
             }
         }
         List<Question> solution = new ArrayList<>();
         List<Integer> totalTimes = new ArrayList<>();
-        recursiveLookupAndGetTotalTime( solution, questionList.size(), DPLookUp, sum, questionList, totalTimes);
+        recursiveLookupAndGetTotalTime(solution, questionList.size(), DPLookUp, sum, questionList, totalTimes);
 
-        OptionalInt optionalMin = totalTimes.stream().mapToInt( Integer::intValue ).min();
-        return optionalMin.isPresent() ? optionalMin.getAsInt() : 0;
+        OptionalInt optionalMin = totalTimes.stream().mapToInt(Integer::intValue).min();
+        return optionalMin.isPresent() ? optionalMin.getAsInt() : Integer.MAX_VALUE;
     }
 
-    private static void recursiveLookupAndGetTotalTime( List<Question> solution, int itemIdx, boolean[][] table, int sumIdx, List<Question> questionList, List<Integer> totalTimes) {
+    private static void recursiveLookupAndGetTotalTime( List<Question> solution, int itemIdx, boolean[][] table, int sumIdx, List<Question> questionList, List<Integer> totalTimes ) {
         if (sumIdx == 0) {
             // sum achieved, sub set found, get total time
-            totalTimes.add(solution.stream().map(q -> q.time).mapToInt( Integer::intValue ).sum());
+            totalTimes.add(solution.stream().map(q -> q.time).mapToInt(Integer::intValue).sum());
         } else if (itemIdx == 0) {
         } // no solution
         else {
             if (table[itemIdx][sumIdx]) {
-                ArrayList<Question> newSolution = new ArrayList<>( solution );
-                newSolution.add( questionList.get( itemIdx - 1 ) );
-                if (sumIdx < questionList.get( itemIdx - 1 ).points)
+                ArrayList<Question> newSolution = new ArrayList<>(solution);
+                newSolution.add(questionList.get(itemIdx - 1));
+                if (sumIdx < questionList.get(itemIdx - 1).points)
                     // exclude last element and recur
-                    recursiveLookupAndGetTotalTime( solution, itemIdx - 1, table, sumIdx, questionList, totalTimes );
+                    recursiveLookupAndGetTotalTime(solution, itemIdx - 1, table, sumIdx, questionList, totalTimes);
                 else {
                     // include last element and recur
-                    recursiveLookupAndGetTotalTime( newSolution, itemIdx - 1, table, sumIdx - questionList.get( itemIdx - 1 ).points, questionList, totalTimes );
+                    recursiveLookupAndGetTotalTime(newSolution, itemIdx - 1, table, sumIdx - questionList.get(itemIdx - 1).points, questionList, totalTimes);
                     // exclude last element and recur
-                    recursiveLookupAndGetTotalTime( solution, itemIdx - 1, table, sumIdx, questionList, totalTimes);
+                    recursiveLookupAndGetTotalTime(solution, itemIdx - 1, table, sumIdx, questionList, totalTimes);
                 }
             }
         }
-    }
-
-    @FunctionalInterface
-    protected interface QuestionArrayToBooleanFunction {
-        boolean apply( List<Question> qList, int sum ) throws Exception;
-    }
-
-    protected static void runFuncAndCalculateTime( String message, QuestionArrayToBooleanFunction func, List<Question> qList, int sum ) throws Exception {
-        long startTime = System.nanoTime();
-        System.out.printf( "%-70s%s\n", message, func.apply( qList, sum ) );
-        long endTime = System.nanoTime();
-        long totalTime = TimeUnit.MICROSECONDS.convert( endTime - startTime, TimeUnit.NANOSECONDS );
-        DecimalFormat formatter = new DecimalFormat( "#,###" );
-        System.out.printf( "%-70s%s\n\n", "Function execution time in micro-seconds: ", formatter.format( totalTime ) );
     }
 
     @FunctionalInterface
@@ -238,37 +186,36 @@ public class MinTimeForFixedPoints {
 
     protected static void runFuncAndCalculateTime( String message, QuestionArrayToIntFunction func, List<Question> qList, int sum ) throws Exception {
         long startTime = System.nanoTime();
-        System.out.printf( "%-70s%s\n", message, func.apply( qList, sum ));
+        System.out.printf("%-70s%s\n", message, func.apply(qList, sum));
         long endTime = System.nanoTime();
-        long totalTime = TimeUnit.MICROSECONDS.convert( endTime - startTime, TimeUnit.NANOSECONDS );
-        DecimalFormat formatter = new DecimalFormat( "#,###" );
-        System.out.printf( "%-70s%s\n\n", "Function execution time in micro-seconds: ", formatter.format( totalTime ) );
+        long totalTime = TimeUnit.MICROSECONDS.convert(endTime - startTime, TimeUnit.NANOSECONDS);
+        DecimalFormat formatter = new DecimalFormat("#,###");
+        System.out.printf("%-70s%s\n\n", "Function execution time in micro-seconds: ", formatter.format(totalTime));
     }
 
     public static void main( String[] args ) {
-        System.out.println( "Welcome to the rabbit hole of problem points!\n" );
+        System.out.println("Welcome to the rabbit hole of problem points!\n");
 
-        final int target = 20;
+        final int target = 210;
 
         List<Question> questionList = new ArrayList<>();
-        IntStream.range( 0, 5 )
-                .forEach( $ -> questionList.add( new Question( FunIntAlgorithm.genRanInt( 1, 21 ), FunIntAlgorithm.genRanInt( 1, 10 ) ) ) );
+        IntStream.range(0, 20)
+                .forEach($ -> questionList.add(new Question(FunIntAlgorithm.genRanInt(1, 21), FunIntAlgorithm.genRanInt(1, 10))));
 
-        System.out.println( "Question list:" );
-        questionList.forEach( q -> System.out.println( "Points: " + q.points + " " + "Time: " + q.time ) );
-        System.out.println( "Target: " + target + "\n" );
+        System.out.println("Question list:");
+        questionList.forEach(q -> System.out.println("Points: " + q.points + " " + "Time: " + q.time));
+        System.out.println("Target: " + target + "\n");
 
         try {
-            runFuncAndCalculateTime( "[Recursion][NP-complete]          Subset exists? ", MinTimeForFixedPoints::subsetExistsDriver, questionList, target );
-            runFuncAndCalculateTime( "[Recursion][DP Memo]              Subset exists? ", MinTimeForFixedPoints::subsetExistsDPMemoDriver, questionList, target );
-            runFuncAndCalculateTime( "[Recursion][DP Tabu]              Subset exists? ", MinTimeForFixedPoints::subsetExistsDPTabu, questionList, target );
-            runFuncAndCalculateTime( "[Recursion][DP Memo]              Minimum time: ", MinTimeForFixedPoints::getTotalTimesDPMemoDriver, questionList, target );
-            runFuncAndCalculateTime( "[Recursion][DP Tabu]              Minimum time: ", MinTimeForFixedPoints::getMinTimeDPTabu, questionList, target );
+            runFuncAndCalculateTime("[Recursion][NP-complete]    Minimum time: ", MinTimeForFixedPoints::minTimeDriver, questionList, target);
+            runFuncAndCalculateTime("[Recursion][DP Memo]        Minimum time: ", MinTimeForFixedPoints::minTimeDPMemoDriver, questionList, target);
+            runFuncAndCalculateTime("[Iteration][DP Tabu]        Minimum time: ", MinTimeForFixedPoints::minTimeDPTabu, questionList, target);
+            runFuncAndCalculateTime("[Recursion][NP-complete]    Minimum time: ", MinTimeForFixedPoints::recursiveMinTimeDPTabu, questionList, target);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        System.out.println( "\nAll rabbits gone." );
+        System.out.println("\nAll rabbits gone.");
     }
 
 }
