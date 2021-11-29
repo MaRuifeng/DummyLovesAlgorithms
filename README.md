@@ -124,6 +124,7 @@ Each package contains an interesting algorithmic question with solution provided
   * [Convert BST to min heap](./src/main/java/binaryTree/BSTtoMinHeapConverter.java)
   * [Convert BT to doubly linked list](./src/main/java/binaryTree/BTtoDoublyLinkedListConverter.java)
   * [Convert complete BST to conditional min heap where left sub-tree smaller than right sub-tree](./src/main/java/binaryTree/BSTtoConditionalMinHeapConverter.java)
+  * [Binary tree mirror image](./src/main/java/binaryTree/MirrorBinaryTree.java)
 * [Binary Heap](./src/main/java/binaryHeap)
   * [Plain Binary Heap implementation with array](./src/main/java/binaryHeap/MinHeap.java)
   * [Heap Sort](./src/main/java/binaryHeap/HeapSort.java)
