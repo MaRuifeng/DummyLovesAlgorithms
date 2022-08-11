@@ -64,7 +64,7 @@ Each package contains an interesting algorithmic question with solution provided
   * [Ugly Numbers](./src/main/java/dynamicProgramming/UglyNumbers.java)
   * [Maximum stock profit](./src/main/java/dynamicProgramming/StockProfit.java)
   * [Digit sequence decoder](./src/main/java/dynamicProgramming/DigitSequenceDecoder.java)
-  * [Longest common subsequence](./src/main/java/dynamicProgramming/LongestCommonSebsequence.java)
+  * [Longest common subsequence](./src/main/java/dynamicProgramming/LongestCommonSubsequence.java)
   * [Longest common substring](./src/main/java/dynamicProgramming/LongestCommonSubstring.java)
   * [Longest increasing subsequence](./src/main/java/dynamicProgramming/LongestIncreasingSubsequence.java)
   * [Edit distance algorithm](./src/main/java/dynamicProgramming/MinStringEdits.java)
@@ -103,6 +103,7 @@ Each package contains an interesting algorithmic question with solution provided
   * [IPv4 address regex matcher](./src/main/java/string/IPv4AddressMatcher.java)
   * [**Functional Programming** Credit card number Luhn check](./src/main/java/string/CreditCardNumberValidator.java)
   * [String to int converter](./src/main/java/string/StringToIntConverter.java)
+  * [Longest palindromic substring](./src/main/java/string/LongestPalindromicSubstring.java)
 * [Binary Tree](./src/main/java/binaryTree)
   * [Plain Binary Tree implementation with linked nodes](./src/main/java/binaryTree/entities/BinaryTree.java)
     * Pre-order Traversal
